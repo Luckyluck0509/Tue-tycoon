@@ -11,5 +11,6 @@ public class Student {
     public void Generator() {
         Student student = new Student();
         Student.Kps += this.kps;
+        Student.IncreaseStudentNum();
     }
 }
