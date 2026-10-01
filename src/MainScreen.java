@@ -1,31 +1,25 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 
 public class MainScreen extends javax.swing.JFrame {
-    private JPanel mainPanel; // bound to the .form file
-    private JPanel panel1;
+    private JPanel MainPanel; // bound to the .form file
     public JButton studyButton;
-
-
+    private JLabel knowledgeLabel;
 
     public MainScreen() {
+        setContentPane(MainPanel);
         setTitle("TUe Tycoon");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 800);
         setLocationRelativeTo(null);
         setResizable(true);
-
-
-        studyButton.addActionListener(new Listener());
-
         setVisible(true);
-    }
-}
 
-class Listener implements ActionListener {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        System.out.println("pressed");
+        studyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println();
+            }
+        });
     }
 }
