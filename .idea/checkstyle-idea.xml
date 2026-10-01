@@ -3,16 +3,13 @@
   <component name="CheckStyle-IDEA" serialisationVersion="2">
     <checkstyleVersion>14.1.0</checkstyleVersion>
     <scanScope>JavaOnly</scanScope>
-    <copyLibs>true</copyLibs>
     <option name="thirdPartyClasspath" />
-    <option name="activeLocationIds">
-      <option value="281c1b0e-86d7-4f89-a7ef-80851302f266" />
-    </option>
+    <option name="activeLocationIds" />
     <option name="locations">
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">bundled-sun-checks</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">bundled-google-checks</ConfigurationLocation>
-        <ConfigurationLocation id="281c1b0e-86d7-4f89-a7ef-80851302f266" type="LOCAL_FILE" scope="All" description="2IP90">C:\Users\lukas\OneDrive\Documenten\NetBeansProjects\automata\2IP90_checks.xml</ConfigurationLocation>
+        <ConfigurationLocation id="0fd520b7-1675-4838-be86-8ac8191f3d68" type="LOCAL_FILE" scope="All" description="CheckStyle">$USER_HOME$/Downloads/2IP90_checks.xml</ConfigurationLocation>
       </list>
     </option>
   </component>
