@@ -1,5 +1,5 @@
 public class Player {
-    double DeltaTime = 0.0167;
+    GameManager gameManager = new GameManager(this);
 
     public double knowledge = 0;
     public int creditProgress = 0;
@@ -7,7 +7,6 @@ public class Player {
     public double kpc = 0;
     public double kps = 0;
     public int numStudents = 0;
-    public int rebirthNum = 0;
 
     public boolean[][] courses = new boolean[3][4];
 
@@ -16,7 +15,7 @@ public class Player {
     }
 
     public void IncreaseMultiplier() {
-        this.multiplier += 0.1 * rebirthNum;
+        this.multiplier += 0.1 * (gameManager.quartile - 1);
     }
 
     public void IncreaseStudentNum() {
@@ -24,12 +23,6 @@ public class Player {
     }
 
     public double UpdateKps() {
-        return kps + (kpc * DeltaTime);
-    }
-
-    public void FinishCourse(double cost, int courseNum) {
-        this.knowledge -= cost;
-        creditProgress += 5;
-        this.courses[rebirthNum + 1][courseNum] = true;
+        return kps + (kpc * gameManager.deltaTime);
     }
 }
