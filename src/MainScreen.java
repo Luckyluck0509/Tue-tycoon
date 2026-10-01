@@ -6,7 +6,7 @@ public class MainScreen extends javax.swing.JFrame {
     public JButton studyButton;
     private JLabel knowledgeLabel;
 
-    public MainScreen() {
+    public MainScreen(Player player, GameManager gameManager) {
         setContentPane(MainPanel);
         setTitle("TUe Tycoon");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -18,7 +18,8 @@ public class MainScreen extends javax.swing.JFrame {
         studyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println();
+                gameManager.StudyButtonPressed();
+                knowledgeLabel.setText("Knowledge: " + player.knowledge);
             }
         });
     }

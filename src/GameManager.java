@@ -8,14 +8,14 @@ public class GameManager {
         this.player = p;
     }
 
-    public void ButtonPressed() {
-        player.knowledge += player.kpc;
+    public void StudyButtonPressed() {
+        player.knowledge += player.kpc * player.multiplier;
     }
 
     void update() {
         double currTime = System.nanoTime();
         double previousTime = 0;
-        double deltaTime = currTime - previousTime;
+        this.deltaTime = currTime - previousTime;
         previousTime = currTime;
     }
 }

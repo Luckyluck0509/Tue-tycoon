@@ -4,15 +4,11 @@ public class Player {
     public double knowledge = 0;
     public int creditProgress = 0;
     public double multiplier = 1;
-    public double kpc = 0;
+    public double kpc = 1;
     public double kps = 0;
     public int numStudents = 0;
 
     public boolean[][] courses = new boolean[3][4];
-
-    public void IncreaseKnowledge() {
-        this.knowledge += (this.kpc + this.kps) * this.multiplier;
-    }
 
     public void IncreaseMultiplier() {
         this.multiplier += 0.1 * (gameManager.quartile - 1);
