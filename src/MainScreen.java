@@ -4,7 +4,7 @@ import java.awt.event.*;
 public class MainScreen extends javax.swing.JFrame {
     private JPanel MainPanel; // bound to the .form file
     public JButton studyButton;
-    private JLabel knowledgeLabel;
+    public JLabel knowledgeLabel;
 
     public MainScreen(Player player, GameManager gameManager) {
         setContentPane(MainPanel);

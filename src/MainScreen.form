@@ -18,7 +18,7 @@
         </constraints>
         <properties>
           <font name="Arial Black"/>
-          <text value="Knowledge: "/>
+          <text value="Knowledge: 0"/>
         </properties>
       </component>
       <component id="6b78c" class="javax.swing.JButton" binding="studyButton" default-binding="true">
