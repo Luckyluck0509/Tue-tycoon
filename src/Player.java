@@ -10,15 +10,11 @@ public class Player {
 
     public boolean[][] courses = new boolean[3][4];
 
+    public int getStudentPrice() {
+        return (int) (4 * Math.pow(this.numStudents, 3) + 25);
+    }
+
     public void IncreaseMultiplier() {
         this.multiplier += 0.1 * (gameManager.quartile - 1);
-    }
-
-    public void IncreaseStudentNum() {
-        this.numStudents += 1;
-    }
-
-    public double UpdateKps() {
-        return kps + (kpc * gameManager.deltaTime);
     }
 }

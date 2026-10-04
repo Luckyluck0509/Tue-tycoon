@@ -1,12 +1,20 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
 public class MainScreen extends javax.swing.JFrame {
     private JPanel MainPanel; // bound to the .form file
     public JButton studyButton;
     public JLabel knowledgeLabel;
+    private JButton addStudentButton;
 
-    public MainScreen(Player player, GameManager gameManager) {
+    public GameManager gameManager;
+    public Player player;
+
+    public MainScreen(Player p, GameManager gm) {
+        this.player = p;
+        this.gameManager = gm;
+
         setContentPane(MainPanel);
         setTitle("TUe Tycoon");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -15,12 +23,29 @@ public class MainScreen extends javax.swing.JFrame {
         setResizable(true);
         setVisible(true);
 
+        knowledgeLabel.setFont(new Font("Arial", Font.BOLD, 40));
+
         studyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameManager.StudyButtonPressed();
-                knowledgeLabel.setText("Knowledge: " + player.knowledge);
             }
         });
+
+        addStudentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (player.knowledge >= player.getStudentPrice()) {
+                    gameManager.AddStudentButtonPressed();
+                }
+            }
+        });
+    }
+
+    void update() {
+        player.knowledge += player.kps * gameManager.deltaTime;
+
+        knowledgeLabel.setText("Knowledge: " + (int)player.knowledge);
+        addStudentButton.setText("Add Student. Price: " + player.getStudentPrice());
     }
 }

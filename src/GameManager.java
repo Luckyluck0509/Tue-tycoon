@@ -1,7 +1,8 @@
 public class GameManager {
     Player player;
 
-    double deltaTime = 0;
+    double deltaTime = 1;
+
     public int quartile = 1;
 
     public GameManager(Player p) {
@@ -12,10 +13,10 @@ public class GameManager {
         player.knowledge += player.kpc * player.multiplier;
     }
 
-    void update() {
-        double currTime = System.nanoTime();
-        double previousTime = 0;
-        this.deltaTime = currTime - previousTime;
-        previousTime = currTime;
+    public void AddStudentButtonPressed() {
+        Student student = new Student(player.getStudentPrice(), player);
+        player.numStudents += 1;
+        player.kps += student.kps;
+
     }
 }
