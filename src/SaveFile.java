@@ -52,7 +52,4 @@ public class SaveFile {
         gameManager.quartile = Integer.parseInt(prop.getProperty("quartile", "1"));
         gameManager.lectureTime = Double.parseDouble(prop.getProperty("lectureTime", "0"));
     }
-
-
-
 }

@@ -1,0 +1,3 @@
+knowledge=100.0
+kps=1.0
+numStudents=5
