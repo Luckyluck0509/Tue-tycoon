@@ -7,6 +7,7 @@ public class Player {
     public double kpc = 1;
     public double kps = 0;
     public int numStudents = 0;
+    public boolean inLecture = false;
 
     public boolean[][] courses = new boolean[3][4];
 
