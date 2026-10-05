@@ -4,6 +4,7 @@ public class GameManager {
     double deltaTime = 1;
 
     public int quartile = 1;
+    public double lectureTime = 0;
 
     public GameManager(Player p) {
         this.player = p;
@@ -17,6 +18,11 @@ public class GameManager {
         Student student = new Student(player.getStudentPrice(), player);
         player.numStudents += 1;
         player.kps += student.kps;
+    }
 
+    public void GoToLectureButtonPressed() {
+        player.inLecture = true;
+        player.kpc += 1;
+        lectureTime = Math.pow(player.kpc * 3, 2);
     }
 }
