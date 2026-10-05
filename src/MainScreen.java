@@ -29,7 +29,9 @@ public class MainScreen extends javax.swing.JFrame {
         studyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameManager.StudyButtonPressed();
+                if (!player.inLecture) {
+                    gameManager.StudyButtonPressed();
+                }
             }
         });
 
@@ -38,6 +40,15 @@ public class MainScreen extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (player.knowledge >= player.getStudentPrice()) {
                     gameManager.AddStudentButtonPressed();
+                }
+            }
+        });
+
+        goToLectureButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!player.inLecture) {
+                    gameManager.GoToLectureButtonPressed();
                 }
             }
         });

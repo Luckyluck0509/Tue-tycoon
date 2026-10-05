@@ -23,6 +23,6 @@ public class GameManager {
     public void GoToLectureButtonPressed() {
         player.inLecture = true;
         player.kpc += 1;
-        lectureTime = Math.pow(player.kpc * 3, 2);
+        lectureTime = Math.pow(player.kpc, 2);
     }
 }

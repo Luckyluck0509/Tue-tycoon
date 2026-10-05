@@ -12,9 +12,12 @@ void main() {
         gm.deltaTime = (currentTime - lastTime) / 1000000000.0;
         lastTime = currentTime;
 
-        gm.lectureTime -= gm.deltaTime;
+
         if (gm.lectureTime <= 0) {
             p.inLecture = false;
+        } else {
+            gm.lectureTime -= gm.deltaTime;
+            System.out.println(Math.ceil(gm.lectureTime));
         }
 
         ms.update();
