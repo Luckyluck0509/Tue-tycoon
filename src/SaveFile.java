@@ -1,9 +1,10 @@
 import java.io.*;
-import java.util.Properties;
 import java.nio.file.*;
+import java.util.Properties;
+
 
 public class SaveFile {
-    private static final Path savePath = Path.of("save.txt");
+    private static final Path SAVE_PATH = Path.of("save.txt");
 
     public void save(Player player, GameManager gameManager) throws IOException {
         Properties prop = new Properties();
@@ -22,7 +23,7 @@ public class SaveFile {
         prop.setProperty("quartile", String.valueOf(gameManager.quartile));
         prop.setProperty("lectureTime", String.valueOf(gameManager.lectureTime));
 
-        try (var out = Files.newOutputStream(savePath)) {
+        try (var out = Files.newOutputStream(SAVE_PATH)) {
             prop.store(out, "Save file");
         }
     }
@@ -30,11 +31,11 @@ public class SaveFile {
     public void load(Player player, GameManager gameManager) throws IOException {
         Properties prop = new Properties();
 
-        if (!Files.exists(savePath)) {
+        if (!Files.exists(SAVE_PATH)) {
             return;
         }
 
-        try (var in = Files.newInputStream(savePath)) {
+        try (var in = Files.newInputStream(SAVE_PATH)) {
             prop.load(in);
         }
 

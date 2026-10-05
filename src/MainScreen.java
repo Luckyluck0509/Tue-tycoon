@@ -39,7 +39,7 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (player.knowledge >= player.getStudentPrice()) {
-                    gameManager.AddStudentButtonPressed();
+                    gameManager.addStudentButtonPressed();
                 }
             }
         });
@@ -48,7 +48,7 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!player.inLecture) {
-                    gameManager.GoToLectureButtonPressed();
+                    gameManager.goToLectureButtonPressed();
                 }
             }
         });

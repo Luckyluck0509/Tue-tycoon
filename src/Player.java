@@ -15,7 +15,7 @@ public class Player {
         return (int) (4 * Math.pow(this.numStudents, 3) + 25);
     }
 
-    public void IncreaseMultiplier() {
+    public void increaseMultiplier() {
         this.multiplier += 0.1 * (gameManager.quartile - 1);
     }
 }
