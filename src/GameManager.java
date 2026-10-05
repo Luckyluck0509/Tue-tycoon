@@ -5,6 +5,7 @@ public class GameManager {
 
     public int quartile = 1;
     public double lectureTime = 0;
+    public double time = 3600;
 
     public GameManager(Player p) {
         this.player = p;
