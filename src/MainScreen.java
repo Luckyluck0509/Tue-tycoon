@@ -7,6 +7,7 @@ public class MainScreen extends javax.swing.JFrame {
     public JButton studyButton;
     public JLabel knowledgeLabel;
     private JButton addStudentButton;
+    private JButton goToLectureButton;
 
     public GameManager gameManager;
     public Player player;
