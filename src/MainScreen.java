@@ -30,7 +30,7 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!player.inLecture) {
-                    gameManager.StudyButtonPressed();
+                    gameManager.studyButtonPressed();
                 }
             }
         });
