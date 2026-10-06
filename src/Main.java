@@ -4,12 +4,13 @@ long lastTime = System.nanoTime();
 
 void main() {
     Player p = new Player();
+    SaveFile save = new SaveFile();
     GameManager gm = new GameManager(p);
-    MainScreen ms = new MainScreen(p, gm);
+    Rebirth r = new Rebirth();
+    MainScreen ms = new MainScreen(p, gm, save, r);
 
     try {
-        SaveFile save = new SaveFile();
-        save.load(p, gm);
+        save.load(p, gm, ms);
     } catch (IOException e) {
         e.printStackTrace();
     }

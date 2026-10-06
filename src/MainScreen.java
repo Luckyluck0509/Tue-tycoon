@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class MainScreen extends javax.swing.JFrame {
     private JPanel MainPanel; // bound to the .form file
@@ -30,13 +31,18 @@ public class MainScreen extends javax.swing.JFrame {
 
     public GameManager gameManager;
     public Player player;
+    public SaveFile saveFile;
+    public MainScreen self = this;
+    public Rebirth rebirth;
     public double dt;
     public double time;
 
 
-    public MainScreen(Player p, GameManager gm) {
+    public MainScreen(Player p, GameManager gm, SaveFile saveFile, Rebirth rebirth) {
         this.player = p;
         this.gameManager = gm;
+        this.saveFile = saveFile;
+        this.rebirth = rebirth;
 
         this.time = gameManager.time;
 
@@ -91,6 +97,31 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+            }
+        });
+
+        Exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
+        Save.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    saveFile.save(player, gameManager, self);
+                } catch (IOException error) {
+                    error.printStackTrace();
+                }
+            }
+        });
+
+        Rebirth.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                rebirth.Rebirth(gameManager.quartile - 1, gameManager, player);
             }
         });
     }

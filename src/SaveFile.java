@@ -6,7 +6,7 @@ import java.util.Properties;
 public class SaveFile {
     private static final Path SAVE_PATH = Path.of("save.txt");
 
-    public void save(Player player, GameManager gameManager) throws IOException {
+    public void save(Player player, GameManager gameManager, MainScreen mainScreen) throws IOException {
         Properties prop = new Properties();
 
         // Player
@@ -18,8 +18,10 @@ public class SaveFile {
         prop.setProperty("numStudents", String.valueOf(player.numStudents));
         prop.setProperty("inLecture", String.valueOf(player.inLecture));
 
+        // MainScreen
+        prop.setProperty("time", String.valueOf(mainScreen.time));
+
         // GameManager
-        prop.setProperty("time", String.valueOf(gameManager.time));
         prop.setProperty("quartile", String.valueOf(gameManager.quartile));
         prop.setProperty("lectureTime", String.valueOf(gameManager.lectureTime));
 
@@ -28,7 +30,7 @@ public class SaveFile {
         }
     }
 
-    public void load(Player player, GameManager gameManager) throws IOException {
+    public void load(Player player, GameManager gameManager, MainScreen mainScreen) throws IOException {
         Properties prop = new Properties();
 
         if (!Files.exists(SAVE_PATH)) {
@@ -48,8 +50,10 @@ public class SaveFile {
         player.numStudents = Integer.parseInt(prop.getProperty("numStudents", "0"));
         player.inLecture = Boolean.parseBoolean(prop.getProperty("inLecture", "false"));
 
+        // MainScreen
+        mainScreen.time = Double.parseDouble(prop.getProperty("time", "3600"));
+
         // GameManager
-        gameManager.time = Double.parseDouble(prop.getProperty("time", "3600"));
         gameManager.quartile = Integer.parseInt(prop.getProperty("quartile", "1"));
         gameManager.lectureTime = Double.parseDouble(prop.getProperty("lectureTime", "0"));
     }

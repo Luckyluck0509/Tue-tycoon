@@ -13,7 +13,6 @@ public class Rebirth {
     }
 
     public void reset(GameManager gameManager, Player player, int mode) {
-
         // mode 0 = rebirth reset
         // mode 1 = complete reset
 
@@ -26,7 +25,7 @@ public class Rebirth {
         gameManager.lectureTime = 0;
 
         if (mode == 0) {
-            gameManager.quartile = 1;
+            gameManager.quartile += 1;
         } else
             player.creditProgress = 0;
             gameManager.quartile = 1;
