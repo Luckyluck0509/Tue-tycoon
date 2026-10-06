@@ -11,10 +11,22 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel KPSLabel;
     private JLabel TimeLabel;
     private JLabel MultiplierLabel;
-    private JProgressBar lectureTime;
     private JLabel KPCLabel;
     private JLabel KPC;
+    private JProgressBar lectureTime;
     private JLabel Price;
+    private JLabel NumberOfStudents;
+    private JPanel LecturePanel;
+    private JPanel HirePanel;
+    private JButton finishCourseButton;
+    private JPanel CoursePanel;
+    private JLabel CourseNumberLabel;
+    private JProgressBar KnowledgeProgressBar;
+    private JButton Exit;
+    private JButton Save;
+    private JProgressBar CourseProgress;
+    private JButton Rebirth;
+    private JProgressBar CreditProgress;
 
     public GameManager gameManager;
     public Player player;
@@ -39,6 +51,8 @@ public class MainScreen extends javax.swing.JFrame {
         KPC.setFont(new Font("Arial", Font.BOLD, 15));
         KPCLabel.setFont(new Font("Arial", Font.BOLD, 15));
         Price.setFont(new Font("Arial", Font.BOLD, 15));
+        NumberOfStudents.setFont(new Font("Arial", Font.BOLD, 15));
+        CourseNumberLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
         studyButton.addActionListener(new ActionListener() {
             @Override
@@ -63,7 +77,15 @@ public class MainScreen extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (!player.inLecture) {
                     gameManager.GoToLectureButtonPressed();
+                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
                 }
+            }
+        });
+
+        finishCourseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
@@ -77,6 +99,8 @@ public class MainScreen extends javax.swing.JFrame {
         MultiplierLabel.setText("Multiplier: " + player.multiplier);
 
         KPCLabel.setText(String.valueOf(player.kpc));
+        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
         Price.setText(String.valueOf(player.getStudentPrice()));
+        NumberOfStudents.setText(String.valueOf(player.numStudents));
     }
 }
