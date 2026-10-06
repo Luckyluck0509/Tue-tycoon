@@ -8,6 +8,25 @@ public class MainScreen extends javax.swing.JFrame {
     public JLabel knowledgeLabel;
     private JButton addStudentButton;
     private JButton goToLectureButton;
+    private JLabel KPSLabel;
+    private JLabel TimeLabel;
+    private JLabel MultiplierLabel;
+    private JLabel KPCLabel;
+    private JLabel KPC;
+    private JProgressBar lectureTime;
+    private JLabel Price;
+    private JLabel NumberOfStudents;
+    private JPanel LecturePanel;
+    private JPanel HirePanel;
+    private JButton finishCourseButton;
+    private JPanel CoursePanel;
+    private JLabel CourseNumberLabel;
+    private JProgressBar KnowledgeProgressBar;
+    private JButton Exit;
+    private JButton Save;
+    private JProgressBar CourseProgress;
+    private JButton Rebirth;
+    private JProgressBar CreditProgress;
 
     public GameManager gameManager;
     public Player player;
@@ -24,13 +43,22 @@ public class MainScreen extends javax.swing.JFrame {
         setResizable(true);
         setVisible(true);
 
+        TimeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         knowledgeLabel.setFont(new Font("Arial", Font.BOLD, 40));
+        KPSLabel.setFont(new Font("Arial", Font.BOLD, 30));
+        MultiplierLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+
+        KPC.setFont(new Font("Arial", Font.BOLD, 15));
+        KPCLabel.setFont(new Font("Arial", Font.BOLD, 15));
+        Price.setFont(new Font("Arial", Font.BOLD, 15));
+        NumberOfStudents.setFont(new Font("Arial", Font.BOLD, 15));
+        CourseNumberLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
         studyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!player.inLecture) {
-                    gameManager.studyButtonPressed();
+                    gameManager.StudyButtonPressed();
                 }
             }
         });
@@ -39,7 +67,7 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (player.knowledge >= player.getStudentPrice()) {
-                    gameManager.addStudentButtonPressed();
+                    gameManager.AddStudentButtonPressed();
                 }
             }
         });
@@ -48,8 +76,16 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!player.inLecture) {
-                    gameManager.goToLectureButtonPressed();
+                    gameManager.GoToLectureButtonPressed();
+                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
                 }
+            }
+        });
+
+        finishCourseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }
@@ -57,7 +93,14 @@ public class MainScreen extends javax.swing.JFrame {
     void update() {
         player.knowledge += player.kps * gameManager.deltaTime;
 
+        TimeLabel.setText("00 : 00");
         knowledgeLabel.setText("Knowledge: " + (int)player.knowledge);
-        addStudentButton.setText("Add Student. Price: " + player.getStudentPrice());
+        KPSLabel.setText("KPS: " + Math.round(player.kps));
+        MultiplierLabel.setText("Multiplier: " + player.multiplier);
+
+        KPCLabel.setText(String.valueOf(player.kpc));
+        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
+        Price.setText(String.valueOf(player.getStudentPrice()));
+        NumberOfStudents.setText(String.valueOf(player.numStudents));
     }
 }
