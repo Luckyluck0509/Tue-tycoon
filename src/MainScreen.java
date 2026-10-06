@@ -30,10 +30,15 @@ public class MainScreen extends javax.swing.JFrame {
 
     public GameManager gameManager;
     public Player player;
+    public double dt;
+    public double time;
+
 
     public MainScreen(Player p, GameManager gm) {
         this.player = p;
         this.gameManager = gm;
+
+        this.time = gameManager.time;
 
         setContentPane(MainPanel);
         setTitle("TUe Tycoon");
@@ -91,9 +96,27 @@ public class MainScreen extends javax.swing.JFrame {
     }
 
     void update() {
-        player.knowledge += player.kps * gameManager.deltaTime;
+        this.dt = gameManager.deltaTime;
 
-        TimeLabel.setText("00 : 00");
+        if (gameManager.lectureTime <= 0) {
+            player.inLecture = false;
+        } else {
+            gameManager.lectureTime -= dt;
+        }
+
+
+
+        this.time -= dt;
+        int seconds = (int) Math.ceil(this.time) % 60;
+        int minutes = (int) Math.ceil(this.time) / 60;
+
+        player.knowledge += player.kps * dt;
+
+        if (seconds >= 10) {
+            TimeLabel.setText(minutes + " : " + seconds);
+        } else {
+            TimeLabel.setText(minutes + " : 0" + seconds);
+        }
         knowledgeLabel.setText("Knowledge: " + (int)player.knowledge);
         KPSLabel.setText("KPS: " + Math.round(player.kps));
         MultiplierLabel.setText("Multiplier: " + player.multiplier);
