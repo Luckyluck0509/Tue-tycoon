@@ -18,7 +18,7 @@ public class GameManager {
     public void addStudentButtonPressed() {
         Student student = new Student(player.getStudentPrice(), player);
         player.numStudents += 1;
-        player.kps += student.kps;
+        player.kps += (student.kps * player.multiplier);
     }
 
     public void goToLectureButtonPressed() {

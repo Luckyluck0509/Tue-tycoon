@@ -1,12 +1,2 @@
-#Save file
-#Tue Oct 06 16:59:34 CEST 2026
-creditProgress=0
-inLecture=false
-knowledge=0.0
-kpc=1.0
-kps=0.0
-lectureTime=0.0
-multiplier=2.1247375362073946
-numStudents=0
-quartile=1
-time=3484.2120764160145
+
+multiplier=2.0
