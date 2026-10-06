@@ -9,7 +9,7 @@ public class Player {
     public int numStudents = 0;
     public boolean inLecture = false;
 
-    public boolean[][] courses = new boolean[3][4];
+    public boolean[][] courses = new boolean[4][3];
 
     public int getStudentPrice() {
         return (int) (4 * Math.pow(this.numStudents, 3) + 25);
