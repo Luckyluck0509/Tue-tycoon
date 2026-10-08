@@ -4,8 +4,10 @@ import java.util.Properties;
 
 
 public class SaveFile {
+    // find the filepath of the savefile
     public final Path SAVE_PATH = Path.of("save.txt");
 
+    // save all variables to the save file
     public void save(Player player, GameManager gameManager, MainScreen mainScreen) throws IOException {
         Properties prop = new Properties();
 
@@ -29,9 +31,12 @@ public class SaveFile {
 
         try (var out = Files.newOutputStream(SAVE_PATH)) {
             prop.store(out, "Save file");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
+    // load all variables from the save file and assign them
     public void load(Player player, GameManager gameManager) throws IOException {
         Properties prop = new Properties();
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class SavePopup extends javax.swing.JFrame {
+    // render java swing elements
     private JButton RESETButton;
     private JButton SAVEButton;
     private JLabel saveLabel;
@@ -18,6 +19,7 @@ public class SavePopup extends javax.swing.JFrame {
     public SaveFile saveFile;
 
     public SavePopup(MainScreen mainScreen, Player player, GameManager gameManager, SaveFile saveFile) {
+        // constructor
         this.mainScreen = mainScreen;
         this.player = player;
         this.gameManager = gameManager;
@@ -25,6 +27,7 @@ public class SavePopup extends javax.swing.JFrame {
 
         setContentPane(mainPanel);
 
+        // JPanel attributes
         setTitle("Save");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(400, 350);
@@ -32,14 +35,14 @@ public class SavePopup extends javax.swing.JFrame {
         setResizable(false);
         setVisible(true);
 
-
+        // JLabel formatting
         saveLabel.setFont(new Font("Arial", Font.BOLD, 30));
         lastSaveLabel.setFont(new Font("Arial", Font.PLAIN, 25));
         dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         RESETButton.setBackground(Color.getColor("#CC2F1B"));
 
+        // render last save text
         String date = "No save found";
-
         try {
             Scanner reader = new Scanner(saveFile.SAVE_PATH);
             reader.nextLine();
@@ -51,6 +54,7 @@ public class SavePopup extends javax.swing.JFrame {
         dateLabel.setText(date);
 
 
+        // trigger save() when the save button is pressed
         SAVEButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,6 +67,7 @@ public class SavePopup extends javax.swing.JFrame {
             }
         });
 
+        // trigger reset() when the reset button is pressed
         RESETButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -73,6 +78,7 @@ public class SavePopup extends javax.swing.JFrame {
         });
     }
 
+    // close popup after clicking a button
     void closePopup() {
         this.dispose();
     }

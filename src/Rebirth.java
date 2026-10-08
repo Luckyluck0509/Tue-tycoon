@@ -1,4 +1,5 @@
 public class Rebirth {
+    // calculate the amount the multiplier is gonna increase after rebirth
     public double MultiplierAmount(GameManager gameManager, Player player){
         double q = gameManager.quartile;
         double c = player.creditProgress;
@@ -9,6 +10,7 @@ public class Rebirth {
         return 0.05 * Math.log(1 + k) * Math.sqrt(kpc) * (0.5 + p) * (1 + 0.25 * (q - 1));
     }
 
+    // rebirth, update multiplier and trigger reset at mode 0
     public void RebirthAction(GameManager gameManager, Player player) {
         double delta = MultiplierAmount(gameManager, player);
         player.multiplier += delta;
@@ -16,6 +18,7 @@ public class Rebirth {
         reset(gameManager, player, 0);
     }
 
+    // resetting variables
     public void reset(GameManager gameManager, Player player, int mode) {
         // mode 0 = rebirth reset
         // mode 1 = complete reset
@@ -31,7 +34,6 @@ public class Rebirth {
         if (mode == 0) {
             gameManager.quartile++;
             gameManager.courseNumber = 1;
-            System.out.println("Quartile: " + gameManager.quartile);
         } else {
             player.creditProgress = 0;
             player.multiplier = 1;

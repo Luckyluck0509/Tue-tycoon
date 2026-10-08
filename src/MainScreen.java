@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+// java swing elements
 public class MainScreen extends javax.swing.JFrame {
     private JPanel MainPanel; // bound to the .form file
     public JButton studyButton;
@@ -42,6 +43,7 @@ public class MainScreen extends javax.swing.JFrame {
         this.saveFile = saveFile;
         this.rebirth = rebirth;
 
+        // set properties of JPanel
         setContentPane(MainPanel);
         setTitle("TUe Tycoon");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,17 +52,18 @@ public class MainScreen extends javax.swing.JFrame {
         setResizable(true);
         setVisible(true);
 
+        // format JLabels
         TimeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         knowledgeLabel.setFont(new Font("Arial", Font.BOLD, 40));
         KPSLabel.setFont(new Font("Arial", Font.BOLD, 30));
         MultiplierLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-
         KPC.setFont(new Font("Arial", Font.BOLD, 15));
         KPCLabel.setFont(new Font("Arial", Font.BOLD, 15));
         Price.setFont(new Font("Arial", Font.BOLD, 15));
         NumberOfStudents.setFont(new Font("Arial", Font.BOLD, 15));
         CourseNumberLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
+        // trigger studyButtonPressed() when the study button is clicked
         studyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -70,6 +73,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        // trigger addStudentButtonPressed() when the add student button is pressed
         addStudentButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -79,6 +83,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        // trigger goToLectureButtonPressed when the go to lecture button is pressed, render progress bar
         goToLectureButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,6 +94,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        // trigger finishCourseButtonPressed() when the finish course button is pressed
         finishCourseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -99,6 +105,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        // quit the program when the exit button is pressed
         Exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -106,6 +113,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        // open the save popup menu when the save button is pressed
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -113,6 +121,7 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
+        // open the rebirth popup menu when the rebirth button is pressed
         Rebirth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -121,33 +130,42 @@ public class MainScreen extends javax.swing.JFrame {
         });
     }
 
+    // update all variables every frame
     void update() {
         this.dt = gameManager.deltaTime;
 
+        // update lecture time
         if (gameManager.lectureTime <= 0) {
             player.inLecture = false;
         } else {
             gameManager.lectureTime -= dt;
         }
 
+        // update clock
         this.gameManager.time -= dt;
         int seconds = (int) Math.ceil(this.gameManager.time) % 60;
         int minutes = (int) Math.ceil(this.gameManager.time) / 60;
 
+        // update knowledge
         player.knowledge += player.kps * dt;
+
+        // update course requirement
         gameManager.setCourseRequirement();
 
+        // render clock
         if (seconds >= 10) {
             TimeLabel.setText(minutes + " : " + seconds);
         } else {
             TimeLabel.setText(minutes + " : 0" + seconds);
         }
 
+        // render knowledge, kps and multiplier
         knowledgeLabel.setText((int)player.knowledge + " Knowledge");
         KPSLabel.setText("KPS: " + Math.round(player.kps));
         MultiplierLabel.setText("Multiplier: " + player.multiplier);
 
 
+        // render course progression
         if (gameManager.courseNumber <= 3) {
             CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
             KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
@@ -161,7 +179,7 @@ public class MainScreen extends javax.swing.JFrame {
         }
 
 
-
+        // render go to lecture and add student attributes
         KPCLabel.setText(String.valueOf(player.kpc));
         lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
         Price.setText(String.valueOf(player.getStudentPrice()));
