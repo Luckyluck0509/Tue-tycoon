@@ -96,7 +96,10 @@ public class MainScreen extends javax.swing.JFrame {
         finishCourseButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
+                    gameManager.finishCourseButtonPressed();
+                    player.knowledge -= gameManager.courseRequirement;
+                }
             }
         });
 
@@ -121,7 +124,9 @@ public class MainScreen extends javax.swing.JFrame {
         Rebirth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rebirth.RebirthAction(gameManager, player);
+                if (gameManager.courseNumber > 2) {
+                    rebirth.RebirthAction(gameManager, player);
+                }
             }
         });
     }
@@ -135,22 +140,37 @@ public class MainScreen extends javax.swing.JFrame {
             gameManager.lectureTime -= dt;
         }
 
-
-
         this.time -= dt;
         int seconds = (int) Math.ceil(this.time) % 60;
         int minutes = (int) Math.ceil(this.time) / 60;
 
         player.knowledge += player.kps * dt;
+        gameManager.setCourseRequirement();
 
         if (seconds >= 10) {
             TimeLabel.setText(minutes + " : " + seconds);
         } else {
             TimeLabel.setText(minutes + " : 0" + seconds);
         }
-        knowledgeLabel.setText("Knowledge: " + (int)player.knowledge);
+
+        knowledgeLabel.setText((int)player.knowledge + " Knowledge");
         KPSLabel.setText("KPS: " + Math.round(player.kps));
         MultiplierLabel.setText("Multiplier: " + player.multiplier);
+
+
+        if (gameManager.courseNumber <= 3) {
+            CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
+            KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
+            if (player.knowledge <= gameManager.courseRequirement) {
+                KnowledgeProgressBar.setValue((int) Math.round(player.knowledge));
+            }
+        } else {
+            CourseNumberLabel.setText("Finished all Courses");
+            KnowledgeProgressBar.setMaximum(100);
+            KnowledgeProgressBar.setValue(100);
+        }
+
+
 
         KPCLabel.setText(String.valueOf(player.kpc));
         lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));

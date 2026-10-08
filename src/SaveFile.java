@@ -24,6 +24,8 @@ public class SaveFile {
         // GameManager
         prop.setProperty("quartile", String.valueOf(gameManager.quartile));
         prop.setProperty("lectureTime", String.valueOf(gameManager.lectureTime));
+        prop.setProperty("courseNumber", String.valueOf(gameManager.courseNumber));
+        prop.setProperty("courseRequirement", String.valueOf(gameManager.courseRequirement));
 
         try (var out = Files.newOutputStream(SAVE_PATH)) {
             prop.store(out, "Save file");
@@ -56,5 +58,7 @@ public class SaveFile {
         // GameManager
         gameManager.quartile = Integer.parseInt(prop.getProperty("quartile", "1"));
         gameManager.lectureTime = Double.parseDouble(prop.getProperty("lectureTime", "0"));
+        gameManager.courseNumber = Integer.parseInt(prop.getProperty("courseNumber", "1"));
+        gameManager.courseRequirement = Integer.parseInt(prop.getProperty("courseRequirement", "0"));
     }
 }
