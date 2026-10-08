@@ -19,7 +19,7 @@ public class SaveFile {
         prop.setProperty("inLecture", String.valueOf(player.inLecture));
 
         // MainScreen
-        prop.setProperty("time", String.valueOf(mainScreen.time));
+        prop.setProperty("time", String.valueOf(gameManager.time));
 
         // GameManager
         prop.setProperty("quartile", String.valueOf(gameManager.quartile));
@@ -32,7 +32,7 @@ public class SaveFile {
         }
     }
 
-    public void load(Player player, GameManager gameManager, MainScreen mainScreen) throws IOException {
+    public void load(Player player, GameManager gameManager) throws IOException {
         Properties prop = new Properties();
 
         if (!Files.exists(SAVE_PATH)) {
@@ -52,13 +52,11 @@ public class SaveFile {
         player.numStudents = Integer.parseInt(prop.getProperty("numStudents", "0"));
         player.inLecture = Boolean.parseBoolean(prop.getProperty("inLecture", "false"));
 
-        // MainScreen
-        mainScreen.time = Double.parseDouble(prop.getProperty("time", "3600"));
-
         // GameManager
         gameManager.quartile = Integer.parseInt(prop.getProperty("quartile", "1"));
         gameManager.lectureTime = Double.parseDouble(prop.getProperty("lectureTime", "0"));
         gameManager.courseNumber = Integer.parseInt(prop.getProperty("courseNumber", "1"));
         gameManager.courseRequirement = Integer.parseInt(prop.getProperty("courseRequirement", "0"));
+        gameManager.time = Double.parseDouble(prop.getProperty("time", "3600"));
     }
 }

@@ -34,7 +34,6 @@ public class MainScreen extends javax.swing.JFrame {
     public MainScreen self = this;
     public Rebirth rebirth;
     public double dt;
-    public double time;
 
 
     public MainScreen(Player p, GameManager gm, SaveFile saveFile, Rebirth rebirth) {
@@ -42,8 +41,6 @@ public class MainScreen extends javax.swing.JFrame {
         this.gameManager = gm;
         this.saveFile = saveFile;
         this.rebirth = rebirth;
-
-        this.time = gameManager.time;
 
         setContentPane(MainPanel);
         setTitle("TUe Tycoon");
@@ -135,9 +132,9 @@ public class MainScreen extends javax.swing.JFrame {
             gameManager.lectureTime -= dt;
         }
 
-        this.time -= dt;
-        int seconds = (int) Math.ceil(this.time) % 60;
-        int minutes = (int) Math.ceil(this.time) / 60;
+        this.gameManager.time -= dt;
+        int seconds = (int) Math.ceil(this.gameManager.time) % 60;
+        int minutes = (int) Math.ceil(this.gameManager.time) / 60;
 
         player.knowledge += player.kps * dt;
         gameManager.setCourseRequirement();

@@ -10,7 +10,7 @@ void main() {
     MainScreen ms = new MainScreen(p, gm, save, r);
 
     try {
-        save.load(p, gm, ms);
+        save.load(p, gm);
     } catch (IOException e) {
         e.printStackTrace();
     }
