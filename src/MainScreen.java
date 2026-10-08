@@ -121,7 +121,7 @@ public class MainScreen extends javax.swing.JFrame {
         Rebirth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                rebirth.Rebirth(gameManager.quartile - 1, gameManager, player);
+                rebirth.RebirthAction(gameManager, player);
             }
         });
     }

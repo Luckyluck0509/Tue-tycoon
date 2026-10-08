@@ -1,5 +1,5 @@
 public class Rebirth {
-    public void Rebirth(int noRebirth, GameManager gameManager, Player player) {
+    public void RebirthAction(GameManager gameManager, Player player) {
         double q = gameManager.quartile;
         double c = player.creditProgress;
         double k = player.knowledge;
@@ -25,8 +25,9 @@ public class Rebirth {
         gameManager.lectureTime = 0;
 
         if (mode == 0) {
-            gameManager.quartile += 1;
-        } else
+            gameManager.quartile++;
+            System.out.println("Quartile: " + gameManager.quartile);
+        } else {
             player.creditProgress = 0;
             gameManager.quartile = 1;
             gameManager.time = 3600;
@@ -36,7 +37,7 @@ public class Rebirth {
                     player.courses[i][j] = false;
                 }
             }
-
+        }
 
 
     }
