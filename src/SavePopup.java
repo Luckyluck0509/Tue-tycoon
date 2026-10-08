@@ -2,9 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.io.File;
 import java.util.Scanner;
-import java.io.FileNotFoundException;
 
 public class SavePopup extends javax.swing.JFrame {
     private JButton RESETButton;

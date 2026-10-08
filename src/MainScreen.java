@@ -116,9 +116,7 @@ public class MainScreen extends javax.swing.JFrame {
         Rebirth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (gameManager.courseNumber > 2) {
-                    rebirth.RebirthAction(gameManager, player);
-                }
+                RebirthPopup rebirthPopup = new RebirthPopup(self, p, gm, saveFile);
             }
         });
     }
