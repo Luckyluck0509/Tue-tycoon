@@ -4,7 +4,7 @@ import java.util.Properties;
 
 
 public class SaveFile {
-    private static final Path SAVE_PATH = Path.of("save.txt");
+    public final Path SAVE_PATH = Path.of("save.txt");
 
     public void save(Player player, GameManager gameManager, MainScreen mainScreen) throws IOException {
         Properties prop = new Properties();
