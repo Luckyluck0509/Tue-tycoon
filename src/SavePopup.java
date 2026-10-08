@@ -61,6 +61,7 @@ public class SavePopup extends javax.swing.JFrame {
                 } catch (IOException error) {
                     error.printStackTrace();
                 }
+                closePopup();
             }
         });
 
@@ -69,7 +70,12 @@ public class SavePopup extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 Rebirth rebirth = new Rebirth();
                 rebirth.reset(gameManager, player, 1);
+                closePopup();
             }
         });
+    }
+
+    void closePopup() {
+        this.dispose();
     }
 }

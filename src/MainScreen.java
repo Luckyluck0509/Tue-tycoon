@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 
 public class MainScreen extends javax.swing.JFrame {
     private JPanel MainPanel; // bound to the .form file
@@ -113,11 +112,7 @@ public class MainScreen extends javax.swing.JFrame {
         Save.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    saveFile.save(player, gameManager, self);
-                } catch (IOException error) {
-                    error.printStackTrace();
-                }
+                SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
             }
         });
 
