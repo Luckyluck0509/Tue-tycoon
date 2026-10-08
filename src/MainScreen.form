@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="MainPanel" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="22" width="1070" height="721"/>
+      <xy x="20" y="22" width="1070" height="909"/>
     </constraints>
     <properties>
       <preferredSize width="1000" height="800"/>
@@ -253,7 +253,7 @@
                 <children>
                   <component id="71ef6" class="javax.swing.JLabel" binding="CourseNumberLabel">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <text value="1"/>
@@ -261,11 +261,11 @@
                   </component>
                   <component id="ba5" class="javax.swing.JProgressBar" binding="KnowledgeProgressBar">
                     <constraints>
-                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
                       <maximum value="100000"/>
-                      <value value="50"/>
+                      <value value="30000"/>
                     </properties>
                   </component>
                 </children>

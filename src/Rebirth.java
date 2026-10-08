@@ -26,15 +26,17 @@ public class Rebirth {
 
         if (mode == 0) {
             gameManager.quartile++;
+            gameManager.courseNumber = 1;
             System.out.println("Quartile: " + gameManager.quartile);
         } else {
             player.creditProgress = 0;
+            player.multiplier = 1;
             gameManager.quartile = 1;
             gameManager.time = 3600;
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 3; j++) {
-                    player.courses[i][j] = false;
+                    gameManager.courses[i][j] = false;
                 }
             }
         }
