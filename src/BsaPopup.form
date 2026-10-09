@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="BsaPopup">
+  <grid id="27dc6" binding="bsaPanel" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="20" left="20" bottom="20" right="20"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="602"/>
+    </constraints>
+    <properties/>
+    <border type="none" title=""/>
+    <children>
+      <grid id="f64c7" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="80"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="2758d" class="javax.swing.JButton" binding="RESTARTButton">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="400" height="80"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="RESTART"/>
+            </properties>
+          </component>
+          <component id="f650d" class="javax.swing.JButton" binding="EXITButton" default-binding="true">
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="400" height="80"/>
+              </grid>
+            </constraints>
+            <properties>
+              <text value="EXIT"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <component id="cafa3" class="javax.swing.JLabel" binding="bsaLabel">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="BSA Report"/>
+        </properties>
+      </component>
+      <component id="865f" class="javax.swing.JLabel" binding="passedLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="130"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="FAILED"/>
+        </properties>
+      </component>
+      <component id="8bb39" class="javax.swing.JLabel" binding="creditsLabel">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="You managed to get 50 out of the 60 credits this year"/>
+        </properties>
+      </component>
+      <component id="5f283" class="javax.swing.JLabel" binding="timeLabel">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="You completed this year in 55 minutes and 23 seconds"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
