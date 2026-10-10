@@ -11,19 +11,19 @@ public class BsaPopup extends javax.swing.JFrame {
     private JLabel creditsLabel;
     private JLabel timeLabel;
 
-    public GameManager gameManager;
-    public Player player;
-    public MainScreen mainScreen;
-    public SaveFile saveFile;
+    public GameManager gm;
+    public Player p;
+    public MainScreen ms;
+    public SaveFile save;
     public Rebirth rebirth;
 
 
     public BsaPopup(MainScreen mainScreen, GameManager gameManager, Player player, SaveFile saveFile) {
         // constructor
-        this.mainScreen = mainScreen;
-        this.gameManager = gameManager;
-        this.player = player;
-        this.saveFile = saveFile;
+        this.ms = mainScreen;
+        this.gm = gameManager;
+        this.p = player;
+        this.save = saveFile;
         this.rebirth = mainScreen.rebirth;
 
         setContentPane(bsaPanel);
@@ -34,7 +34,6 @@ public class BsaPopup extends javax.swing.JFrame {
         setSize(600, 470);
         setLocationRelativeTo(mainScreen);
         setResizable(false);
-        setVisible(true);
 
         // JLabel formatting
         bsaLabel.setFont(new Font("Arial", Font.BOLD, 30));
@@ -62,8 +61,7 @@ public class BsaPopup extends javax.swing.JFrame {
         });
     }
 
-    public void triggerReport(GameManager gm, Player p, SaveFile save, MainScreen ms) {
-        BsaPopup bsaPopup = new BsaPopup(ms, gm, p, save);
+    public void triggerReport() {
 
         if (p.creditProgress >= 45) {
             passedLabel.setText("PASSED");
@@ -73,14 +71,14 @@ public class BsaPopup extends javax.swing.JFrame {
 
         creditsLabel.setText(String.format("You managed to get %d out of the 60 credits this year.", p.creditProgress));
 
-        int remaining = (int) Math.ceil(this.gameManager.time);
+        int remaining = (int) Math.ceil(this.gm.time);
         int elapsed = 3600 - remaining;
 
         int minutes = elapsed / 60;
         int seconds = elapsed % 60;
         timeLabel.setText(String.format("You completed this year in %d minutes and %d seconds.", minutes, seconds));
 
-
+        setVisible(true);
 
     }
 
