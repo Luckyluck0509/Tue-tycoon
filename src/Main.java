@@ -28,5 +28,5 @@ void main() {
 
     timer.start();
 
-    BsaPopup bsaPopup = new BsaPopup(ms, gm, p, save);
+
 }

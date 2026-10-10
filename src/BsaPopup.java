@@ -42,6 +42,7 @@ public class BsaPopup extends javax.swing.JFrame {
         creditsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         timeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
+
         //Restart button
         RESTARTButton.addActionListener(new ActionListener() {
             @Override
@@ -59,6 +60,28 @@ public class BsaPopup extends javax.swing.JFrame {
                 System.exit(0);
             }
         });
+    }
+
+    public void triggerReport(GameManager gm, Player p, SaveFile save, MainScreen ms) {
+        BsaPopup bsaPopup = new BsaPopup(ms, gm, p, save);
+
+        if (p.creditProgress >= 45) {
+            passedLabel.setText("PASSED");
+        } else {
+            passedLabel.setText("FAILED");
+        }
+
+        creditsLabel.setText(String.format("You managed to get %d out of the 60 credits this year.", p.creditProgress));
+
+        int remaining = (int) Math.ceil(this.gameManager.time);
+        int elapsed = 3600 - remaining;
+
+        int minutes = elapsed / 60;
+        int seconds = elapsed % 60;
+        timeLabel.setText(String.format("You completed this year in %d minutes and %d seconds.", minutes, seconds));
+
+
+
     }
 
     void closePopup() {
