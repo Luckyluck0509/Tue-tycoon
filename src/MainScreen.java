@@ -4,29 +4,39 @@ import java.awt.event.*;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
-    private JPanel MainPanel; // bound to the .form file
-    public JButton studyButton;
-    public JLabel knowledgeLabel;
+    // importing icons
+    ImageIcon backgroundIcon = new ImageIcon("src/Recources/Background.png");
+    ImageIcon lectureIcon = new ImageIcon("src/Recources/GoToLecture.png");
+
+    private JPanel mainPanel; // bound to the .form file
+    private JPanel mainContainer;
+    public JLabel background;
+
+    private JPanel lecturePanel;
+    private JPanel studentPanel;
+    private JPanel coursePanel;
+
+    private JButton studyButton;
+    public JButton goToLectureButton = new JButton();
     private JButton addStudentButton;
-    private JButton goToLectureButton;
+    private JButton finishCourseButton;
+    private JButton Rebirth;
+    private JButton Save;
+    private JButton Exit;
+
+    private JLabel knowledgeLabel;
     private JLabel KPSLabel;
     private JLabel TimeLabel;
     private JLabel MultiplierLabel;
     private JLabel KPCLabel;
     private JLabel KPC;
-    private JProgressBar lectureTime;
     private JLabel Price;
     private JLabel NumberOfStudents;
-    private JPanel LecturePanel;
-    private JPanel HirePanel;
-    private JButton finishCourseButton;
-    private JPanel CoursePanel;
     private JLabel CourseNumberLabel;
+
+    public JProgressBar lectureTime = new JProgressBar();
     private JProgressBar KnowledgeProgressBar;
-    private JButton Exit;
-    private JButton Save;
     private JProgressBar CourseProgress;
-    private JButton Rebirth;
     private JProgressBar CreditProgress;
 
     public GameManager gameManager;
@@ -43,25 +53,38 @@ public class MainScreen extends javax.swing.JFrame {
         this.saveFile = saveFile;
         this.rebirth = rebirth;
 
-        // set properties of JPanel
-        setContentPane(MainPanel);
+        // set properties of JPanel and create the main screen
+        setContentPane(mainPanel);
         setTitle("TUe Tycoon");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1000, 800);
+        setSize(1280, 828);
         setLocationRelativeTo(null);
-        setResizable(true);
+        setResizable(false);
         setVisible(true);
+        background.setIcon(backgroundIcon);
+        mainPanel.setLayout(null);
+
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 1280, 800);
+
+        background.setBounds(0, 0, 1280, 800);
+        mainContainer.setBounds(0, 0, 1280, 800);
+
+        layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(mainContainer, JLayeredPane.PALETTE_LAYER);
+
+        mainPanel.add(layeredPane);
 
         // format JLabels
         TimeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         knowledgeLabel.setFont(new Font("Arial", Font.BOLD, 40));
         KPSLabel.setFont(new Font("Arial", Font.BOLD, 30));
         MultiplierLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        KPC.setFont(new Font("Arial", Font.BOLD, 15));
-        KPCLabel.setFont(new Font("Arial", Font.BOLD, 15));
-        Price.setFont(new Font("Arial", Font.BOLD, 15));
-        NumberOfStudents.setFont(new Font("Arial", Font.BOLD, 15));
-        CourseNumberLabel.setFont(new Font("Arial", Font.BOLD, 15));
+//        KPC.setFont(new Font("Arial", Font.BOLD, 15));
+//        KPCLabel.setFont(new Font("Arial", Font.BOLD, 15));
+//        Price.setFont(new Font("Arial", Font.BOLD, 15));
+//        NumberOfStudents.setFont(new Font("Arial", Font.BOLD, 15));
+//        CourseNumberLabel.setFont(new Font("Arial", Font.BOLD, 15));
 
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addActionListener(new ActionListener() {
@@ -74,14 +97,14 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // trigger addStudentButtonPressed() when the add student button is pressed
-        addStudentButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (player.knowledge >= player.getStudentPrice()) {
-                    gameManager.addStudentButtonPressed();
-                }
-            }
-        });
+//        addStudentButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (player.knowledge >= player.getStudentPrice()) {
+//                    gameManager.addStudentButtonPressed();
+//                }
+//            }
+//        });
 
         // trigger goToLectureButtonPressed when the go to lecture button is pressed, render progress bar
         goToLectureButton.addActionListener(new ActionListener() {
@@ -95,15 +118,15 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // trigger finishCourseButtonPressed() when the finish course button is pressed
-        finishCourseButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
-                    gameManager.finishCourseButtonPressed();
-                    player.knowledge -= gameManager.courseRequirement;
-                }
-            }
-        });
+//        finishCourseButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
+//                    gameManager.finishCourseButtonPressed();
+//                    player.knowledge -= gameManager.courseRequirement;
+//                }
+//            }
+//        });
 
         // quit the program when the exit button is pressed
         Exit.addActionListener(new ActionListener() {
@@ -167,22 +190,49 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render course progression
         if (gameManager.courseNumber <= 3) {
-            CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
-            KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
+//            CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
+//            KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
             if (player.knowledge <= gameManager.courseRequirement) {
-                KnowledgeProgressBar.setValue((int) Math.round(player.knowledge));
+//                KnowledgeProgressBar.setValue((int) Math.round(player.knowledge));
             }
         } else {
             CourseNumberLabel.setText("Finished all Courses");
-            KnowledgeProgressBar.setMaximum(100);
-            KnowledgeProgressBar.setValue(100);
+//            KnowledgeProgressBar.setMaximum(100);
+//            KnowledgeProgressBar.setValue(100);
         }
 
 
         // render go to lecture and add student attributes
-        KPCLabel.setText(String.valueOf(player.kpc));
-        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
-        Price.setText(String.valueOf(player.getStudentPrice()));
-        NumberOfStudents.setText(String.valueOf(player.numStudents));
+//        KPCLabel.setText(String.valueOf(player.kpc));
+//        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
+//        Price.setText(String.valueOf(player.getStudentPrice()));
+//        NumberOfStudents.setText(String.valueOf(player.numStudents));
+    }
+
+    public void createButton(JPanel panel, ImageIcon icon, String text, String value, JButton button) {
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, 400, 200);
+
+        JPanel components = new JPanel();
+
+        button.setBounds(0, 0, 400, 200);
+        components.setBounds(0, 0, 400, 200);
+
+        JLabel image = new JLabel(icon);
+        image.setBounds(5, 5, 48, 96);
+        components.add(image);
+
+        JLabel prop = new JLabel(text);
+        prop.setBounds(75, 5, 200, 64);
+        components.add(prop);
+
+        JLabel amount = new JLabel(value);
+        amount.setBounds(295, 50, 395, 100);
+        components.add(amount);
+
+        layeredPane.add(button, JLayeredPane.DEFAULT_LAYER);
+        layeredPane.add(components, JLayeredPane.PALETTE_LAYER);
+
+        panel.add(layeredPane);
     }
 }
