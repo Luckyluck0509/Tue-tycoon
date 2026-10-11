@@ -7,6 +7,7 @@ public class MainScreen extends javax.swing.JFrame {
     // importing icons
     ImageIcon backgroundIcon = new ImageIcon("src/Recources/Background.png");
     ImageIcon lectureIcon = new ImageIcon("src/Recources/GoToLecture.png");
+    ImageIcon buttonIcon = new ImageIcon("src/Recources/Button.png");
 
     private JPanel mainPanel; // bound to the .form file
     private JPanel mainContainer;
@@ -17,9 +18,6 @@ public class MainScreen extends javax.swing.JFrame {
     private JPanel coursePanel;
 
     private JButton studyButton;
-    public JButton goToLectureButton = new JButton();
-    private JButton addStudentButton;
-    private JButton finishCourseButton;
     private JButton Rebirth;
     private JButton Save;
     private JButton Exit;
@@ -28,13 +26,18 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel KPSLabel;
     private JLabel TimeLabel;
     private JLabel MultiplierLabel;
+    private JLabel lectureIconLabel;
+    private JLabel goToLectureButton;
+    private JPanel lectureButtonOverlay;
+    private JLabel lectureLabel;
+
     private JLabel KPCLabel;
     private JLabel KPC;
     private JLabel Price;
     private JLabel NumberOfStudents;
     private JLabel CourseNumberLabel;
 
-    public JProgressBar lectureTime = new JProgressBar();
+    public JProgressBar lectureTime;
     private JProgressBar KnowledgeProgressBar;
     private JProgressBar CourseProgress;
     private JProgressBar CreditProgress;
@@ -59,32 +62,24 @@ public class MainScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 828);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
         setVisible(true);
+
+        // set background
         background.setIcon(backgroundIcon);
-        mainPanel.setLayout(null);
-
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 1280, 800);
-
-        background.setBounds(0, 0, 1280, 800);
-        mainContainer.setBounds(0, 0, 1280, 800);
-
-        layeredPane.add(background, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(mainContainer, JLayeredPane.PALETTE_LAYER);
-
-        mainPanel.add(layeredPane);
+        this.overlay(null, background, mainContainer, mainPanel, 1280, 800);
 
         // format JLabels
         TimeLabel.setFont(new Font("Arial", Font.BOLD, 30));
         knowledgeLabel.setFont(new Font("Arial", Font.BOLD, 40));
         KPSLabel.setFont(new Font("Arial", Font.BOLD, 30));
         MultiplierLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-//        KPC.setFont(new Font("Arial", Font.BOLD, 15));
-//        KPCLabel.setFont(new Font("Arial", Font.BOLD, 15));
-//        Price.setFont(new Font("Arial", Font.BOLD, 15));
-//        NumberOfStudents.setFont(new Font("Arial", Font.BOLD, 15));
-//        CourseNumberLabel.setFont(new Font("Arial", Font.BOLD, 15));
+
+        // set go to the lectures button
+        lectureLabel.setFont(new Font("", Font.BOLD, 15));
+        lectureIconLabel.setIcon(lectureIcon);
+        goToLectureButton.setIcon(buttonIcon);
+        this.overlay(new BorderLayout(), goToLectureButton, lectureButtonOverlay, lecturePanel, 550, 200);
 
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addActionListener(new ActionListener() {
@@ -96,7 +91,18 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        // trigger addStudentButtonPressed() when the add student button is pressed
+        // trigger goToLectureButtonPressed when the go to the lectures button is pressed, render progress bar
+        lecturePanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (!player.inLecture) {
+                    gameManager.goToLectureButtonPressed();
+                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
+                }
+            }
+        });
+
+                // trigger addStudentButtonPressed() when the add student button is pressed
 //        addStudentButton.addActionListener(new ActionListener() {
 //            @Override
 //            public void actionPerformed(ActionEvent e) {
@@ -106,16 +112,16 @@ public class MainScreen extends javax.swing.JFrame {
 //            }
 //        });
 
-        // trigger goToLectureButtonPressed when the go to lecture button is pressed, render progress bar
-        goToLectureButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (!player.inLecture) {
-                    gameManager.goToLectureButtonPressed();
-                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
-                }
-            }
-        });
+
+//        goToLectureButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                if (!player.inLecture) {
+//                    gameManager.goToLectureButtonPressed();
+//                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
+//                }
+//            }
+//        });
 
         // trigger finishCourseButtonPressed() when the finish course button is pressed
 //        finishCourseButton.addActionListener(new ActionListener() {
@@ -204,35 +210,20 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render go to lecture and add student attributes
 //        KPCLabel.setText(String.valueOf(player.kpc));
-//        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
+        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
 //        Price.setText(String.valueOf(player.getStudentPrice()));
 //        NumberOfStudents.setText(String.valueOf(player.numStudents));
     }
 
-    public void createButton(JPanel panel, ImageIcon icon, String text, String value, JButton button) {
-        JLayeredPane layeredPane = new JLayeredPane();
-        layeredPane.setBounds(0, 0, 400, 200);
-
-        JPanel components = new JPanel();
-
-        button.setBounds(0, 0, 400, 200);
-        components.setBounds(0, 0, 400, 200);
-
-        JLabel image = new JLabel(icon);
-        image.setBounds(5, 5, 48, 96);
-        components.add(image);
-
-        JLabel prop = new JLabel(text);
-        prop.setBounds(75, 5, 200, 64);
-        components.add(prop);
-
-        JLabel amount = new JLabel(value);
-        amount.setBounds(295, 50, 395, 100);
-        components.add(amount);
-
-        layeredPane.add(button, JLayeredPane.DEFAULT_LAYER);
-        layeredPane.add(components, JLayeredPane.PALETTE_LAYER);
-
-        panel.add(layeredPane);
+    public void overlay(LayoutManager layout, JLabel backdrop, JPanel container, JPanel parentPanel, int width, int height) {
+        JLayeredPane new_layeredPane = new JLayeredPane();
+        new_layeredPane.setPreferredSize(new Dimension(width, height));
+        new_layeredPane.setBounds(0, 0, width, height);
+        backdrop.setBounds(0, 0, width, height);
+        container.setBounds(0, 0, width, height);
+        new_layeredPane.add(backdrop, JLayeredPane.DEFAULT_LAYER);
+        new_layeredPane.add(container, JLayeredPane.PALETTE_LAYER);
+        parentPanel.setLayout(layout);
+        parentPanel.add(new_layeredPane);
     }
 }
