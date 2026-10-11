@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="mainPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="22" width="1330" height="829"/>
+      <xy x="20" y="22" width="1949" height="829"/>
     </constraints>
     <properties>
       <preferredSize width="1280" height="800"/>
@@ -50,8 +50,9 @@
                 <properties>
                   <borderPainted value="true"/>
                   <enabled value="true"/>
+                  <maximum value="2"/>
                   <orientation value="0"/>
-                  <value value="50"/>
+                  <value value="1"/>
                 </properties>
               </component>
               <component id="7d7c8" class="javax.swing.JButton" binding="Rebirth">
@@ -100,14 +101,10 @@
               </component>
             </children>
           </grid>
-          <grid id="a4aa2" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-            <margin top="0" left="0" bottom="0" right="0"/>
+          <grid id="a4aa2" layout-manager="GridLayoutManager" row-count="5" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="10" right="0"/>
             <constraints>
-              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="500" height="-1"/>
-                <preferred-size width="596" height="581"/>
-                <maximum-size width="500" height="-1"/>
-              </grid>
+              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
               <enabled value="true"/>
@@ -118,7 +115,7 @@
               <grid id="1f510" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
-                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="1" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
                   <opaque value="false"/>
@@ -131,7 +128,7 @@
                     </constraints>
                     <properties>
                       <enabled value="true"/>
-                      <font name="Arial Black"/>
+                      <font name="Arial Black" size="40" style="1"/>
                       <text value="Knowledge: 0"/>
                     </properties>
                   </component>
@@ -143,6 +140,7 @@
                     </constraints>
                     <properties>
                       <enabled value="true"/>
+                      <font name="Arial" size="30" style="1"/>
                       <text value="KPS: 0"/>
                     </properties>
                   </component>
@@ -154,32 +152,45 @@
                     </constraints>
                     <properties>
                       <enabled value="true"/>
+                      <font name="Arial" size="30" style="1"/>
                       <text value="00 : 00"/>
                     </properties>
                   </component>
                 </children>
               </grid>
-              <component id="6b78c" class="javax.swing.JButton" binding="studyButton" default-binding="true">
+              <component id="2c25f" class="javax.swing.JLabel" binding="studyButton">
                 <constraints>
-                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="0" indent="0" use-parent-layout="false">
-                    <preferred-size width="300" height="300"/>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false">
+                    <preferred-size width="278" height="178"/>
                   </grid>
                 </constraints>
                 <properties>
-                  <enabled value="true"/>
-                  <focusTraversalPolicyProvider value="true"/>
-                  <hideActionText value="false"/>
-                  <text value="Study"/>
+                  <text value=""/>
                 </properties>
               </component>
               <component id="81bf7" class="javax.swing.JLabel" binding="MultiplierLabel">
                 <constraints>
-                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="1" fill="0" indent="0" use-parent-layout="false"/>
+                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="2" fill="0" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
+                  <font name="Arial" size="20" style="1"/>
                   <text value="Multiplier: 0"/>
                 </properties>
               </component>
+              <vspacer id="9bcfd">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                    <preferred-size width="-1" height="10"/>
+                  </grid>
+                </constraints>
+              </vspacer>
+              <vspacer id="86b33">
+                <constraints>
+                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                    <preferred-size width="-1" height="170"/>
+                  </grid>
+                </constraints>
+              </vspacer>
             </children>
           </grid>
           <grid id="4e827" layout-manager="FlowLayout" hgap="5" vgap="5" flow-align="1">
@@ -218,18 +229,16 @@
                     <children>
                       <component id="48eaa" class="javax.swing.JLabel" binding="lectureIconLabel">
                         <constraints>
-                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                            <preferred-size width="96" height="160"/>
-                          </grid>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <text value=""/>
                         </properties>
                       </component>
                       <grid id="4d464" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
-                        <margin top="0" left="0" bottom="0" right="0"/>
+                        <margin top="0" left="15" bottom="0" right="0"/>
                         <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="1" fill="1" indent="0" use-parent-layout="false">
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false">
                             <preferred-size width="338" height="-1"/>
                           </grid>
                         </constraints>
@@ -238,11 +247,12 @@
                         </properties>
                         <border type="none"/>
                         <children>
-                          <component id="8a212" class="javax.swing.JLabel" binding="lectureLabel">
+                          <component id="8a212" class="javax.swing.JLabel">
                             <constraints>
                               <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
+                              <font name="Arial" size="20" style="1"/>
                               <text value="Go to lectures"/>
                             </properties>
                           </component>
@@ -256,7 +266,7 @@
                           <component id="158cb" class="javax.swing.JProgressBar" binding="lectureTime">
                             <constraints>
                               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
-                                <preferred-size width="400" height="-1"/>
+                                <preferred-size width="380" height="-1"/>
                               </grid>
                             </constraints>
                             <properties>
@@ -282,15 +292,203 @@
                   <opaque value="false"/>
                 </properties>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <component id="8da25" class="javax.swing.JLabel" binding="hireStudentButton">
+                    <constraints border-constraint="West"/>
+                    <properties>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <grid id="2edbc" binding="studentButtonOverlay" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="20" bottom="0" right="0"/>
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="560b5" class="javax.swing.JLabel" binding="studentIconLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <grid id="f5fa3" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="15" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false">
+                            <preferred-size width="214" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <vspacer id="df625">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                                <preferred-size width="-1" height="25"/>
+                              </grid>
+                            </constraints>
+                          </vspacer>
+                          <component id="5c522" class="javax.swing.JLabel">
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font name="Arial" size="20" style="1"/>
+                              <text value="Hire Student"/>
+                            </properties>
+                          </component>
+                          <vspacer id="ef2fa">
+                            <constraints>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                                <preferred-size width="-1" height="90"/>
+                              </grid>
+                            </constraints>
+                          </vspacer>
+                          <component id="a8fc5" class="javax.swing.JLabel" binding="Price">
+                            <constraints>
+                              <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font name="Arial" size="20" style="1"/>
+                              <text value="0"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
+                      <grid id="85653" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="0" bottom="0" right="30"/>
+                        <constraints>
+                          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                            <preferred-size width="200" height="-1"/>
+                          </grid>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="cf6cc" class="javax.swing.JLabel" binding="numberOfStudentsLabel">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font name="Arial" size="36" style="1"/>
+                              <text value="0"/>
+                            </properties>
+                          </component>
+                        </children>
+                      </grid>
+                    </children>
+                  </grid>
+                </children>
               </grid>
-              <grid id="a0e30" binding="coursePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
+              <grid id="5e515" binding="coursePanel" layout-manager="BorderLayout" hgap="0" vgap="0">
                 <constraints/>
                 <properties>
                   <opaque value="false"/>
                 </properties>
                 <border type="none"/>
-                <children/>
+                <children>
+                  <component id="5f2e5" class="javax.swing.JLabel" binding="finishCourseButton">
+                    <constraints border-constraint="Center"/>
+                    <properties>
+                      <text value=""/>
+                    </properties>
+                  </component>
+                  <grid id="4b32e" binding="courseButtonOverlay" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                    <margin top="0" left="20" bottom="0" right="0"/>
+                    <constraints border-constraint="East"/>
+                    <properties>
+                      <opaque value="false"/>
+                    </properties>
+                    <border type="none"/>
+                    <children>
+                      <component id="10dc5" class="javax.swing.JLabel" binding="courseIconLabel">
+                        <constraints>
+                          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <grid id="c0d55" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                        <margin top="0" left="15" bottom="0" right="0"/>
+                        <constraints>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="9" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <opaque value="false"/>
+                        </properties>
+                        <border type="none"/>
+                        <children>
+                          <component id="a5d80" class="javax.swing.JLabel" binding="finishCourseLabel">
+                            <constraints>
+                              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <font name="Arial" size="20" style="1"/>
+                              <text value="Finish course"/>
+                            </properties>
+                          </component>
+                          <vspacer id="c1c3e">
+                            <constraints>
+                              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                                <preferred-size width="-1" height="25"/>
+                              </grid>
+                            </constraints>
+                          </vspacer>
+                          <component id="51570" class="javax.swing.JProgressBar" binding="KnowledgeProgressBar">
+                            <constraints>
+                              <grid row="3" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="6" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                                <preferred-size width="380" height="-1"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <opaque value="false"/>
+                              <value value="50"/>
+                            </properties>
+                          </component>
+                          <grid id="4854c" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                            <margin top="0" left="0" bottom="0" right="0"/>
+                            <constraints>
+                              <grid row="0" column="1" row-span="3" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+                                <preferred-size width="50" height="-1"/>
+                              </grid>
+                            </constraints>
+                            <properties>
+                              <opaque value="false"/>
+                            </properties>
+                            <border type="none"/>
+                            <children>
+                              <component id="63428" class="javax.swing.JLabel" binding="CourseNumberLabel">
+                                <constraints>
+                                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="6" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <font name="Arial" size="36" style="1"/>
+                                  <text value="0"/>
+                                </properties>
+                              </component>
+                            </children>
+                          </grid>
+                          <vspacer id="e1340">
+                            <constraints>
+                              <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                                <preferred-size width="-1" height="80"/>
+                              </grid>
+                            </constraints>
+                          </vspacer>
+                        </children>
+                      </grid>
+                    </children>
+                  </grid>
+                </children>
               </grid>
             </children>
           </grid>

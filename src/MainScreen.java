@@ -8,6 +8,8 @@ public class MainScreen extends javax.swing.JFrame {
     ImageIcon backgroundIcon = new ImageIcon("src/Recources/Background.png");
     ImageIcon lectureIcon = new ImageIcon("src/Recources/GoToLecture.png");
     ImageIcon buttonIcon = new ImageIcon("src/Recources/Button.png");
+    ImageIcon bookIcon = new ImageIcon("src/Recources/Book.png");
+    ImageIcon reportIcon = new ImageIcon("src/Recources/Report.png");
 
     private JPanel mainPanel; // bound to the .form file
     private JPanel mainContainer;
@@ -15,9 +17,11 @@ public class MainScreen extends javax.swing.JFrame {
 
     private JPanel lecturePanel;
     private JPanel studentPanel;
+    private JPanel studentButtonOverlay;
+    private JPanel lectureButtonOverlay;
+    private JPanel courseButtonOverlay;
     private JPanel coursePanel;
 
-    private JButton studyButton;
     private JButton Rebirth;
     private JButton Save;
     private JButton Exit;
@@ -28,19 +32,21 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel MultiplierLabel;
     private JLabel lectureIconLabel;
     private JLabel goToLectureButton;
-    private JPanel lectureButtonOverlay;
-    private JLabel lectureLabel;
-
-    private JLabel KPCLabel;
-    private JLabel KPC;
+    private JLabel studyButton;
+    private JLabel hireStudentButton;
+    private JLabel studentIconLabel;
+    private JLabel numberOfStudentsLabel;
     private JLabel Price;
-    private JLabel NumberOfStudents;
     private JLabel CourseNumberLabel;
+    private JLabel finishCourseButton;
+    private JLabel courseIconLabel;
+    private JLabel finishCourseLabel;
 
     public JProgressBar lectureTime;
     private JProgressBar KnowledgeProgressBar;
     private JProgressBar CourseProgress;
     private JProgressBar CreditProgress;
+
 
     public GameManager gameManager;
     public Player player;
@@ -69,27 +75,31 @@ public class MainScreen extends javax.swing.JFrame {
         background.setIcon(backgroundIcon);
         this.overlay(null, background, mainContainer, mainPanel, 1280, 800);
 
-        // format JLabels
-        TimeLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        knowledgeLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        KPSLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        MultiplierLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        // set buttons
+        studyButton.setIcon(bookIcon);
 
-        // set go to the lectures button
-        lectureLabel.setFont(new Font("", Font.BOLD, 15));
         lectureIconLabel.setIcon(lectureIcon);
         goToLectureButton.setIcon(buttonIcon);
         this.overlay(new BorderLayout(), goToLectureButton, lectureButtonOverlay, lecturePanel, 550, 200);
 
+        studentIconLabel.setIcon(lectureIcon);
+        hireStudentButton.setIcon(buttonIcon);
+        this.overlay(new BorderLayout(), hireStudentButton, studentButtonOverlay, studentPanel, 550, 200);
+
+        courseIconLabel.setIcon(lectureIcon);
+        finishCourseButton.setIcon(buttonIcon);
+        this.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay, coursePanel, 550, 200);
+
         // trigger studyButtonPressed() when the study button is clicked
-        studyButton.addActionListener(new ActionListener() {
+        studyButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 if (!player.inLecture) {
                     gameManager.studyButtonPressed();
                 }
             }
         });
+
 
         // trigger goToLectureButtonPressed when the go to the lectures button is pressed, render progress bar
         lecturePanel.addMouseListener(new MouseAdapter() {
@@ -102,37 +112,25 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-                // trigger addStudentButtonPressed() when the add student button is pressed
-//        addStudentButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (player.knowledge >= player.getStudentPrice()) {
-//                    gameManager.addStudentButtonPressed();
-//                }
-//            }
-//        });
+        // trigger addStudentButtonPressed() when the add student button is pressed
+        studentPanel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (player.knowledge >= player.getStudentPrice()) {
+                    gameManager.addStudentButtonPressed();
+                }
+            }
+        });
 
-
-//        goToLectureButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (!player.inLecture) {
-//                    gameManager.goToLectureButtonPressed();
-//                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
-//                }
-//            }
-//        });
-
-        // trigger finishCourseButtonPressed() when the finish course button is pressed
-//        finishCourseButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
-//                    gameManager.finishCourseButtonPressed();
-//                    player.knowledge -= gameManager.courseRequirement;
-//                }
-//            }
-//        });
+        finishCourseButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
+                    gameManager.finishCourseButtonPressed();
+                    player.knowledge -= gameManager.courseRequirement;
+                }
+            }
+        });
 
         // quit the program when the exit button is pressed
         Exit.addActionListener(new ActionListener() {
@@ -193,28 +191,33 @@ public class MainScreen extends javax.swing.JFrame {
         KPSLabel.setText("KPS: " + Math.round(player.kps));
         MultiplierLabel.setText("Multiplier: " + player.multiplier);
 
-
         // render course progression
         if (gameManager.courseNumber <= 3) {
-//            CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
-//            KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
+            CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
+            KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
             if (player.knowledge <= gameManager.courseRequirement) {
-//                KnowledgeProgressBar.setValue((int) Math.round(player.knowledge));
+                KnowledgeProgressBar.setValue((int) Math.round(player.knowledge));
+            } else {
+                KnowledgeProgressBar.setValue(gameManager.courseRequirement);
             }
         } else {
-            CourseNumberLabel.setText("Finished all Courses");
-//            KnowledgeProgressBar.setMaximum(100);
-//            KnowledgeProgressBar.setValue(100);
+            finishCourseLabel.setText("Finished all Courses");
+            KnowledgeProgressBar.setMaximum(100);
+            KnowledgeProgressBar.setValue(100);
         }
 
-
         // render go to lecture and add student attributes
-//        KPCLabel.setText(String.valueOf(player.kpc));
         lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
-//        Price.setText(String.valueOf(player.getStudentPrice()));
-//        NumberOfStudents.setText(String.valueOf(player.numStudents));
+        Price.setText(String.valueOf(player.getStudentPrice()));
+        numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
+
+        // render rebirth progress
+        if (gameManager.courseNumber <= 3) {
+            CourseProgress.setValue(gameManager.courseNumber - 1);
+        }
     }
 
+    // overlays a panel on top of a label
     public void overlay(LayoutManager layout, JLabel backdrop, JPanel container, JPanel parentPanel, int width, int height) {
         JLayeredPane new_layeredPane = new JLayeredPane();
         new_layeredPane.setPreferredSize(new Dimension(width, height));
