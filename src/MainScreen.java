@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import com.formdev.flatlaf.FlatDarkLaf;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
@@ -58,6 +59,10 @@ public class MainScreen extends javax.swing.JFrame {
 
 
     public MainScreen(Player p, GameManager gm, SaveFile saveFile, Rebirth rebirth) {
+        // flatlaf initialisation
+        FlatDarkLaf.setup();
+
+        // constructor
         this.player = p;
         this.gameManager = gm;
         this.saveFile = saveFile;
