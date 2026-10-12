@@ -9,6 +9,7 @@ public class MainScreen extends javax.swing.JFrame {
     ImageIcon lectureIcon = new ImageIcon("src/Recources/GoToLecture.png");
     ImageIcon buttonIcon = new ImageIcon("src/Recources/Button.png");
     ImageIcon bookIcon = new ImageIcon("src/Recources/Book.png");
+    ImageIcon nerrrdIcon = new ImageIcon("src/Recources/Nerrrd.png");
     ImageIcon reportIcon = new ImageIcon("src/Recources/Report.png");
 
     private JPanel mainPanel; // bound to the .form file
@@ -82,7 +83,7 @@ public class MainScreen extends javax.swing.JFrame {
         goToLectureButton.setIcon(buttonIcon);
         this.overlay(new BorderLayout(), goToLectureButton, lectureButtonOverlay, lecturePanel, 550, 200);
 
-        studentIconLabel.setIcon(lectureIcon);
+        studentIconLabel.setIcon(nerrrdIcon);
         hireStudentButton.setIcon(buttonIcon);
         this.overlay(new BorderLayout(), hireStudentButton, studentButtonOverlay, studentPanel, 550, 200);
 
