@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import com.formdev.flatlaf.FlatDarkLaf;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
@@ -59,14 +60,15 @@ public class MainScreen extends javax.swing.JFrame {
 
 
     public MainScreen(Player p, GameManager gm, SaveFile saveFile, Rebirth rebirth) {
-        // flatlaf initialisation
-        FlatDarkLaf.setup();
-
         // constructor
         this.player = p;
         this.gameManager = gm;
         this.saveFile = saveFile;
         this.rebirth = rebirth;
+
+        // pixel art progress bars
+        applyPixelStyle(lectureTime, "bar_track.png", "bar_fill.png");
+        applyPixelStyle(KnowledgeProgressBar, "bar_track.png", "bar_fill.png");
 
         // set properties of JPanel and create the main screen
         setContentPane(mainPanel);
@@ -202,6 +204,8 @@ public class MainScreen extends javax.swing.JFrame {
         KPSLabel.setText("KPS: " + Math.round(player.kps));
         MultiplierLabel.setText(String.format("Multiplier: %.2f", player.multiplier));
 
+
+
         // render course progression
         if (gameManager.courseNumber <= 3) {
             CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
@@ -240,5 +244,29 @@ public class MainScreen extends javax.swing.JFrame {
         new_layeredPane.add(container, JLayeredPane.PALETTE_LAYER);
         parentPanel.setLayout(layout);
         parentPanel.add(new_layeredPane);
+    }
+
+    // loads a PNG from the Recources folder
+    private BufferedImage loadImage(String name) {
+        try {
+            return ImageIO.read(getClass().getResource("/Recources/" + name));
+        } catch (Exception e) {
+            System.err.println("Could not load /Recources/" + name);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // swaps a progress bar's look for the PNG version
+    // track = empty bar
+    // fill = full bar
+    private void applyPixelStyle(JProgressBar bar, String trackName, String fillName) {
+        BufferedImage track = loadImage(trackName);
+        BufferedImage fill = loadImage(fillName);
+        if (track == null || fill == null) return;   // keep the default look if loading failed
+
+        bar.setUI(new ImageProgressBarUI(track, fill));
+        bar.setBorderPainted(false);
+        bar.setOpaque(false);
     }
 }
