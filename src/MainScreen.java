@@ -127,6 +127,11 @@ public class MainScreen extends javax.swing.JFrame {
             public void mouseReleased(MouseEvent e) {
                 if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
                     gameManager.finishCourseButtonPressed();
+                    if (gameManager.courseNumber <= 3) {
+                        player.multiplier += 0.05;
+                    } else {
+                        player.multiplier += 0.1;
+                    }
                     player.knowledge -= gameManager.courseRequirement;
                 }
             }
@@ -174,7 +179,7 @@ public class MainScreen extends javax.swing.JFrame {
         int minutes = (int) Math.ceil(this.gameManager.time) / 60;
 
         // update knowledge
-        player.knowledge += player.kps * dt;
+        player.knowledge += player.kps * player.multiplier * dt;
 
         // update course requirement
         gameManager.setCourseRequirement();
@@ -189,7 +194,7 @@ public class MainScreen extends javax.swing.JFrame {
         // render knowledge, kps and multiplier
         knowledgeLabel.setText((int)player.knowledge + " Knowledge");
         KPSLabel.setText("KPS: " + Math.round(player.kps));
-        MultiplierLabel.setText("Multiplier: " + player.multiplier);
+        MultiplierLabel.setText(String.format("Multiplier: %.2f", player.multiplier));
 
         // render course progression
         if (gameManager.courseNumber <= 3) {
@@ -200,6 +205,7 @@ public class MainScreen extends javax.swing.JFrame {
             } else {
                 KnowledgeProgressBar.setValue(gameManager.courseRequirement);
             }
+            finishCourseLabel.setText("Finish course");
         } else {
             finishCourseLabel.setText("Finished all Courses");
             KnowledgeProgressBar.setMaximum(100);
