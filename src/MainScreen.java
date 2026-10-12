@@ -7,12 +7,12 @@ import java.awt.image.BufferedImage;
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
     // importing icons
-    ImageIcon backgroundIcon = new ImageIcon("src/Recources/Background.png");
-    ImageIcon lectureIcon = new ImageIcon("src/Recources/GoToLecture.png");
-    ImageIcon buttonIcon = new ImageIcon("src/Recources/Button.png");
-    ImageIcon bookIcon = new ImageIcon("src/Recources/Book.png");
-    ImageIcon nerrrdIcon = new ImageIcon("src/Recources/Nerrrd.png");
-    ImageIcon reportIcon = new ImageIcon("src/Recources/Report.png");
+    ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/Recources/Background.png"));
+    ImageIcon lectureIcon = new ImageIcon(getClass().getResource("/Recources/GoToLecture.png"));
+    ImageIcon buttonIcon = new ImageIcon(getClass().getResource("/Recources/Button.png"));
+    ImageIcon bookIcon = new ImageIcon(getClass().getResource("/Recources/Book.png"));
+    ImageIcon nerrrdIcon = new ImageIcon(getClass().getResource("/Recources/Nerrrd.png"));
+    ImageIcon reportIcon = new ImageIcon(getClass().getResource("/Recources/Report.png"));
 
     private JPanel mainPanel; // bound to the .form file
     private JPanel mainContainer;
@@ -20,35 +20,35 @@ public class MainScreen extends javax.swing.JFrame {
 
     private JPanel lecturePanel;
     private JPanel studentPanel;
-    private JPanel studentButtonOverlay;
-    private JPanel lectureButtonOverlay;
-    private JPanel courseButtonOverlay;
     private JPanel coursePanel;
+    private JPanel lectureButtonOverlay;
+    private JPanel studentButtonOverlay;
+    private JPanel courseButtonOverlay;
 
-    private JButton Rebirth;
-    private JButton Save;
-    private JButton Exit;
+    private JButton rebirthButton;
+    private JButton saveButton;
+    private JButton exitButton;
 
     private JLabel knowledgeLabel;
-    private JLabel KPSLabel;
-    private JLabel TimeLabel;
-    private JLabel MultiplierLabel;
+    private JLabel kpsLabel;
+    private JLabel timeLabel;
+    private JLabel multiplierLabel;
     private JLabel lectureIconLabel;
     private JLabel goToLectureButton;
     private JLabel studyButton;
     private JLabel hireStudentButton;
     private JLabel studentIconLabel;
     private JLabel numberOfStudentsLabel;
-    private JLabel Price;
-    private JLabel CourseNumberLabel;
+    private JLabel price;
+    private JLabel courseNumberLabel;
     private JLabel finishCourseButton;
     private JLabel courseIconLabel;
     private JLabel finishCourseLabel;
 
     public JProgressBar lectureTime;
-    private JProgressBar KnowledgeProgressBar;
-    private JProgressBar CourseProgress;
-    private JProgressBar CreditProgress;
+    private JProgressBar courseProgress;
+    private JProgressBar rebirthProgress;
+    private JProgressBar creditProgress;
 
 
     public GameManager gameManager;
@@ -68,7 +68,12 @@ public class MainScreen extends javax.swing.JFrame {
 
         // pixel art progress bars
         applyPixelStyle(lectureTime, "bar_track.png", "bar_fill.png");
-        applyPixelStyle(KnowledgeProgressBar, "bar_track.png", "bar_fill.png");
+        applyPixelStyle(courseProgress, "bar_track.png", "bar_fill.png");
+        applyPixelStyle(rebirthProgress, "bar_track.png", "bar_fill.png");
+
+        lectureTime.setValue(0);
+        courseProgress.setValue(0);
+        rebirthProgress.setValue(0);
 
         // set properties of JPanel and create the main screen
         setContentPane(mainPanel);
@@ -108,7 +113,6 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-
         // trigger goToLectureButtonPressed when the go to the lectures button is pressed, render progress bar
         lecturePanel.addMouseListener(new MouseAdapter() {
             @Override
@@ -146,7 +150,7 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // quit the program when the exit button is pressed
-        Exit.addActionListener(new ActionListener() {
+        exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
@@ -154,7 +158,7 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // open the save popup menu when the save button is pressed
-        Save.addActionListener(new ActionListener() {
+        saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
@@ -162,7 +166,7 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // open the rebirth popup menu when the rebirth button is pressed
-        Rebirth.addActionListener(new ActionListener() {
+        rebirthButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RebirthPopup rebirthPopup = new RebirthPopup(self, p, gm, saveFile);
@@ -194,42 +198,40 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render clock
         if (seconds >= 10) {
-            TimeLabel.setText(minutes + " : " + seconds);
+            timeLabel.setText(minutes + " : " + seconds);
         } else {
-            TimeLabel.setText(minutes + " : 0" + seconds);
+            timeLabel.setText(minutes + " : 0" + seconds);
         }
 
         // render knowledge, kps and multiplier
         knowledgeLabel.setText((int)player.knowledge + " Knowledge");
-        KPSLabel.setText("KPS: " + Math.round(player.kps));
-        MultiplierLabel.setText(String.format("Multiplier: %.2f", player.multiplier));
-
-
+        kpsLabel.setText("KPS: " + Math.round(player.kps));
+        multiplierLabel.setText(String.format("Multiplier: %.2f", player.multiplier));
 
         // render course progression
         if (gameManager.courseNumber <= 3) {
-            CourseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
-            KnowledgeProgressBar.setMaximum(gameManager.courseRequirement);
+            courseNumberLabel.setText(String.valueOf(gameManager.courseNumber));
+            courseProgress.setMaximum(gameManager.courseRequirement);
             if (player.knowledge <= gameManager.courseRequirement) {
-                KnowledgeProgressBar.setValue((int) Math.round(player.knowledge));
+                courseProgress.setValue((int) Math.round(player.knowledge));
             } else {
-                KnowledgeProgressBar.setValue(gameManager.courseRequirement);
+                courseProgress.setValue(gameManager.courseRequirement);
             }
             finishCourseLabel.setText("Finish course");
         } else {
             finishCourseLabel.setText("Finished all Courses");
-            KnowledgeProgressBar.setMaximum(100);
-            KnowledgeProgressBar.setValue(100);
+            courseProgress.setMaximum(100);
+            courseProgress.setValue(100);
         }
 
         // render go to lecture and add student attributes
         lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
-        Price.setText(String.valueOf(player.getStudentPrice()));
+        price.setText(String.valueOf(player.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
         // render rebirth progress
         if (gameManager.courseNumber <= 3) {
-            CourseProgress.setValue(gameManager.courseNumber - 1);
+            rebirthProgress.setValue(gameManager.courseNumber - 1);
         }
     }
 
