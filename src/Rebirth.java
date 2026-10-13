@@ -30,6 +30,7 @@ public class Rebirth {
         player.inLecture = false;
 
         gameManager.lectureTime = 0;
+        gameManager.lectureLength = 0;
 
         if (mode == 0) {
             gameManager.quartile++;

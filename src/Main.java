@@ -6,8 +6,6 @@ void main() {
     Player p = new Player();
     SaveFile save = new SaveFile();
     GameManager gm = new GameManager(p);
-    Rebirth r = new Rebirth();
-    MainScreen ms = new MainScreen(p, gm, save, r);
 
     // save file loading in
     try {
@@ -16,6 +14,8 @@ void main() {
         e.printStackTrace();
     }
 
+    Rebirth r = new Rebirth();
+    MainScreen ms = new MainScreen(p, gm, save, r);
 
     // timer
     Timer timer = new Timer(16, e -> {

@@ -72,6 +72,7 @@ public class MainScreen extends javax.swing.JFrame {
         applyPixelStyle(rebirthProgress, "bar_track.png", "bar_fill.png");
 
         lectureTime.setValue(0);
+        lectureTime.setMaximum(gameManager.lectureLength);
         courseProgress.setValue(0);
         rebirthProgress.setValue(0);
 
@@ -119,7 +120,7 @@ public class MainScreen extends javax.swing.JFrame {
             public void mouseReleased(MouseEvent e) {
                 if (!player.inLecture) {
                     gameManager.goToLectureButtonPressed();
-                    lectureTime.setMaximum((int) Math.ceil(gameManager.lectureTime));
+                    lectureTime.setMaximum(gameManager.lectureLength);
                 }
             }
         });

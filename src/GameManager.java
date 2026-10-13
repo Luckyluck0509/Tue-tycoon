@@ -4,6 +4,7 @@ public class GameManager {
     double deltaTime = 1;
 
     public double lectureTime = 0;
+    public int lectureLength = 0;
     public double time = 3600;
 
     public int quartile = 1;
@@ -27,6 +28,7 @@ public class GameManager {
         player.inLecture = true;
         player.kpc *= 2;
         lectureTime = Math.pow(player.kpc, 1.2);
+        lectureLength = (int) lectureTime;
     }
 
     // hires a student, increases kps
