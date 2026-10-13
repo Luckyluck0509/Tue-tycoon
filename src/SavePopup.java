@@ -48,9 +48,10 @@ public class SavePopup extends javax.swing.JFrame {
             reader.nextLine();
             date = reader.nextLine();
         } catch (IOException error) {
+            date = "No savefile found";
             error.printStackTrace();
         } catch (Exception error) {
-            date = "No savefile found";
+            date = "Empty savefile";
             error.printStackTrace();
         }
 
