@@ -32,13 +32,13 @@ public class GameManager {
     // hires a student, increases kps
     public void addStudentButtonPressed() {
         Student student = new Student(player.getStudentPrice(), player);
-        player.numStudents += 1;
+        player.numStudents *= 2;
         player.kps += (student.kps * player.multiplier);
     }
 
     // sets course to finished
     public void finishCourseButtonPressed() {
-        this.courses[quartile][this.courseNumber - 1] = true;
+        this.courses[quartile - 1][this.courseNumber - 1] = true;
         this.courseNumber += 1;
     }
 
