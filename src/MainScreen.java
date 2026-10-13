@@ -45,7 +45,7 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel courseIconLabel;
     private JLabel finishCourseLabel;
 
-    public JProgressBar lectureTime;
+    public JProgressBar lectureProgress;
     private JProgressBar courseProgress;
     private JProgressBar rebirthProgress;
     private JProgressBar creditProgress;
@@ -67,12 +67,12 @@ public class MainScreen extends javax.swing.JFrame {
         this.rebirth = rebirth;
 
         // pixel art progress bars
-        applyPixelStyle(lectureTime, "bar_track.png", "bar_fill.png");
+        applyPixelStyle(lectureProgress, "bar_track.png", "bar_fill.png");
         applyPixelStyle(courseProgress, "bar_track.png", "bar_fill.png");
         applyPixelStyle(rebirthProgress, "bar_track.png", "bar_fill.png");
 
-        lectureTime.setValue(0);
-        lectureTime.setMaximum(gameManager.lectureLength);
+        lectureProgress.setValue(0);
+        lectureProgress.setMaximum(gameManager.lectureLength);
         courseProgress.setValue(0);
         rebirthProgress.setValue(0);
 
@@ -120,7 +120,7 @@ public class MainScreen extends javax.swing.JFrame {
             public void mouseReleased(MouseEvent e) {
                 if (!player.inLecture) {
                     gameManager.goToLectureButtonPressed();
-                    lectureTime.setMaximum(gameManager.lectureLength);
+                    lectureProgress.setMaximum(gameManager.lectureLength);
                 }
             }
         });
@@ -226,7 +226,7 @@ public class MainScreen extends javax.swing.JFrame {
         }
 
         // render go to lecture and add student attributes
-        lectureTime.setValue((int) Math.ceil(gameManager.lectureTime));
+        lectureProgress.setValue((int) Math.ceil(gameManager.lectureTime));
         price.setText(String.valueOf(player.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
