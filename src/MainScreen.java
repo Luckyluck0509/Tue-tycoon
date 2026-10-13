@@ -63,6 +63,8 @@ public class MainScreen extends javax.swing.JFrame {
     public SaveFile saveFile;
     public MainScreen self = this;
     public Rebirth rebirth;
+    public double sleepTime;
+
     public double dt;
 
 
@@ -186,6 +188,7 @@ public class MainScreen extends javax.swing.JFrame {
         exitPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                resetFeedback();
                 System.exit(0);
             }
         });
@@ -208,6 +211,12 @@ public class MainScreen extends javax.swing.JFrame {
             player.inLecture = false;
         } else {
             gameManager.lectureTime -= dt;
+        }
+
+        // count down sleep timer
+        this.sleepTime -= dt;
+        if (this.sleepTime <= 0) {
+            resetFeedback();
         }
 
         // update clock
@@ -296,5 +305,14 @@ public class MainScreen extends javax.swing.JFrame {
         bar.setUI(new ImageProgressBarUI(track, fill));
         bar.setBorderPainted(false);
         bar.setOpaque(false);
+    }
+
+    public void feedback(String message) {
+        feedbackLabel.setText(message);
+        this.sleepTime = 5.0;
+    }
+
+    public void resetFeedback() {
+        feedbackLabel.setText("");
     }
 }

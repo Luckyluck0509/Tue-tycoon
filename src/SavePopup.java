@@ -64,8 +64,10 @@ public class SavePopup extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     saveFile.save(player, gameManager, mainScreen);
+                    mainScreen.feedback("Successful save");
                 } catch (IOException error) {
                     error.printStackTrace();
+                    mainScreen.feedback("IOException error, try again");
                 }
                 closePopup();
             }
@@ -77,6 +79,7 @@ public class SavePopup extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 Rebirth rebirth = new Rebirth();
                 rebirth.reset(gameManager, player, 1);
+                mainScreen.feedback("Successful reset");
                 closePopup();
             }
         });

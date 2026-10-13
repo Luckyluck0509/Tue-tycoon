@@ -61,9 +61,9 @@ public class RebirthPopup extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (gameManager.courseNumber > 2) {
                     rebirth.RebirthAction(gameManager, player);
+                    mainScreen.feedback("Successful rebirth");
                     closePopup();
                 }
-
             }
         });
     }
