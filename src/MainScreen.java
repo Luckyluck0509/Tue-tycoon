@@ -3,16 +3,18 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
     // importing icons
-    ImageIcon backgroundIcon = new ImageIcon(getClass().getResource("/Recources/Background.png"));
-    ImageIcon lectureIcon = new ImageIcon(getClass().getResource("/Recources/GoToLecture.png"));
-    ImageIcon buttonIcon = new ImageIcon(getClass().getResource("/Recources/Button.png"));
-    ImageIcon bookIcon = new ImageIcon(getClass().getResource("/Recources/Book.png"));
-    ImageIcon nerrrdIcon = new ImageIcon(getClass().getResource("/Recources/Nerrrd.png"));
-    ImageIcon reportIcon = new ImageIcon(getClass().getResource("/Recources/Report.png"));
+    ImageIcon backgroundIcon;
+    ImageIcon lectureIcon;
+    ImageIcon upgradeButtonIcon;
+    ImageIcon buttonIcon;
+    ImageIcon bookIcon;
+    ImageIcon nerrrdIcon;
+    ImageIcon reportIcon;
 
     private JPanel mainPanel; // bound to the .form file
     private JPanel mainContainer;
@@ -24,10 +26,12 @@ public class MainScreen extends javax.swing.JFrame {
     private JPanel lectureButtonOverlay;
     private JPanel studentButtonOverlay;
     private JPanel courseButtonOverlay;
+    private JPanel savePanel;
+    private JPanel saveButtonOverlay;
+    private JPanel exitPanel;
+    private JPanel exitButtonOverlay;
 
     private JButton rebirthButton;
-    private JButton saveButton;
-    private JButton exitButton;
 
     private JLabel knowledgeLabel;
     private JLabel kpsLabel;
@@ -45,6 +49,9 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel finishCourseButton;
     private JLabel courseIconLabel;
     private JLabel finishCourseLabel;
+    private JLabel saveButton;
+    private JLabel exitButton;
+    private JLabel feedbackLabel;
 
     public JProgressBar lectureProgress;
     private JProgressBar courseProgress;
@@ -65,6 +72,19 @@ public class MainScreen extends javax.swing.JFrame {
         this.gameManager = gm;
         this.saveFile = saveFile;
         this.rebirth = rebirth;
+
+        try {
+            backgroundIcon = new ImageIcon(getClass().getResource("/Recources/Background.png"));
+            lectureIcon = new ImageIcon(getClass().getResource("/Recources/GoToLecture.png"));
+            upgradeButtonIcon = new ImageIcon(getClass().getResource("/Recources/Button.png"));
+            buttonIcon = new ImageIcon(getClass().getResource("/Recources/Button2.png"));
+            bookIcon = new ImageIcon(getClass().getResource("/Recources/Book.png"));
+            nerrrdIcon = new ImageIcon(getClass().getResource("/Recources/Nerrrd.png"));
+            reportIcon = new ImageIcon(getClass().getResource("/Recources/Report.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         // pixel art progress bars
         applyPixelStyle(lectureProgress, "bar_track.png", "bar_fill.png");
@@ -93,16 +113,22 @@ public class MainScreen extends javax.swing.JFrame {
         studyButton.setIcon(bookIcon);
 
         lectureIconLabel.setIcon(lectureIcon);
-        goToLectureButton.setIcon(buttonIcon);
+        goToLectureButton.setIcon(upgradeButtonIcon);
         this.overlay(new BorderLayout(), goToLectureButton, lectureButtonOverlay, lecturePanel, 550, 200);
 
         studentIconLabel.setIcon(nerrrdIcon);
-        hireStudentButton.setIcon(buttonIcon);
+        hireStudentButton.setIcon(upgradeButtonIcon);
         this.overlay(new BorderLayout(), hireStudentButton, studentButtonOverlay, studentPanel, 550, 200);
 
         courseIconLabel.setIcon(reportIcon);
-        finishCourseButton.setIcon(buttonIcon);
+        finishCourseButton.setIcon(upgradeButtonIcon);
         this.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay, coursePanel, 550, 200);
+
+        saveButton.setIcon(buttonIcon);
+        this.overlay(new BorderLayout(), saveButton, saveButtonOverlay, savePanel, 280, 45);
+
+        exitButton.setIcon(buttonIcon);
+        this.overlay(new BorderLayout(), exitButton, exitButtonOverlay, exitPanel, 280, 45);
 
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
@@ -150,19 +176,17 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        // quit the program when the exit button is pressed
-        exitButton.addActionListener(new ActionListener() {
+        savePanel.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
+            public void mouseReleased(MouseEvent e) {
+                SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
             }
         });
 
-        // open the save popup menu when the save button is pressed
-        saveButton.addActionListener(new ActionListener() {
+        exitPanel.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
+            public void mouseReleased(MouseEvent e) {
+                System.exit(0);
             }
         });
 
