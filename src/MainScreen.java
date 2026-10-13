@@ -35,6 +35,7 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel multiplierLabel;
     private JLabel lectureIconLabel;
     private JLabel goToLectureButton;
+    private JLabel kpcLabel;
     private JLabel studyButton;
     private JLabel hireStudentButton;
     private JLabel studentIconLabel;
@@ -49,7 +50,6 @@ public class MainScreen extends javax.swing.JFrame {
     private JProgressBar courseProgress;
     private JProgressBar rebirthProgress;
     private JProgressBar creditProgress;
-
 
     public GameManager gameManager;
     public Player player;
@@ -82,7 +82,7 @@ public class MainScreen extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1280, 828);
         setLocationRelativeTo(null);
-        setResizable(true);
+        setResizable(false);
         setVisible(true);
 
         // set background
@@ -100,7 +100,7 @@ public class MainScreen extends javax.swing.JFrame {
         hireStudentButton.setIcon(buttonIcon);
         this.overlay(new BorderLayout(), hireStudentButton, studentButtonOverlay, studentPanel, 550, 200);
 
-        courseIconLabel.setIcon(lectureIcon);
+        courseIconLabel.setIcon(reportIcon);
         finishCourseButton.setIcon(buttonIcon);
         this.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay, coursePanel, 550, 200);
 
@@ -227,6 +227,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render go to lecture and add student attributes
         lectureProgress.setValue((int) Math.ceil(gameManager.lectureTime));
+        kpcLabel.setText(String.valueOf(player.kpc));
         price.setText(String.valueOf(player.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
