@@ -49,6 +49,9 @@ public class SavePopup extends javax.swing.JFrame {
             date = reader.nextLine();
         } catch (IOException error) {
             error.printStackTrace();
+        } catch (Exception error) {
+            date = "No savefile found";
+            error.printStackTrace();
         }
 
         dateLabel.setText(date);
