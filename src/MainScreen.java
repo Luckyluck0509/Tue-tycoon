@@ -63,8 +63,9 @@ public class MainScreen extends javax.swing.JFrame {
     public SaveFile saveFile;
     public MainScreen self = this;
     public Rebirth rebirth;
-    public double sleepTime;
+    public BsaPopup bsaPopup;
 
+    public double sleepTime;
     public double dt;
 
 
@@ -74,6 +75,7 @@ public class MainScreen extends javax.swing.JFrame {
         this.gameManager = gm;
         this.saveFile = saveFile;
         this.rebirth = rebirth;
+        bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
 
         try {
             backgroundIcon = new ImageIcon(getClass().getResource("/Recources/Background.png"));
@@ -267,6 +269,11 @@ public class MainScreen extends javax.swing.JFrame {
         // render rebirth progress
         if (gameManager.courseNumber <= 3) {
             rebirthProgress.setValue(gameManager.courseNumber - 1);
+        }
+
+        // trigger bsaReport
+        if (gameManager.time <= 0 || gameManager.quartile > 4) {
+            bsaPopup.triggerReport();
         }
     }
 

@@ -22,8 +22,9 @@ void main() {
         long currentTime = System.nanoTime();
         gm.deltaTime = (currentTime - lastTime) / 1000000000.0;
         lastTime = currentTime;
-
-        ms.update();
+        if (gm.time >= 0 && gm.quartile <= 4) {
+            ms.update();
+        }
     });
 
     timer.start();
