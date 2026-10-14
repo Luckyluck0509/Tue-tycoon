@@ -79,7 +79,6 @@ public class BsaPopup extends javax.swing.JFrame {
         timeLabel.setText(String.format("You completed this year in %d minutes and %d seconds.", minutes, seconds));
 
         setVisible(true);
-
     }
 
     void closePopup() {
