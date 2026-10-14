@@ -129,10 +129,12 @@ public class MainScreen extends javax.swing.JFrame {
         this.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay, coursePanel, 550, 200);
 
         saveButton.setIcon(buttonIcon);
-        this.overlay(new BorderLayout(), saveButton, saveButtonOverlay, savePanel, 280, 45);
+        this.overlay(new BorderLayout(), saveButton, saveButtonOverlay, savePanel, 280, 40);
+        saveButtonOverlay.setBounds(0, -6, 280, 40);
 
         exitButton.setIcon(buttonIcon);
-        this.overlay(new BorderLayout(), exitButton, exitButtonOverlay, exitPanel, 280, 45);
+        this.overlay(new BorderLayout(), exitButton, exitButtonOverlay, exitPanel, 280, 40);
+        exitButtonOverlay.setBounds(0, -6, 280, 40);
 
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
