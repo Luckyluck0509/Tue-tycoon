@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -9,6 +10,9 @@ public class BsaPopup extends javax.swing.JFrame {
     private JPanel buttonPanel;
     private JPanel topPanel;
     private JPanel middlePanel;
+    private JPanel tableOverlay;
+    private JPanel tablePanel;
+    private JPanel bsaContainer;
     private JLabel tableBackground;
     private JLabel q1c1;
     private JLabel q1c2;
@@ -26,39 +30,73 @@ public class BsaPopup extends javax.swing.JFrame {
     private JLabel totalKnowledgeLabel;
     private JLabel lecturesAttendedLabel;
     private JLabel studentsHiredLabel;
-    private JLabel yearCompleteLabel;
-    private JLabel passedLabel;
     private JLabel creditsLabel;
     private JLabel timeLabel;
-    private JPanel bsaContainer;
     private JLabel background;
-    private JPanel tableOverlay;
-    private JPanel tablePanel;
+    private JLabel exitButton;
+    private JLabel restartButton;
 
-    public GameManager gm;
-    public Player p;
-    public MainScreen ms;
+    public GameManager gameManager;
+    public Player player;
+    public MainScreen mainScreen;
     public SaveFile save;
     public Rebirth rebirth;
 
     ImageIcon bsaBackground;
     ImageIcon yearTable;
+    ImageIcon exitIcon;
+    ImageIcon restartIcon;
     ImageIcon crossIcon;
     ImageIcon checkIcon;
+    ImageIcon gradeAPlus;
+    ImageIcon gradeA;
+    ImageIcon gradeAMinus;
+    ImageIcon gradeBPlus;
+    ImageIcon gradeB;
+    ImageIcon gradeBMinus;
+    ImageIcon gradeCPlus;
+    ImageIcon gradeC;
+    ImageIcon gradeCMinus;
+    ImageIcon gradeDPlus;
+    ImageIcon gradeD;
+    ImageIcon gradeDMinus;
+    ImageIcon gradeFPlus;
+    ImageIcon gradeF;
+    ImageIcon gradeFMinus;
+    ImageIcon gradeZ;
 
     public BsaPopup(MainScreen mainScreen, GameManager gameManager, Player player, SaveFile saveFile) {
         // constructor
-        this.ms = mainScreen;
-        this.gm = gameManager;
-        this.p = player;
+        this.mainScreen = mainScreen;
+        this.gameManager = gameManager;
+        this.player = player;
         this.save = saveFile;
         this.rebirth = mainScreen.rebirth;
 
         try {
-            bsaBackground = new ImageIcon(getClass().getResource("/Resources/RebirthBackground.png"));
-            yearTable = new ImageIcon(getClass().getResource("/Resources/YearTable.png"));
-            crossIcon = new ImageIcon(getClass().getResource("/Resources/Cross.png"));
-            checkIcon = new ImageIcon(getClass().getResource("/Resources/Check.png"));
+            bsaBackground = new ImageIcon(getClass().getResource("/Recources/RebirthBackground.png"));
+            yearTable = new ImageIcon(getClass().getResource("/Recources/YearTable.png"));
+            exitIcon = new ImageIcon(getClass().getResource("/Recources/ExitPost-It.png"));
+            restartIcon = new ImageIcon(getClass().getResource("/Recources/ResetPost-It.png"));
+            crossIcon = new ImageIcon(getClass().getResource("/Recources/Cross.png"));
+            checkIcon = new ImageIcon(getClass().getResource("/Recources/Check.png"));
+
+            gradeAPlus = new ImageIcon(getClass().getResource("/Recources/grades/A+.png"));
+            gradeA = new ImageIcon(getClass().getResource("/Recources/grades/A.png"));
+            gradeAMinus = new ImageIcon(getClass().getResource("/Recources/grades/A-.png"));
+            gradeBPlus = new ImageIcon(getClass().getResource("/Recources/grades/B+.png"));
+            gradeB = new ImageIcon(getClass().getResource("/Recources/grades/B.png"));
+            gradeBMinus = new ImageIcon(getClass().getResource("/Recources/grades/B-.png"));
+            gradeCPlus = new ImageIcon(getClass().getResource("/Recources/grades/C+.png"));
+            gradeC = new ImageIcon(getClass().getResource("/Recources/grades/C.png"));
+            gradeCMinus = new ImageIcon(getClass().getResource("/Recources/grades/C-.png"));
+            gradeDPlus = new ImageIcon(getClass().getResource("/Recources/grades/D+.png"));
+            gradeD = new ImageIcon(getClass().getResource("/Recources/grades/D.png"));
+            gradeDMinus = new ImageIcon(getClass().getResource("/Recources/grades/D-.png"));
+            gradeFPlus = new ImageIcon(getClass().getResource("/Recources/grades/F+.png"));
+            gradeF = new ImageIcon(getClass().getResource("/Recources/grades/F.png"));
+            gradeFMinus = new ImageIcon(getClass().getResource("/Recources/grades/F-.png"));
+            gradeZ = new ImageIcon(getClass().getResource("/Recources/grades/Z.png"));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -66,13 +104,15 @@ public class BsaPopup extends javax.swing.JFrame {
 
         setContentPane(bsaPanel);
 
-
-        // set background
+        // set assets
         background.setIcon(bsaBackground);
-        this.ms.overlay(null, background, bsaContainer, bsaPanel, 600, 470);
+        this.mainScreen.overlay(null, background, bsaContainer, bsaPanel, 600, 470);
 
         tableBackground.setIcon(yearTable);
-        this.ms.overlay(null, tableBackground, tableOverlay, tablePanel, 267, 192);
+        this.mainScreen.overlay(null, tableBackground, tableOverlay, tablePanel, 267, 192);
+
+        exitButton.setIcon(exitIcon);
+        restartButton.setIcon(restartIcon);
 
         // JPanel attributes
         setTitle("BSA Report");
@@ -81,22 +121,22 @@ public class BsaPopup extends javax.swing.JFrame {
         setLocationRelativeTo(mainScreen);
         setResizable(false);
 
-        //Restart button
-        RESTARTButton.addActionListener(new ActionListener() {
+        // restart button
+        restartButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 rebirth.reset(gameManager, player, 1);
                 closePopup();
             }
         });
 
-
-        EXITButton.addActionListener(new ActionListener() {
+        // exit button
+        exitButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 rebirth.reset(gameManager, player, 1);
                 try {
-                    save.save(p, gm, ms);
+                    save.save(BsaPopup.this.player, BsaPopup.this.gameManager, BsaPopup.this.mainScreen);
                 } catch (IOException error) {
                     JOptionPane.showMessageDialog(mainScreen, "Error resetting");
                     error.printStackTrace();
@@ -108,41 +148,95 @@ public class BsaPopup extends javax.swing.JFrame {
 
     public void triggerReport() {
         // Total credits label
-        creditsLabel.setText(String.format("Total credits: %d/60", p.creditProgress));
+        creditsLabel.setText(String.format("Total credits: %d/60", player.creditProgress));
 
         // time label
-        int remaining = (int) Math.ceil(this.gm.time);
+        int remaining = (int) Math.ceil(this.gameManager.time);
         int elapsed = 3600 - remaining;
         int minutes = elapsed / 60;
         int seconds = elapsed % 60;
         timeLabel.setText(String.format("Time taken: %02d:%02d", minutes, seconds));
 
         // lectures label
-        lecturesAttendedLabel.setText(String.format("Lectures attended: %d", p.lecturesAttended));
+        lecturesAttendedLabel.setText(String.format("Lectures attended: %d", player.lecturesAttended));
 
         // students label
-        studentsHiredLabel.setText(String.format("Students hired: %d", p.studentsHired));
+        studentsHiredLabel.setText(String.format("Students hired: %d", player.studentsHired));
 
         // knowledge label
-        totalKnowledgeLabel.setText(String.format("Total knowledge: %.0f", p.totalKnowledge));
+        totalKnowledgeLabel.setText(String.format("Total knowledge: %.0f", player.totalKnowledge));
 
         // courses completion grid
         JLabel[][] labels = {{q1c1, q1c2, q1c3}, {q2c1, q2c2, q2c3}, {q3c1, q3c2, q3c3}, {q4c1, q4c2, q4c3}};
-
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gm.courses[i][j]) {
+                if (gameManager.courses[i][j]) {
                     labels[i][j].setIcon(checkIcon);
                 } else {
                     labels[i][j].setIcon(crossIcon);
                 }
             }
         }
+        setGradeCircle();
 
         setVisible(true);
     }
 
     void closePopup() {
         this.dispose();
+    }
+
+    public void setGradeCircle() {
+        switch (player.creditProgress) {
+            case 60 -> {
+                if (player.totalKnowledge >= 2000000) {
+                    gradeCircle.setIcon(gradeAPlus);
+                } else if (player.totalKnowledge >= 1800000) {
+                    gradeCircle.setIcon(gradeA);
+                } else {
+                    gradeCircle.setIcon(gradeAMinus);
+                }
+            }
+            case 55 -> {
+                if (player.totalKnowledge >= 1800000) {
+                    gradeCircle.setIcon(gradeBPlus);
+                } else if (player.totalKnowledge >= 1600000) {
+                    gradeCircle.setIcon(gradeB);
+                } else {
+                    gradeCircle.setIcon(gradeBMinus);
+                }
+            }
+            case 50 -> {
+                if (player.totalKnowledge >= 1600000) {
+                    gradeCircle.setIcon(gradeCPlus);
+                } else if (player.totalKnowledge >= 1400000) {
+                    gradeCircle.setIcon(gradeC);
+                } else {
+                    gradeCircle.setIcon(gradeCMinus);
+                }
+            }
+            case 45 -> {
+                if (player.totalKnowledge >= 1400000) {
+                    gradeCircle.setIcon(gradeDPlus);
+                } else if (player.totalKnowledge >= 1200000) {
+                    gradeCircle.setIcon(gradeD);
+                } else {
+                    gradeCircle.setIcon(gradeDMinus);
+                }
+            }
+            default -> {
+                if (player.totalKnowledge == 0 && player.lecturesAttended == 0) {
+                    gradeCircle.setIcon(gradeZ);
+                } else {
+                    if (player.totalKnowledge >= 1200000) {
+                        gradeCircle.setIcon(gradeFPlus);
+                    } else if (player.totalKnowledge >= 1000000) {
+                        gradeCircle.setIcon(gradeF);
+                    } else {
+                        gradeCircle.setIcon(gradeFMinus);
+                    }
+                }
+            }
+        }
     }
 }
