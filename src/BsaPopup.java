@@ -55,10 +55,10 @@ public class BsaPopup extends javax.swing.JFrame {
         this.rebirth = mainScreen.rebirth;
 
         try {
-            bsaBackground = new ImageIcon(getClass().getResource("/Recources/RebirthBackground.png"));
-            yearTable = new ImageIcon(getClass().getResource("/Recources/YearTable.png"));
-            crossIcon = new ImageIcon(getClass().getResource("/Recources/Cross.png"));
-            checkIcon = new ImageIcon(getClass().getResource("/Recources/Check.png"));
+            bsaBackground = new ImageIcon(getClass().getResource("/Resources/RebirthBackground.png"));
+            yearTable = new ImageIcon(getClass().getResource("/Resources/YearTable.png"));
+            crossIcon = new ImageIcon(getClass().getResource("/Resources/Cross.png"));
+            checkIcon = new ImageIcon(getClass().getResource("/Resources/Check.png"));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);

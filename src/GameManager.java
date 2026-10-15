@@ -1,5 +1,13 @@
+import java.util.Random;
+
 public class GameManager {
     Player player;
+    Random rand = new Random();
+
+    // all sounds
+    Sound studySound1 = new Sound("/Resources/Sounds/studySound1.wav");
+    Sound studySound2 = new Sound("/Resources/Sounds/studySound2.wav");
+
 
     double deltaTime = 1;
 
@@ -20,8 +28,18 @@ public class GameManager {
 
     // updates player knowledge when study button is pressed
     public void studyButtonPressed() {
-            player.knowledge += player.kpc * player.multiplier;
-            player.totalKnowledge += player.kpc * player.multiplier;
+        int num = rand.nextInt(4);
+
+        switch (num) {
+            case 1 -> {
+                studySound2.playSound();
+            } default -> {
+                studySound1.playSound();
+            }
+        }
+
+        player.knowledge += player.kpc * player.multiplier;
+        player.totalKnowledge += player.kpc * player.multiplier;
     }
 
     // going to lecture, updates kpc and freezes study action
