@@ -1,17 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.awt.event.MouseAdapter;
 
 
 public class RebirthPopup extends javax.swing.JFrame {
     // render java swing elements
     private JPanel rebirthPopup;
     private JPanel rebirthPanel;
-    private JButton rebirthButton;
+    private JLabel rebirthButton;
     private JLabel quartileLabel;
     private JLabel mulitplierLabel;
     private JLabel rebirthLabel;
+    private JProgressBar progressBar1;
 
     public MainScreen mainScreen;
     public Player player;
@@ -56,9 +57,9 @@ public class RebirthPopup extends javax.swing.JFrame {
         mulitplierLabel.setText(String.format("%1$,.2f multiplier increase", rebirth.MultiplierAmount(gameManager, player)));
 
         // trigger RebirthAction when the rebirth button is pressed
-        rebirthButton.addActionListener(new ActionListener() {
+        rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 if (gameManager.courseNumber > 2) {
                     rebirth.RebirthAction(gameManager, player);
                     if (gameManager.quartile <= 4) {
