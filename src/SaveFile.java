@@ -20,15 +20,26 @@ public class SaveFile {
         prop.setProperty("numStudents", String.valueOf(player.numStudents));
         prop.setProperty("inLecture", String.valueOf(player.inLecture));
 
-        // MainScreen
-        prop.setProperty("time", String.valueOf(gameManager.time));
-
         // GameManager
         prop.setProperty("quartile", String.valueOf(gameManager.quartile));
         prop.setProperty("lectureTime", String.valueOf(gameManager.lectureTime));
         prop.setProperty("lectureLength", String.valueOf(gameManager.lectureLength));
         prop.setProperty("courseNumber", String.valueOf(gameManager.courseNumber));
         prop.setProperty("courseRequirement", String.valueOf(gameManager.courseRequirement));
+        prop.setProperty("time", String.valueOf(gameManager.time));
+
+        // store 2D courses array as binary
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 4; i++) {
+            if (i > 0) {
+                sb.append(",");
+            }
+            for (boolean value : gameManager.courses[i]) {
+                sb.append(value ? '1' : '0');
+            }
+        }
+
+        prop.setProperty("courses", sb.toString());
 
         try (var out = Files.newOutputStream(SAVE_PATH)) {
             prop.store(out, "Save file");
@@ -65,5 +76,18 @@ public class SaveFile {
         gameManager.courseNumber = Integer.parseInt(prop.getProperty("courseNumber", "1"));
         gameManager.courseRequirement = Integer.parseInt(prop.getProperty("courseRequirement", "0"));
         gameManager.time = Double.parseDouble(prop.getProperty("time", "3600"));
+
+        String savedCourses = prop.getProperty("courses");
+        if (savedCourses != null) {
+            String[] rows = savedCourses.split(",");
+            boolean[][] courses = new boolean[rows.length][];
+            for (int i = 0; i < rows.length; i++) {
+                courses[i] = new boolean[rows[i].length()];
+                for (int j = 0; j < rows[i].length(); j++) {
+                    courses[i][j] = rows[i].charAt(j) == '1';
+                }
+            }
+            gameManager.courses = courses;
+        }
     }
 }

@@ -1,7 +1,8 @@
 #Save file
-#Thu Oct 15 12:29:39 CEST 2026
+#Thu Oct 15 14:02:29 CEST 2026
 courseNumber=1
 courseRequirement=15000
+courses=000,000,000,000
 creditProgress=0
 inLecture=false
 knowledge=0.0
@@ -12,4 +13,4 @@ lectureTime=0.0
 multiplier=1.0
 numStudents=0
 quartile=1
-time=1
+time=3600.0

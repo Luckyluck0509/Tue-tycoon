@@ -38,6 +38,9 @@ public class BsaPopup extends javax.swing.JFrame {
     public SaveFile save;
     public Rebirth rebirth;
 
+    ImageIcon crossIcon;
+    ImageIcon checkIcon;
+
 
     public BsaPopup(MainScreen mainScreen, GameManager gameManager, Player player, SaveFile saveFile) {
         // constructor
@@ -46,6 +49,14 @@ public class BsaPopup extends javax.swing.JFrame {
         this.p = player;
         this.save = saveFile;
         this.rebirth = mainScreen.rebirth;
+
+        try {
+            crossIcon = new ImageIcon(getClass().getResource("/Recources/Cross.png"));
+            checkIcon = new ImageIcon(getClass().getResource("/Recources/Check.png"));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
 
         setContentPane(bsaPanel);
 
@@ -108,6 +119,19 @@ public class BsaPopup extends javax.swing.JFrame {
 
         // knowledge label
         totalKnowledgeLabel.setText(String.format("Total knowledge: %.0f", p.totalKnowledge));
+
+        // courses completion grid
+        JLabel[][] labels = {{q1c1, q1c2, q1c3}, {q2c1, q2c2, q2c3}, {q3c1, q3c2, q3c3}, {q4c1, q4c2, q4c3}};
+
+        for (int i = 0; i < 4; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (gm.courses[i][j]) {
+                    labels[i][j].setIcon(checkIcon);
+                } else {
+                    labels[i][j].setIcon(crossIcon);
+                }
+            }
+        }
 
         setVisible(true);
     }
