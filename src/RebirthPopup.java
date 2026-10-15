@@ -61,7 +61,13 @@ public class RebirthPopup extends javax.swing.JFrame {
             public void actionPerformed(ActionEvent e) {
                 if (gameManager.courseNumber > 2) {
                     rebirth.RebirthAction(gameManager, player);
-                    mainScreen.feedback("Successful rebirth");
+                    if (gameManager.quartile <= 4) {
+                        mainScreen.feedback("Successful rebirth");
+                    } else {
+                        mainScreen.feedback("Finished year");
+                        BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
+                        bsaPopup.triggerReport();
+                    }
                     closePopup();
                 }
             }

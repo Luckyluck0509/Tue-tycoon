@@ -3,7 +3,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
@@ -15,6 +14,7 @@ public class MainScreen extends javax.swing.JFrame {
     ImageIcon bookIcon;
     ImageIcon nerrrdIcon;
     ImageIcon reportIcon;
+    ImageIcon rebirthButtonIcon;
 
     private JPanel mainPanel; // bound to the .form file
     private JPanel mainContainer;
@@ -30,8 +30,8 @@ public class MainScreen extends javax.swing.JFrame {
     private JPanel saveButtonOverlay;
     private JPanel exitPanel;
     private JPanel exitButtonOverlay;
-
-    private JButton rebirthButton;
+    private JPanel rebirthPanel;
+    private JPanel rebirthButtonOverlay;
 
     private JLabel knowledgeLabel;
     private JLabel kpsLabel;
@@ -52,18 +52,20 @@ public class MainScreen extends javax.swing.JFrame {
     private JLabel saveButton;
     private JLabel exitButton;
     private JLabel feedbackLabel;
+    private JLabel rebirthButton;
+    private JLabel courseMultiplierLabel;
+    private JLabel quartileNum;
 
     public JProgressBar lectureProgress;
     private JProgressBar courseProgress;
-    private JProgressBar rebirthProgress;
     private JProgressBar creditProgress;
+    private JProgressBar rebirthProgress;
 
     public GameManager gameManager;
     public Player player;
     public SaveFile saveFile;
     public MainScreen self = this;
     public Rebirth rebirth;
-    public BsaPopup bsaPopup;
 
     public double sleepTime;
     public double dt;
@@ -75,7 +77,7 @@ public class MainScreen extends javax.swing.JFrame {
         this.gameManager = gm;
         this.saveFile = saveFile;
         this.rebirth = rebirth;
-        bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
+
 
         try {
             backgroundIcon = new ImageIcon(getClass().getResource("/Recources/Background.png"));
@@ -85,20 +87,28 @@ public class MainScreen extends javax.swing.JFrame {
             bookIcon = new ImageIcon(getClass().getResource("/Recources/Book.png"));
             nerrrdIcon = new ImageIcon(getClass().getResource("/Recources/Nerrrd.png"));
             reportIcon = new ImageIcon(getClass().getResource("/Recources/Report.png"));
+            rebirthButtonIcon = new ImageIcon(getClass().getResource("/Recources/ButtonRebirth.png"));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
 
+        setFocusTraversalPolicy(
+                new java.awt.ContainerOrderFocusTraversalPolicy()
+        );
+
         // pixel art progress bars
-        applyPixelStyle(lectureProgress, "bar_track.png", "bar_fill.png");
-        applyPixelStyle(courseProgress, "bar_track.png", "bar_fill.png");
-        applyPixelStyle(rebirthProgress, "bar_track.png", "bar_fill.png");
+        applyPixelStyle(lectureProgress, "UpgradeBarTrack.png", "UpgradeBarFill.png", 0);
+        applyPixelStyle(courseProgress, "UpgradeBarTrack.png", "UpgradeBarFill.png", 0);
+        applyPixelStyle(rebirthProgress, "RebirthBarTrack.png", "RebirthBarFill.png", 1);
+        applyPixelStyle(creditProgress, "BSABarTrack.png", "BSABarFill.png", 0);
 
         lectureProgress.setValue(0);
         lectureProgress.setMaximum(gameManager.lectureLength);
         courseProgress.setValue(0);
         rebirthProgress.setValue(0);
+        rebirthProgress.setMaximum(2);
+        creditProgress.setValue(0);
 
         // set properties of JPanel and create the main screen
         setContentPane(mainPanel);
@@ -129,10 +139,13 @@ public class MainScreen extends javax.swing.JFrame {
         this.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay, coursePanel, 550, 200);
 
         saveButton.setIcon(buttonIcon);
-        this.overlay(new BorderLayout(), saveButton, saveButtonOverlay, savePanel, 280, 45);
+        this.overlay(new BorderLayout(), saveButton, saveButtonOverlay, savePanel, 280, 56);
 
         exitButton.setIcon(buttonIcon);
-        this.overlay(new BorderLayout(), exitButton, exitButtonOverlay, exitPanel, 280, 45);
+        this.overlay(new BorderLayout(), exitButton, exitButtonOverlay, exitPanel, 280, 56);
+
+        rebirthButton.setIcon(rebirthButtonIcon);
+        this.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay, rebirthPanel, 600, 56);
 
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
@@ -176,6 +189,7 @@ public class MainScreen extends javax.swing.JFrame {
                         player.multiplier += 0.1;
                     }
                     player.knowledge -= gameManager.courseRequirement;
+                    player.creditProgress += 5;
                 }
             }
         });
@@ -196,9 +210,9 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // open the rebirth popup menu when the rebirth button is pressed
-        rebirthButton.addActionListener(new ActionListener() {
+        rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 RebirthPopup rebirthPopup = new RebirthPopup(self, p, gm, saveFile);
             }
         });
@@ -253,9 +267,17 @@ public class MainScreen extends javax.swing.JFrame {
             } else {
                 courseProgress.setValue(gameManager.courseRequirement);
             }
+            finishCourseLabel.setFont(new Font("Arial", Font.BOLD, 36));
             finishCourseLabel.setText("Finish course");
+            if (gameManager.courseNumber < 3) {
+                courseMultiplierLabel.setText("+0.05 times multiplier");
+            } else {
+                courseMultiplierLabel.setText("+0.1 times multiplier");
+            }
         } else {
+            finishCourseLabel.setFont(new Font("Arial", Font.BOLD, 35));
             finishCourseLabel.setText("Finished all Courses");
+            courseMultiplierLabel.setText("NO!");
             courseProgress.setMaximum(100);
             courseProgress.setValue(100);
         }
@@ -269,10 +291,17 @@ public class MainScreen extends javax.swing.JFrame {
         // render rebirth progress
         if (gameManager.courseNumber <= 3) {
             rebirthProgress.setValue(gameManager.courseNumber - 1);
+        } else {
+            rebirthProgress.setValue(2);
         }
+        quartileNum.setText(String.valueOf(gameManager.quartile));
+
+        // render bsa progress
+        creditProgress.setValue(player.creditProgress);
 
         // trigger bsaReport
         if (gameManager.time <= 0 || gameManager.quartile > 4) {
+            BsaPopup bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
             bsaPopup.triggerReport();
         }
     }
@@ -304,19 +333,18 @@ public class MainScreen extends javax.swing.JFrame {
     // swaps a progress bar's look for the PNG version
     // track = empty bar
     // fill = full bar
-    private void applyPixelStyle(JProgressBar bar, String trackName, String fillName) {
+    private void applyPixelStyle(JProgressBar bar, String trackName, String fillName, int orientation) {
         BufferedImage track = loadImage(trackName);
         BufferedImage fill = loadImage(fillName);
-        if (track == null || fill == null) return;   // keep the default look if loading failed
 
-        bar.setUI(new ImageProgressBarUI(track, fill));
+        bar.setUI(new ImageProgressBarUI(track, fill, orientation));
         bar.setBorderPainted(false);
         bar.setOpaque(false);
     }
 
     public void feedback(String message) {
         feedbackLabel.setText(message);
-        this.sleepTime = 5.0;
+        this.sleepTime = 2.0;
     }
 
     public void resetFeedback() {
