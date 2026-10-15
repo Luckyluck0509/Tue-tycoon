@@ -26,7 +26,6 @@ public class GameManager {
     // going to lecture, updates kpc and freezes study action
     public void goToLectureButtonPressed() {
         player.inLecture = true;
-        player.kpc *= 1.5;
         lectureTime = 4 * Math.pow(player.kpc, 1.35);
         lectureLength = (int) lectureTime;
     }

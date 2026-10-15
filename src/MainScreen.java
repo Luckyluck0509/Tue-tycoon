@@ -216,7 +216,10 @@ public class MainScreen extends javax.swing.JFrame {
         this.dt = gameManager.deltaTime;
 
         // update lecture time
-        if (gameManager.lectureTime <= 0) {
+        if (gameManager.lectureTime < 0) {
+            player.kpc *= 1.5;
+            gameManager.lectureTime = 0;
+        } else if (gameManager.lectureTime == 0) {
             player.inLecture = false;
         } else {
             gameManager.lectureTime -= dt;
@@ -277,7 +280,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render go to lecture and add student attributes
         lectureProgress.setValue((int) Math.ceil(gameManager.lectureTime));
-        kpcLabel.setText(String.format("%.2f", player.kpc));
+        kpcLabel.setText(String.format("%.2f", player.kpc * player.multiplier));
         price.setText(String.valueOf(player.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
