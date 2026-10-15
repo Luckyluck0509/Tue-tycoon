@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 
@@ -31,6 +30,10 @@ public class BsaPopup extends javax.swing.JFrame {
     private JLabel passedLabel;
     private JLabel creditsLabel;
     private JLabel timeLabel;
+    private JPanel bsaContainer;
+    private JLabel background;
+    private JPanel tableOverlay;
+    private JPanel tablePanel;
 
     public GameManager gm;
     public Player p;
@@ -38,9 +41,10 @@ public class BsaPopup extends javax.swing.JFrame {
     public SaveFile save;
     public Rebirth rebirth;
 
+    ImageIcon bsaBackground;
+    ImageIcon yearTable;
     ImageIcon crossIcon;
     ImageIcon checkIcon;
-
 
     public BsaPopup(MainScreen mainScreen, GameManager gameManager, Player player, SaveFile saveFile) {
         // constructor
@@ -51,6 +55,8 @@ public class BsaPopup extends javax.swing.JFrame {
         this.rebirth = mainScreen.rebirth;
 
         try {
+            bsaBackground = new ImageIcon(getClass().getResource("/Recources/RebirthBackground.png"));
+            yearTable = new ImageIcon(getClass().getResource("/Recources/YearTable.png"));
             crossIcon = new ImageIcon(getClass().getResource("/Recources/Cross.png"));
             checkIcon = new ImageIcon(getClass().getResource("/Recources/Check.png"));
         } catch (Exception e) {
@@ -60,20 +66,20 @@ public class BsaPopup extends javax.swing.JFrame {
 
         setContentPane(bsaPanel);
 
+
+        // set background
+        background.setIcon(bsaBackground);
+        this.ms.overlay(null, background, bsaContainer, bsaPanel, 600, 470);
+
+        tableBackground.setIcon(yearTable);
+        this.ms.overlay(null, tableBackground, tableOverlay, tablePanel, 267, 192);
+
         // JPanel attributes
         setTitle("BSA Report");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(600, 470);
         setLocationRelativeTo(mainScreen);
         setResizable(false);
-
-        // JLabel formatting
-        creditsLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        timeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        lecturesAttendedLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        studentsHiredLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        totalKnowledgeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-
 
         //Restart button
         RESTARTButton.addActionListener(new ActionListener() {
