@@ -67,6 +67,7 @@ public class SavePopup extends javax.swing.JFrame {
                     mainScreen.feedback("Successful save");
                 } catch (IOException error) {
                     error.printStackTrace();
+                    JOptionPane.showMessageDialog(mainPanel, "Error saving");
                     mainScreen.feedback("IOException error, try again");
                 }
                 closePopup();

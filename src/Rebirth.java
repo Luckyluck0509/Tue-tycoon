@@ -32,10 +32,10 @@ public class Rebirth {
 
         gameManager.lectureTime = 0;
         gameManager.lectureLength = 0;
+        gameManager.courseNumber = 1;
 
         if (mode == 0) {
             gameManager.quartile++;
-            gameManager.courseNumber = 1;
         } else {
             player.creditProgress = 0;
             player.multiplier = 1;

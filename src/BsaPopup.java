@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 
 public class BsaPopup extends javax.swing.JFrame {
     private JButton RESTARTButton;
@@ -56,7 +57,13 @@ public class BsaPopup extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 rebirth.reset(gameManager, player, 1);
-                System.exit(0);
+                try {
+                    save.save(p, gm, ms);
+                } catch (IOException error) {
+                    JOptionPane.showMessageDialog(mainScreen, "Error resetting");
+                    error.printStackTrace();
+                }
+                System.exit(10000);
             }
         });
     }

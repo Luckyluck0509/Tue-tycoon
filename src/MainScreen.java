@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
-    // importing icons
+    // declaring icons
     ImageIcon backgroundIcon;
     ImageIcon lectureIcon;
     ImageIcon upgradeButtonIcon;
