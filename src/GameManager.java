@@ -26,8 +26,8 @@ public class GameManager {
     // going to lecture, updates kpc and freezes study action
     public void goToLectureButtonPressed() {
         player.inLecture = true;
-        player.kpc *= 2 * player.multiplier;
-        lectureTime = Math.pow(player.kpc / player.multiplier, 1.2);
+        player.kpc *= 1.5;
+        lectureTime = 4 * Math.pow(player.kpc, 1.35);
         lectureLength = (int) lectureTime;
     }
 
@@ -35,17 +35,24 @@ public class GameManager {
     public void addStudentButtonPressed() {
         Student student = new Student(player.getStudentPrice(), player);
         player.numStudents += 1;
-        player.kps += (student.kps * player.multiplier);
+        player.kps += student.kps;
     }
 
-    // sets course to finished
+    // sets course to finished, adds ects, add multiplier
     public void finishCourseButtonPressed() {
         this.courses[quartile - 1][this.courseNumber - 1] = true;
         this.courseNumber += 1;
+        player.creditProgress += 5;
+        if (this.courseNumber <= 3) {
+            player.multiplier += 0.10;
+        } else {
+            player.multiplier += 0.20;
+        }
+        player.knowledge -= this.courseRequirement;
     }
 
     // calculate cost of finishing course
     public void setCourseRequirement() {
-        this.courseRequirement = 1000 * (2 * this.courseNumber) * (10 * this.quartile);
+        this.courseRequirement = (int)(15000 * courseNumber * Math.pow(2.3, quartile - 1));
     }
 }

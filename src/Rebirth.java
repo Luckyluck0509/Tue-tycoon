@@ -5,9 +5,10 @@ public class Rebirth {
         double c = player.creditProgress;
         double k = player.knowledge;
         double kpc = player.kpc;
-        double p = Math.min((4*c)/ q, 1.5);
+        double creditsThisQuartile = (gameManager.courseNumber - 1) * 5;
+        double p = Math.min(creditsThisQuartile / 15, 1);
 
-        return 0.05 * Math.log(1 + k) * Math.sqrt(kpc) * (0.5 + p) * (1 + 0.25 * (q - 1));
+        return 0.10 * Math.log10(1 + k) * Math.sqrt(kpc) * (0.6 + 0.6 * p) * (1 + 0.15 * (q - 1));
     }
 
     // rebirth, update multiplier and trigger reset at mode 0

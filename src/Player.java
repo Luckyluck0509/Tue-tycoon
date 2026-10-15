@@ -9,6 +9,6 @@ public class Player {
 
     // calculate cost of hiring a new student
     public int getStudentPrice() {
-        return (int) (4 * Math.pow(this.numStudents, 3) + 25);
+        return (int)(20 * Math.pow(1.15, numStudents));
     }
 }
