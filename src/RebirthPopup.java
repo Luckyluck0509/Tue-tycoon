@@ -60,6 +60,7 @@ public class RebirthPopup extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (gameManager.courseNumber > 2) {
+                    gameManager.rebirthSound.playSound();
                     rebirth.RebirthAction(gameManager, player);
                     if (gameManager.quartile <= 4) {
                         mainScreen.feedback("Successful rebirth");

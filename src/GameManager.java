@@ -7,7 +7,11 @@ public class GameManager {
     // all sounds
     Sound studySound1 = new Sound("/Resources/Sounds/studySound1.wav");
     Sound studySound2 = new Sound("/Resources/Sounds/studySound2.wav");
-
+    Sound upgradeSound = new Sound("/Resources/Sounds/upgradeSound.wav");
+    Sound courseSound = new Sound("/Resources/Sounds/courseSound.wav");
+    Sound rebirthSound = new Sound("/Resources/Sounds/rebirthSound.wav");
+    Sound popupSound = new Sound("/Resources/Sounds/popupSound.wav");
+    Sound exitSound = new Sound("/Resources/Sounds/exitSound.wav");
 
     double deltaTime = 1;
 
@@ -45,6 +49,7 @@ public class GameManager {
     // going to lecture, updates kpc and freezes study action
     public void goToLectureButtonPressed() {
         if (!player.inLecture) {
+            upgradeSound.playSound();
             player.inLecture = true;
             lectureTime = 4 * Math.pow(player.kpc, 1.35);
             lectureLength = (int) lectureTime;
@@ -55,6 +60,7 @@ public class GameManager {
     // hires a student, increases kps
     public void addStudentButtonPressed() {
         if (player.knowledge >= player.getStudentPrice()) {
+            upgradeSound.playSound();
             Student student = new Student(player.getStudentPrice(), player);
             player.numStudents += 1;
             player.kps += student.kps;
@@ -64,16 +70,19 @@ public class GameManager {
 
     // sets course to finished, adds ects, add multiplier
     public void finishCourseButtonPressed() {
-        this.courses[quartile - 1][this.courseNumber - 1] = true;
-        this.courseNumber += 1;
-        player.creditProgress += 5;
+        if (player.knowledge >= courseRequirement && courseNumber <= 3) {
+            courseSound.playSound();
+            this.courses[quartile - 1][this.courseNumber - 1] = true;
+            this.courseNumber += 1;
+            player.creditProgress += 5;
 
-        if (this.courseNumber <= 3) {
-            player.multiplier += 0.10;
-        } else {
-            player.multiplier += 0.20;
+            if (this.courseNumber <= 3) {
+                player.multiplier += 0.10;
+            } else {
+                player.multiplier += 0.20;
+            }
+            player.knowledge -= this.courseRequirement;
         }
-        player.knowledge -= this.courseRequirement;
     }
 
     // calculate cost of finishing course

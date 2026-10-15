@@ -1,19 +1,19 @@
 #Save file
-#Thu Oct 15 18:04:33 CEST 2026
-courseNumber=1
-courseRequirement=15000
-courses=000,000,000,000
-creditProgress=0
+#Thu Oct 15 23:36:12 CEST 2026
+courseNumber=4
+courseRequirement=138000
+courses=111,111,000,000
+creditProgress=30
 inLecture=false
-knowledge=0.0
-kpc=1.0
-kps=0.0
-lectureLength=0
+knowledge=2656862.494505803
+kpc=2.25
+kps=99.19837688752364
+lectureLength=6
 lectureTime=0.0
-lecturesAttended=0
-multiplier=1.0
-numStudents=0
-quartile=1
-studentsHired=0
-time=3600.0
-totalKnowledge=0.0
+lecturesAttended=2
+multiplier=1003.4908810578338
+numStudents=32
+quartile=2
+studentsHired=113
+time=3495.775016099999
+totalKnowledge=2.6300744128075276E7

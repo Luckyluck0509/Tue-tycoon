@@ -176,15 +176,14 @@ public class MainScreen extends javax.swing.JFrame {
         finishCourseButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
-                    gameManager.finishCourseButtonPressed();
-                }
+                gameManager.finishCourseButtonPressed();
             }
         });
 
         savePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.popupSound.playSound();
                 SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
             }
         });
@@ -192,6 +191,7 @@ public class MainScreen extends javax.swing.JFrame {
         exitPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.exitSound.playSound();
                 resetFeedback();
                 System.exit(0);
             }
@@ -201,6 +201,7 @@ public class MainScreen extends javax.swing.JFrame {
         rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.popupSound.playSound();
                 RebirthPopup rebirthPopup = new RebirthPopup(self, p, gm, saveFile);
             }
         });
