@@ -1,15 +1,15 @@
 #Save file
-#Thu Oct 15 10:06:02 CEST 2026
-courseNumber=1
-courseRequirement=15000
-creditProgress=0
-inLecture=false
-knowledge=0.0
-kpc=1.0
-kps=0.0
-lectureLength=0
-lectureTime=0.0
-multiplier=1.0
-numStudents=0
+#Thu Oct 15 11:12:16 CEST 2026
+courseNumber=2
+courseRequirement=30000
+creditProgress=5
+inLecture=true
+knowledge=14449.953361850816
+kpc=25.62890625
+kps=163.51307872385922
+lectureLength=319
+lectureTime=252.27095749460437
+multiplier=1.1
+numStudents=40
 quartile=1
-time=3600.0
+time=2941.0377212070057

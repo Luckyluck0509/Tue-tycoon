@@ -248,7 +248,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render knowledge, kps and multiplier
         knowledgeLabel.setText((int)player.knowledge + " Knowledge");
-        kpsLabel.setText("KPS: " + Math.round(player.kps));
+        kpsLabel.setText(String.format("KPS: %.2f", player.kps * player.multiplier));
         multiplierLabel.setText(String.format("Multiplier: %.2f", player.multiplier));
 
         // render course progression
@@ -263,9 +263,9 @@ public class MainScreen extends javax.swing.JFrame {
             finishCourseLabel.setFont(new Font("Arial", Font.BOLD, 36));
             finishCourseLabel.setText("Finish course");
             if (gameManager.courseNumber < 3) {
-                courseMultiplierLabel.setText("+0.05 times multiplier");
+                courseMultiplierLabel.setText("+ 0.1 multiplier");
             } else {
-                courseMultiplierLabel.setText("+0.1 times multiplier");
+                courseMultiplierLabel.setText("+ 0.2 multiplier");
             }
         } else {
             finishCourseLabel.setFont(new Font("Arial", Font.BOLD, 35));
@@ -277,7 +277,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render go to lecture and add student attributes
         lectureProgress.setValue((int) Math.ceil(gameManager.lectureTime));
-        kpcLabel.setText(String.valueOf(player.kpc));
+        kpcLabel.setText(String.format("%.2f", player.kpc));
         price.setText(String.valueOf(player.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
