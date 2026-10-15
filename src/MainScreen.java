@@ -183,13 +183,6 @@ public class MainScreen extends javax.swing.JFrame {
             public void mouseReleased(MouseEvent e) {
                 if (player.knowledge >= gameManager.courseRequirement && gameManager.courseNumber <= 3) {
                     gameManager.finishCourseButtonPressed();
-                    if (gameManager.courseNumber <= 3) {
-                        player.multiplier += 0.05;
-                    } else {
-                        player.multiplier += 0.1;
-                    }
-                    player.knowledge -= gameManager.courseRequirement;
-                    player.creditProgress += 5;
                 }
             }
         });

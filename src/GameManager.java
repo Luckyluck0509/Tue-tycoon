@@ -43,6 +43,7 @@ public class GameManager {
         this.courses[quartile - 1][this.courseNumber - 1] = true;
         this.courseNumber += 1;
         player.creditProgress += 5;
+
         if (this.courseNumber <= 3) {
             player.multiplier += 0.10;
         } else {
