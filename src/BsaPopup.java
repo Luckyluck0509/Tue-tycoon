@@ -7,7 +7,27 @@ public class BsaPopup extends javax.swing.JFrame {
     private JButton RESTARTButton;
     private JButton EXITButton;
     private JPanel bsaPanel;
-    private JLabel bsaLabel;
+    private JPanel buttonPanel;
+    private JPanel topPanel;
+    private JPanel middlePanel;
+    private JLabel tableBackground;
+    private JLabel q1c1;
+    private JLabel q1c2;
+    private JLabel q1c3;
+    private JLabel q2c1;
+    private JLabel q2c2;
+    private JLabel q2c3;
+    private JLabel q3c1;
+    private JLabel q3c2;
+    private JLabel q3c3;
+    private JLabel q4c1;
+    private JLabel q4c2;
+    private JLabel q4c3;
+    private JLabel gradeCircle;
+    private JLabel totalKnowledgeLabel;
+    private JLabel lecturesAttendedLabel;
+    private JLabel studentsHiredLabel;
+    private JLabel yearCompleteLabel;
     private JLabel passedLabel;
     private JLabel creditsLabel;
     private JLabel timeLabel;
@@ -37,10 +57,11 @@ public class BsaPopup extends javax.swing.JFrame {
         setResizable(false);
 
         // JLabel formatting
-        bsaLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        passedLabel.setFont(new Font("Arial", Font.BOLD, 40));
-        creditsLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        timeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        creditsLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        timeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        lecturesAttendedLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        studentsHiredLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        totalKnowledgeLabel.setFont(new Font("Arial", Font.PLAIN, 18));
 
 
         //Restart button
@@ -69,21 +90,24 @@ public class BsaPopup extends javax.swing.JFrame {
     }
 
     public void triggerReport() {
+        // Total credits label
+        creditsLabel.setText(String.format("Total credits: %d/60", p.creditProgress));
 
-        if (p.creditProgress >= 45) {
-            passedLabel.setText("PASSED");
-        } else {
-            passedLabel.setText("FAILED");
-        }
-
-        creditsLabel.setText(String.format("You managed to get %d out of the 60 credits this year.", p.creditProgress));
-
+        // time label
         int remaining = (int) Math.ceil(this.gm.time);
         int elapsed = 3600 - remaining;
-
         int minutes = elapsed / 60;
         int seconds = elapsed % 60;
-        timeLabel.setText(String.format("You completed this year in %d minutes and %d seconds.", minutes, seconds));
+        timeLabel.setText(String.format("Time taken: %02d:%02d", minutes, seconds));
+
+        // lectures label
+        lecturesAttendedLabel.setText(String.format("Lectures attended: %d", p.lecturesAttended));
+
+        // students label
+        studentsHiredLabel.setText(String.format("Students hired: %d", p.studentsHired));
+
+        // knowledge label
+        totalKnowledgeLabel.setText(String.format("Total knowledge: %.0f", p.totalKnowledge));
 
         setVisible(true);
     }

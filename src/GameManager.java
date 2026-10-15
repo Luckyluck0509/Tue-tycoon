@@ -20,21 +20,28 @@ public class GameManager {
 
     // updates player knowledge when study button is pressed
     public void studyButtonPressed() {
-        player.knowledge += player.kpc * player.multiplier;
+            player.knowledge += player.kpc * player.multiplier;
+            player.totalKnowledge += player.kpc * player.multiplier;
     }
 
     // going to lecture, updates kpc and freezes study action
     public void goToLectureButtonPressed() {
-        player.inLecture = true;
-        lectureTime = 4 * Math.pow(player.kpc, 1.35);
-        lectureLength = (int) lectureTime;
+        if (!player.inLecture) {
+            player.inLecture = true;
+            lectureTime = 4 * Math.pow(player.kpc, 1.35);
+            lectureLength = (int) lectureTime;
+            player.lecturesAttended ++;
+        }
     }
 
     // hires a student, increases kps
     public void addStudentButtonPressed() {
-        Student student = new Student(player.getStudentPrice(), player);
-        player.numStudents += 1;
-        player.kps += student.kps;
+        if (player.knowledge >= player.getStudentPrice()) {
+            Student student = new Student(player.getStudentPrice(), player);
+            player.numStudents += 1;
+            player.kps += student.kps;
+            player.studentsHired ++;
+        }
     }
 
     // sets course to finished, adds ects, add multiplier

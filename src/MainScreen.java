@@ -161,10 +161,7 @@ public class MainScreen extends javax.swing.JFrame {
         lecturePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (!player.inLecture) {
-                    gameManager.goToLectureButtonPressed();
-                    lectureProgress.setMaximum(gameManager.lectureLength);
-                }
+                gameManager.goToLectureButtonPressed();
             }
         });
 
@@ -172,9 +169,7 @@ public class MainScreen extends javax.swing.JFrame {
         studentPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                if (player.knowledge >= player.getStudentPrice()) {
-                    gameManager.addStudentButtonPressed();
-                }
+                gameManager.addStudentButtonPressed();
             }
         });
 
@@ -225,6 +220,8 @@ public class MainScreen extends javax.swing.JFrame {
             gameManager.lectureTime -= dt;
         }
 
+        lectureProgress.setMaximum(gameManager.lectureLength);
+
         // count down sleep timer
         this.sleepTime -= dt;
         if (this.sleepTime <= 0) {
@@ -238,16 +235,13 @@ public class MainScreen extends javax.swing.JFrame {
 
         // update knowledge
         player.knowledge += player.kps * player.multiplier * dt;
+        player.totalKnowledge += player.kps * player.multiplier * dt;
 
         // update course requirement
         gameManager.setCourseRequirement();
 
         // render clock
-        if (seconds >= 10) {
-            timeLabel.setText(minutes + " : " + seconds);
-        } else {
-            timeLabel.setText(minutes + " : 0" + seconds);
-        }
+        timeLabel.setText(String.format("%02d:%02d", minutes, seconds));
 
         // render knowledge, kps and multiplier
         knowledgeLabel.setText((int)player.knowledge + " Knowledge");
