@@ -77,8 +77,8 @@
                       </component>
                       <component id="bdb98" class="javax.swing.JLabel">
                         <constraints>
-                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="4" use-parent-layout="false">
-                            <preferred-size width="186" height="-1"/>
+                          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="0" fill="0" indent="5" use-parent-layout="false">
+                            <preferred-size width="196" height="-1"/>
                           </grid>
                         </constraints>
                         <properties>
@@ -642,7 +642,7 @@
                       <component id="886f0" class="javax.swing.JLabel">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                            <preferred-size width="112" height="-1"/>
+                            <preferred-size width="114" height="-1"/>
                           </grid>
                         </constraints>
                         <properties>
@@ -688,7 +688,7 @@
                       <component id="5cb11" class="javax.swing.JLabel">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                            <preferred-size width="99" height="-1"/>
+                            <preferred-size width="101" height="-1"/>
                           </grid>
                         </constraints>
                         <properties>
