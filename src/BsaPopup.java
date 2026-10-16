@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
 
 public class BsaPopup extends javax.swing.JFrame {
     private JButton RESTARTButton;
@@ -74,30 +76,31 @@ public class BsaPopup extends javax.swing.JFrame {
         this.rebirth = mainScreen.rebirth;
 
         try {
-            bsaBackground = new ImageIcon(getClass().getResource("/Recources/RebirthBackground.png"));
-            yearTable = new ImageIcon(getClass().getResource("/Recources/YearTable.png"));
-            exitIcon = new ImageIcon(getClass().getResource("/Recources/ExitPost-It.png"));
-            restartIcon = new ImageIcon(getClass().getResource("/Recources/ResetPost-It.png"));
-            crossIcon = new ImageIcon(getClass().getResource("/Recources/Cross.png"));
-            checkIcon = new ImageIcon(getClass().getResource("/Recources/Check.png"));
+            bsaBackground = new ImageIcon(getClass().getResource("/Resources/RebirthBackground.png"));
+            yearTable = new ImageIcon(getClass().getResource("/Resources/YearTable.png"));
+            exitIcon = new ImageIcon(getClass().getResource("/Resources/ExitPost-It.png"));
+            restartIcon = new ImageIcon(getClass().getResource("/Resources/ResetPost-It.png"));
+            crossIcon = new ImageIcon(getClass().getResource("/Resources/Cross.png"));
+            checkIcon = new ImageIcon(getClass().getResource("/Resources/Check.png"));
 
-            gradeAPlus = new ImageIcon(getClass().getResource("/Recources/grades/A+.png"));
-            gradeA = new ImageIcon(getClass().getResource("/Recources/grades/A.png"));
-            gradeAMinus = new ImageIcon(getClass().getResource("/Recources/grades/A-.png"));
-            gradeBPlus = new ImageIcon(getClass().getResource("/Recources/grades/B+.png"));
-            gradeB = new ImageIcon(getClass().getResource("/Recources/grades/B.png"));
-            gradeBMinus = new ImageIcon(getClass().getResource("/Recources/grades/B-.png"));
-            gradeCPlus = new ImageIcon(getClass().getResource("/Recources/grades/C+.png"));
-            gradeC = new ImageIcon(getClass().getResource("/Recources/grades/C.png"));
-            gradeCMinus = new ImageIcon(getClass().getResource("/Recources/grades/C-.png"));
-            gradeDPlus = new ImageIcon(getClass().getResource("/Recources/grades/D+.png"));
-            gradeD = new ImageIcon(getClass().getResource("/Recources/grades/D.png"));
-            gradeDMinus = new ImageIcon(getClass().getResource("/Recources/grades/D-.png"));
-            gradeFPlus = new ImageIcon(getClass().getResource("/Recources/grades/F+.png"));
-            gradeF = new ImageIcon(getClass().getResource("/Recources/grades/F.png"));
-            gradeFMinus = new ImageIcon(getClass().getResource("/Recources/grades/F-.png"));
-            gradeZ = new ImageIcon(getClass().getResource("/Recources/grades/Z.png"));
+            gradeAPlus = new ImageIcon(getClass().getResource("/Resources/grades/A+.png"));
+            gradeA = new ImageIcon(getClass().getResource("/Resources/grades/A.png"));
+            gradeAMinus = new ImageIcon(getClass().getResource("/Resources/grades/A-.png"));
+            gradeBPlus = new ImageIcon(getClass().getResource("/Resources/grades/B+.png"));
+            gradeB = new ImageIcon(getClass().getResource("/Resources/grades/B.png"));
+            gradeBMinus = new ImageIcon(getClass().getResource("/Resources/grades/B-.png"));
+            gradeCPlus = new ImageIcon(getClass().getResource("/Resources/grades/C+.png"));
+            gradeC = new ImageIcon(getClass().getResource("/Resources/grades/C.png"));
+            gradeCMinus = new ImageIcon(getClass().getResource("/Resources/grades/C-.png"));
+            gradeDPlus = new ImageIcon(getClass().getResource("/Resources/grades/D+.png"));
+            gradeD = new ImageIcon(getClass().getResource("/Resources/grades/D.png"));
+            gradeDMinus = new ImageIcon(getClass().getResource("/Resources/grades/D-.png"));
+            gradeFPlus = new ImageIcon(getClass().getResource("/Resources/grades/F+.png"));
+            gradeF = new ImageIcon(getClass().getResource("/Resources/grades/F.png"));
+            gradeFMinus = new ImageIcon(getClass().getResource("/Resources/grades/F-.png"));
+            gradeZ = new ImageIcon(getClass().getResource("/Resources/grades/Z.png"));
         } catch (Exception e) {
+            gameManager.failSound.playSound();
             e.printStackTrace();
             System.exit(0);
         }
@@ -116,7 +119,7 @@ public class BsaPopup extends javax.swing.JFrame {
 
         // JPanel attributes
         setTitle("BSA Report");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(600, 470);
         setLocationRelativeTo(mainScreen);
         setResizable(false);
@@ -136,12 +139,27 @@ public class BsaPopup extends javax.swing.JFrame {
             public void mouseReleased(MouseEvent e) {
                 rebirth.reset(gameManager, player, 1);
                 try {
-                    save.save(BsaPopup.this.player, BsaPopup.this.gameManager, BsaPopup.this.mainScreen);
+                    save.save(player, gameManager, mainScreen);
                 } catch (IOException error) {
                     JOptionPane.showMessageDialog(mainScreen, "Error resetting");
                     error.printStackTrace();
                 }
-                System.exit(10000);
+                System.exit(0);
+            }
+        });
+
+        // reset, save and exit program when the window is closed.
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                rebirth.reset(gameManager, player, 1);
+                try {
+                    save.save(player, gameManager, mainScreen);
+                } catch (IOException error) {
+                    JOptionPane.showMessageDialog(mainScreen, "Error resetting");
+                    error.printStackTrace();
+                }
+                System.exit(0);
             }
         });
     }

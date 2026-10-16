@@ -39,8 +39,13 @@ public class Rebirth {
         } else {
             player.creditProgress = 0;
             player.multiplier = 1;
+            player.lecturesAttended = 0;
+            player.totalKnowledge = 0;
+            player.studentsHired = 0;
+
             gameManager.quartile = 1;
             gameManager.time = 3600;
+
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 3; j++) {

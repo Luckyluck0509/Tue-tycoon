@@ -12,6 +12,9 @@ public class GameManager {
     Sound rebirthSound = new Sound("/Resources/Sounds/rebirthSound.wav");
     Sound popupSound = new Sound("/Resources/Sounds/popupSound.wav");
     Sound exitSound = new Sound("/Resources/Sounds/exitSound.wav");
+    Sound mutedSound = new Sound("/Resources/Sounds/mutedSound.wav");
+    Sound resetSound = new Sound("/Resources/Sounds/resetSound.wav");
+    Sound failSound = new Sound("/Resources/Sounds/failSound.wav");
 
     double deltaTime = 1;
 

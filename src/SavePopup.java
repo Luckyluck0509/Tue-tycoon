@@ -24,6 +24,7 @@ public class SavePopup extends javax.swing.JFrame {
         this.player = player;
         this.gameManager = gameManager;
         this.saveFile = saveFile;
+        Rebirth rebirth = new Rebirth();
 
         setContentPane(mainPanel);
 
@@ -65,8 +66,10 @@ public class SavePopup extends javax.swing.JFrame {
                 try {
                     saveFile.save(player, gameManager, mainScreen);
                     mainScreen.feedback("Successful save");
+                    gameManager.popupSound.playSound();
                 } catch (IOException error) {
                     error.printStackTrace();
+                    gameManager.failSound.playSound();
                     JOptionPane.showMessageDialog(mainPanel, "Error saving");
                     mainScreen.feedback("IOException error, try again");
                 }
@@ -78,7 +81,7 @@ public class SavePopup extends javax.swing.JFrame {
         RESETButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Rebirth rebirth = new Rebirth();
+                gameManager.resetSound.playSound();
                 rebirth.reset(gameManager, player, 1);
                 mainScreen.feedback("Successful reset");
                 closePopup();

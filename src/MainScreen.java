@@ -315,7 +315,7 @@ public class MainScreen extends javax.swing.JFrame {
         try {
             return ImageIO.read(getClass().getResource("/Resources/" + name));
         } catch (Exception e) {
-            System.err.println("Could not load /Recources/" + name);
+            System.err.println("Could not load /Resources/" + name);
             e.printStackTrace();
             return null;
         }
