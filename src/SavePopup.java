@@ -2,30 +2,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SavePopup extends javax.swing.JFrame {
     // render java swing elements
-    private JButton RESETButton;
-    private JButton SAVEButton;
-    private JLabel saveLabel;
-    private JLabel lastSaveLabel;
-    private JLabel dateLabel;
     private JPanel mainPanel;
+    private JLabel dateLabel;
+    private JPanel resetPanel;
+    private JPanel savePanel;
+    private JLabel resetButton;
+    private JPanel resetOverlay;
+    private JLabel saveButton;
+    private JPanel saveOverlay;
+    private JPanel container;
+    private JLabel background;
+
+    // declaring icons
+    ImageIcon backgroundIcon;
+    ImageIcon buttonIcon;
 
     public MainScreen mainScreen;
     public Player player;
     public GameManager gameManager;
     public SaveFile saveFile;
+    public SavePopup self;
 
+    // constructor
     public SavePopup(MainScreen mainScreen, Player player, GameManager gameManager, SaveFile saveFile) {
         // constructor
         this.mainScreen = mainScreen;
         this.player = player;
         this.gameManager = gameManager;
         this.saveFile = saveFile;
-
-        setContentPane(mainPanel);
+        this.self = this;
 
         // JPanel attributes
         setTitle("Save");
@@ -34,12 +44,25 @@ public class SavePopup extends javax.swing.JFrame {
         setLocationRelativeTo(mainScreen);
         setResizable(false);
         setVisible(true);
+        setContentPane(mainPanel);
 
-        // JLabel formatting
-        saveLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        lastSaveLabel.setFont(new Font("Arial", Font.PLAIN, 25));
-        dateLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-        RESETButton.setBackground(Color.getColor("#CC2F1B"));
+        // set assets
+        try {
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/SavePopupBackground.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/SaveButton.png")));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        background.setIcon(backgroundIcon);
+        gameManager.overlay(null, background, container, mainPanel, 400, 322);
+
+        resetButton.setIcon(buttonIcon);
+        gameManager.overlay(new BorderLayout(), resetButton, resetOverlay, resetPanel, 170, 100);
+
+        saveButton.setIcon(buttonIcon);
+        gameManager.overlay(new BorderLayout(), saveButton, saveOverlay, savePanel, 170, 100);
 
         // render last save text
         String date = "No save found";
@@ -59,9 +82,9 @@ public class SavePopup extends javax.swing.JFrame {
 
 
         // trigger save() when the save button is pressed
-        SAVEButton.addActionListener(new ActionListener() {
+        saveButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 try {
                     saveFile.save(player, gameManager, mainScreen);
                     mainScreen.feedback("Successful save");
@@ -70,24 +93,19 @@ public class SavePopup extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(mainPanel, "Error saving");
                     mainScreen.feedback("IOException error, try again");
                 }
-                closePopup();
+                gameManager.closePopup(self);
             }
         });
 
         // trigger reset() when the reset button is pressed
-        RESETButton.addActionListener(new ActionListener() {
+        resetButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void mouseReleased(MouseEvent e) {
                 Rebirth rebirth = new Rebirth();
                 rebirth.reset(gameManager, player, 1);
                 mainScreen.feedback("Successful reset");
-                closePopup();
+                gameManager.closePopup(self);
             }
         });
-    }
-
-    // close popup after clicking a button
-    void closePopup() {
-        this.dispose();
     }
 }

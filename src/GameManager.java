@@ -1,43 +1,44 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.Objects;
+
 public class GameManager {
     Player player;
-
-    double deltaTime = 1;
-
-    public double lectureTime = 0;
-    public int lectureLength = 0;
-    public double time = 3600;
-
-    public int quartile = 1;
-    public  int courseNumber = 1;
-    public int courseRequirement = 0;
-    public boolean[][] courses = new boolean[4][3];
-
 
     // constructor
     public GameManager(Player p) {
         this.player = p;
     }
 
+    // calculate cost of hiring a new student
+    public int getStudentPrice() {
+        return (int)(20 * Math.pow(1.15, player.numStudents));
+    }
+
     // updates player knowledge when study button is pressed
     public void studyButtonPressed() {
+        if (!player.inLecture) {
             player.knowledge += player.kpc * player.multiplier;
             player.totalKnowledge += player.kpc * player.multiplier;
+        }
     }
 
     // going to lecture, updates kpc and freezes study action
     public void goToLectureButtonPressed() {
         if (!player.inLecture) {
             player.inLecture = true;
-            lectureTime = 4 * Math.pow(player.kpc, 1.35);
-            lectureLength = (int) lectureTime;
+            player.lectureTime = 4 * Math.pow(player.kpc, 1.35);
+            player.lectureLength = (int) player.lectureTime;
             player.lecturesAttended ++;
         }
     }
 
     // hires a student, increases kps
     public void addStudentButtonPressed() {
-        if (player.knowledge >= player.getStudentPrice()) {
-            Student student = new Student(player.getStudentPrice(), player);
+        if (player.knowledge >= this.getStudentPrice()) {
+            Student student = new Student(this.getStudentPrice(), player);
             player.numStudents += 1;
             player.kps += student.kps;
             player.studentsHired ++;
@@ -46,20 +47,82 @@ public class GameManager {
 
     // sets course to finished, adds ects, add multiplier
     public void finishCourseButtonPressed() {
-        this.courses[quartile - 1][this.courseNumber - 1] = true;
-        this.courseNumber += 1;
-        player.creditProgress += 5;
+        if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
+            player.courses[player.quartile - 1][player.courseNumber - 1] = true;
+            player.courseNumber += 1;
+            player.creditProgress += 5;
 
-        if (this.courseNumber <= 3) {
-            player.multiplier += 0.10;
-        } else {
-            player.multiplier += 0.20;
+            if (player.courseNumber <= 3) {
+                player.multiplier += 0.10;
+            } else {
+                player.multiplier += 0.20;
+            }
+            player.knowledge -= player.courseRequirement;
         }
-        player.knowledge -= this.courseRequirement;
     }
 
-    // calculate cost of finishing course
-    public void setCourseRequirement() {
-        this.courseRequirement = (int)(15000 * courseNumber * Math.pow(2.3, quartile - 1));
+
+    // overlays a panel on top of a label
+    public void overlay(LayoutManager layout, JLabel backdrop, JPanel container, JPanel parentPanel, int width, int height) {
+        JLayeredPane new_layeredPane = new JLayeredPane();
+        new_layeredPane.setPreferredSize(new Dimension(width, height));
+        new_layeredPane.setBounds(0, 0, width, height);
+        backdrop.setBounds(0, 0, width, height);
+        container.setBounds(0, 0, width, height);
+        new_layeredPane.add(backdrop, JLayeredPane.DEFAULT_LAYER);
+        new_layeredPane.add(container, JLayeredPane.PALETTE_LAYER);
+        parentPanel.setLayout(layout);
+        parentPanel.add(new_layeredPane);
+    }
+
+    // loads a PNG from the Recources folder
+    private BufferedImage loadImage(String name) {
+        try {
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Recources/" + name)));
+        } catch (Exception e) {
+            System.err.println("Could not load /Recources/" + name);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // swaps a progress bar's look for the PNG version. track = empty bar, fill = full bar
+    public void applyPixelStyle(JProgressBar bar, String trackName, String fillName, int orientation) {
+        BufferedImage track = loadImage(trackName);
+        BufferedImage fill = loadImage(fillName);
+
+        bar.setUI(new ImageProgressBarUI(track, fill, orientation));
+        bar.setBorderPainted(false);
+        bar.setOpaque(false);
+    }
+
+    // closes a pop-up
+    void closePopup(javax.swing.JFrame frame) {
+        frame.dispose();
+    }
+
+    // updates variables
+    public void update() {
+        // update lecture time
+        if (player.lectureTime < 0) {
+            player.kpc *= 1.5;
+            player.lectureTime = 0;
+        } else if (player.lectureTime == 0) {
+            player.inLecture = false;
+        } else {
+            player.lectureTime -= player.deltaTime;
+        }
+
+        // update clock
+        player.time -= player.deltaTime;
+        player.seconds = (int) Math.ceil(player.time) % 60;
+        player.minutes = (int) Math.ceil(player.time) / 60;
+
+        // update knowledge
+        player.knowledge += player.kps * player.multiplier * player.deltaTime;
+        player.totalKnowledge += player.kps * player.multiplier * player.deltaTime;
+
+        // update course requirement
+        player.courseRequirement = (int)(15000 * player.courseNumber * Math.pow(2.3, player.quartile - 1));
     }
 }

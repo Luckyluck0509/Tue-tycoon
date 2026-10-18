@@ -11,7 +11,7 @@ public class SaveFile {
     public void save(Player player, GameManager gameManager, MainScreen mainScreen) throws IOException {
         Properties prop = new Properties();
 
-        // Player
+        // save variables
         prop.setProperty("knowledge", String.valueOf(player.knowledge));
         prop.setProperty("totalKnowledge", String.valueOf(player.totalKnowledge));
         prop.setProperty("creditProgress", String.valueOf(player.creditProgress));
@@ -22,14 +22,12 @@ public class SaveFile {
         prop.setProperty("studentsHired", String.valueOf(player.studentsHired));
         prop.setProperty("inLecture", String.valueOf(player.inLecture));
         prop.setProperty("lecturesAttended", String.valueOf(player.lecturesAttended));
-
-        // GameManager
-        prop.setProperty("quartile", String.valueOf(gameManager.quartile));
-        prop.setProperty("lectureTime", String.valueOf(gameManager.lectureTime));
-        prop.setProperty("lectureLength", String.valueOf(gameManager.lectureLength));
-        prop.setProperty("courseNumber", String.valueOf(gameManager.courseNumber));
-        prop.setProperty("courseRequirement", String.valueOf(gameManager.courseRequirement));
-        prop.setProperty("time", String.valueOf(gameManager.time));
+        prop.setProperty("quartile", String.valueOf(player.quartile));
+        prop.setProperty("lectureTime", String.valueOf(player.lectureTime));
+        prop.setProperty("lectureLength", String.valueOf(player.lectureLength));
+        prop.setProperty("courseNumber", String.valueOf(player.courseNumber));
+        prop.setProperty("courseRequirement", String.valueOf(player.courseRequirement));
+        prop.setProperty("time", String.valueOf(player.time));
 
         // store 2D courses array as binary
         StringBuilder sb = new StringBuilder();
@@ -37,7 +35,7 @@ public class SaveFile {
             if (i > 0) {
                 sb.append(",");
             }
-            for (boolean value : gameManager.courses[i]) {
+            for (boolean value : player.courses[i]) {
                 sb.append(value ? '1' : '0');
             }
         }
@@ -63,7 +61,7 @@ public class SaveFile {
             prop.load(in);
         }
 
-        // Player
+        // load variables
         player.knowledge = Double.parseDouble(prop.getProperty("knowledge", "0"));
         player.totalKnowledge = Double.parseDouble(prop.getProperty("totalKnowledge", "0"));
         player.creditProgress = Integer.parseInt(prop.getProperty("creditProgress", "0"));
@@ -74,14 +72,12 @@ public class SaveFile {
         player.studentsHired = Integer.parseInt(prop.getProperty("studentsHired", "0"));
         player.inLecture = Boolean.parseBoolean(prop.getProperty("inLecture", "false"));
         player.lecturesAttended = Integer.parseInt(prop.getProperty("lecturesAttended", "0"));
-
-        // GameManager
-        gameManager.quartile = Integer.parseInt(prop.getProperty("quartile", "1"));
-        gameManager.lectureTime = Double.parseDouble(prop.getProperty("lectureTime", "0"));
-        gameManager.lectureLength = Integer.parseInt(prop.getProperty("lectureLength", "0"));
-        gameManager.courseNumber = Integer.parseInt(prop.getProperty("courseNumber", "1"));
-        gameManager.courseRequirement = Integer.parseInt(prop.getProperty("courseRequirement", "0"));
-        gameManager.time = Double.parseDouble(prop.getProperty("time", "3600"));
+        player.quartile = Integer.parseInt(prop.getProperty("quartile", "1"));
+        player.lectureTime = Double.parseDouble(prop.getProperty("lectureTime", "0"));
+        player.lectureLength = Integer.parseInt(prop.getProperty("lectureLength", "0"));
+        player.courseNumber = Integer.parseInt(prop.getProperty("courseNumber", "1"));
+        player.courseRequirement = Integer.parseInt(prop.getProperty("courseRequirement", "0"));
+        player.time = Double.parseDouble(prop.getProperty("time", "3600"));
 
         String savedCourses = prop.getProperty("courses");
         if (savedCourses != null) {
@@ -93,7 +89,7 @@ public class SaveFile {
                     courses[i][j] = rows[i].charAt(j) == '1';
                 }
             }
-            gameManager.courses = courses;
+            player.courses = courses;
         }
     }
 }

@@ -2,10 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
+import java.util.Objects;
 
 public class BsaPopup extends javax.swing.JFrame {
-    private JButton RESTARTButton;
-    private JButton EXITButton;
+    // all panels in BSA pop-up
     private JPanel bsaPanel;
     private JPanel buttonPanel;
     private JPanel topPanel;
@@ -13,6 +13,8 @@ public class BsaPopup extends javax.swing.JFrame {
     private JPanel tableOverlay;
     private JPanel tablePanel;
     private JPanel bsaContainer;
+
+    // all labels in BSA pop-up
     private JLabel tableBackground;
     private JLabel q1c1;
     private JLabel q1c2;
@@ -36,12 +38,7 @@ public class BsaPopup extends javax.swing.JFrame {
     private JLabel exitButton;
     private JLabel restartButton;
 
-    public GameManager gameManager;
-    public Player player;
-    public MainScreen mainScreen;
-    public SaveFile save;
-    public Rebirth rebirth;
-
+    // declaring icons
     ImageIcon bsaBackground;
     ImageIcon yearTable;
     ImageIcon exitIcon;
@@ -65,38 +62,45 @@ public class BsaPopup extends javax.swing.JFrame {
     ImageIcon gradeFMinus;
     ImageIcon gradeZ;
 
+    public GameManager gameManager;
+    public Player player;
+    public MainScreen mainScreen;
+    public SaveFile save;
+    public Rebirth rebirth;
+
+    // constructor
     public BsaPopup(MainScreen mainScreen, GameManager gameManager, Player player, SaveFile saveFile) {
-        // constructor
         this.mainScreen = mainScreen;
         this.gameManager = gameManager;
         this.player = player;
         this.save = saveFile;
         this.rebirth = mainScreen.rebirth;
 
+        // set assets
         try {
-            bsaBackground = new ImageIcon(getClass().getResource("/Recources/RebirthBackground.png"));
-            yearTable = new ImageIcon(getClass().getResource("/Recources/YearTable.png"));
-            exitIcon = new ImageIcon(getClass().getResource("/Recources/ExitPost-It.png"));
-            restartIcon = new ImageIcon(getClass().getResource("/Recources/ResetPost-It.png"));
-            crossIcon = new ImageIcon(getClass().getResource("/Recources/Cross.png"));
-            checkIcon = new ImageIcon(getClass().getResource("/Recources/Check.png"));
+            bsaBackground = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/RebirthBackground.png")));
+            yearTable = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/YearTable.png")));
+            exitIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/ExitPost-It.png")));
+            restartIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/ResetPost-It.png")));
+            crossIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Cross.png")));
+            checkIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Check.png")));
 
-            gradeAPlus = new ImageIcon(getClass().getResource("/Recources/grades/A+.png"));
-            gradeA = new ImageIcon(getClass().getResource("/Recources/grades/A.png"));
-            gradeAMinus = new ImageIcon(getClass().getResource("/Recources/grades/A-.png"));
-            gradeBPlus = new ImageIcon(getClass().getResource("/Recources/grades/B+.png"));
-            gradeB = new ImageIcon(getClass().getResource("/Recources/grades/B.png"));
-            gradeBMinus = new ImageIcon(getClass().getResource("/Recources/grades/B-.png"));
-            gradeCPlus = new ImageIcon(getClass().getResource("/Recources/grades/C+.png"));
-            gradeC = new ImageIcon(getClass().getResource("/Recources/grades/C.png"));
-            gradeCMinus = new ImageIcon(getClass().getResource("/Recources/grades/C-.png"));
-            gradeDPlus = new ImageIcon(getClass().getResource("/Recources/grades/D+.png"));
-            gradeD = new ImageIcon(getClass().getResource("/Recources/grades/D.png"));
-            gradeDMinus = new ImageIcon(getClass().getResource("/Recources/grades/D-.png"));
-            gradeFPlus = new ImageIcon(getClass().getResource("/Recources/grades/F+.png"));
-            gradeF = new ImageIcon(getClass().getResource("/Recources/grades/F.png"));
-            gradeFMinus = new ImageIcon(getClass().getResource("/Recources/grades/F-.png"));
-            gradeZ = new ImageIcon(getClass().getResource("/Recources/grades/Z.png"));
+            gradeAPlus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/A+.png")));
+            gradeA = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/A.png")));
+            gradeAMinus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/A-.png")));
+            gradeBPlus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/B+.png")));
+            gradeB = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/B.png")));
+            gradeBMinus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/B-.png")));
+            gradeCPlus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/C+.png")));
+            gradeC = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/C.png")));
+            gradeCMinus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/C-.png")));
+            gradeDPlus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/D+.png")));
+            gradeD = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/D.png")));
+            gradeDMinus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/D-.png")));
+            gradeFPlus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/F+.png")));
+            gradeF = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/F.png")));
+            gradeFMinus = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/F-.png")));
+            gradeZ = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/grades/Z.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -106,10 +110,10 @@ public class BsaPopup extends javax.swing.JFrame {
 
         // set assets
         background.setIcon(bsaBackground);
-        this.mainScreen.overlay(null, background, bsaContainer, bsaPanel, 600, 470);
+        gameManager.overlay(null, background, bsaContainer, bsaPanel, 600, 470);
 
         tableBackground.setIcon(yearTable);
-        this.mainScreen.overlay(null, tableBackground, tableOverlay, tablePanel, 267, 192);
+        gameManager.overlay(null, tableBackground, tableOverlay, tablePanel, 267, 192);
 
         exitButton.setIcon(exitIcon);
         restartButton.setIcon(restartIcon);
@@ -151,7 +155,7 @@ public class BsaPopup extends javax.swing.JFrame {
         creditsLabel.setText(String.format("Total credits: %d/60", player.creditProgress));
 
         // time label
-        int remaining = (int) Math.ceil(this.gameManager.time);
+        int remaining = (int) Math.ceil(player.time);
         int elapsed = 3600 - remaining;
         int minutes = elapsed / 60;
         int seconds = elapsed % 60;
@@ -170,7 +174,7 @@ public class BsaPopup extends javax.swing.JFrame {
         JLabel[][] labels = {{q1c1, q1c2, q1c3}, {q2c1, q2c2, q2c3}, {q3c1, q3c2, q3c3}, {q4c1, q4c2, q4c3}};
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 3; j++) {
-                if (gameManager.courses[i][j]) {
+                if (player.courses[i][j]) {
                     labels[i][j].setIcon(checkIcon);
                 } else {
                     labels[i][j].setIcon(crossIcon);

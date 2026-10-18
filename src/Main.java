@@ -3,27 +3,28 @@ import javax.swing.Timer;
 long lastTime = System.nanoTime();
 
 void main() {
-    Player p = new Player();
-    SaveFile save = new SaveFile();
-    GameManager gm = new GameManager(p);
+    Player player = new Player();
+    SaveFile saveFile = new SaveFile();
+    GameManager gameManager = new GameManager(player);
 
     // save file loading in
     try {
-        save.load(p, gm);
+        saveFile.load(player, gameManager);
     } catch (IOException e) {
         e.printStackTrace();
     }
 
-    Rebirth r = new Rebirth();
-    MainScreen ms = new MainScreen(p, gm, save, r);
+    Rebirth rebirth = new Rebirth();
+    MainScreen mainScreen = new MainScreen(player, gameManager, saveFile, rebirth);
 
     // timer
     Timer timer = new Timer(16, e -> {
         long currentTime = System.nanoTime();
-        gm.deltaTime = (currentTime - lastTime) / 1000000000.0;
+        player.deltaTime = (currentTime - lastTime) / 1000000000.0;
         lastTime = currentTime;
-        if (gm.time >= 0 && gm.quartile <= 4) {
-            ms.update();
+        if (player.time >= 0 && player.quartile <= 4) {
+            gameManager.update();
+            mainScreen.screenUpdate();
         }
     });
 

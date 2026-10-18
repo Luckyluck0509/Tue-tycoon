@@ -1,26 +1,34 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Objects;
 
 public class RebirthPopup extends javax.swing.JFrame {
-    // render java swing elements
-    private JPanel rebirthPopup;
+    // all panels in rebirth pop-up
+    private JPanel mainPanel;
+    private JPanel container;
     private JPanel rebirthPanel;
-    private JButton rebirthButton;
+    private JPanel rebirthButtonOverlay;
+
+    // all labels in rebirth pop-up
+    private JLabel rebirthButton;
     private JLabel quartileLabel;
-    private JLabel mulitplierLabel;
-    private JLabel rebirthLabel;
+    private JLabel multiplierLabel;
+    private JLabel background;
+
+    // declaring icons
+    ImageIcon backgroundIcon;
+    ImageIcon buttonIcon;
 
     public MainScreen mainScreen;
     public Player player;
     public GameManager gameManager;
     public SaveFile saveFile;
     public Rebirth rebirth;
+    public RebirthPopup self;
 
-
-
+    // constructor
     public RebirthPopup(MainScreen mainScreen, Player player, GameManager gameManager, SaveFile saveFile) {
         // constructor
         this.mainScreen = mainScreen;
@@ -28,9 +36,7 @@ public class RebirthPopup extends javax.swing.JFrame {
         this.gameManager = gameManager;
         this.saveFile = saveFile;
         this.rebirth = mainScreen.rebirth;
-
-
-        setContentPane(rebirthPanel);
+        this.self = this;
 
         // JPanel attributes
         setTitle("Rebirth");
@@ -39,42 +45,49 @@ public class RebirthPopup extends javax.swing.JFrame {
         setLocationRelativeTo(mainScreen);
         setResizable(false);
         setVisible(true);
+        setContentPane(mainPanel);
 
-        // JLabel formatting
-        rebirthLabel.setFont(new Font("Arial", Font.BOLD, 30));
-        quartileLabel.setFont(new Font("Arial", Font.PLAIN, 25));
-        mulitplierLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        // set assets
+        try {
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/RebirthPopupBackground.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/RebirthButton.png")));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(0);
+        }
+
+        background.setIcon(backgroundIcon);
+        gameManager.overlay(null, background, container, mainPanel, 400, 322);
+
+        rebirthButton.setIcon(buttonIcon);
+        gameManager.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay, rebirthPanel, 300, 175);
 
         // render Next quartile text
-        if (gameManager.quartile == 4){
-            quartileLabel.setText(String.format("Quartile %d -> end of year", gameManager.quartile));
+        if (player.quartile == 4){
+            quartileLabel.setText(String.format("Quartile %d -> end of year", player.quartile));
         }else {
-            quartileLabel.setText(String.format("Quartile %d -> %d", gameManager.quartile, gameManager.quartile + 1));
+            quartileLabel.setText(String.format("Quartile %d -> %d", player.quartile, player.quartile + 1));
         }
 
         // render multiplier increase text
-        mulitplierLabel.setText(String.format("%1$,.2f multiplier increase", rebirth.MultiplierAmount(gameManager, player)));
+        multiplierLabel.setText(String.format("%1$,.2f multiplier increase", rebirth.MultiplierAmount(gameManager, player)));
 
         // trigger RebirthAction when the rebirth button is pressed
-        rebirthButton.addActionListener(new ActionListener() {
+        rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                if (gameManager.courseNumber > 2) {
+            public void mouseReleased(MouseEvent e) {
+                if (player.courseNumber > 2) {
                     rebirth.RebirthAction(gameManager, player);
-                    if (gameManager.quartile <= 4) {
+                    if (player.quartile <= 4) {
                         mainScreen.feedback("Successful rebirth");
                     } else {
                         mainScreen.feedback("Finished year");
                         BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
                         bsaPopup.triggerReport();
                     }
-                    closePopup();
+                    gameManager.closePopup(self);
                 }
             }
         });
-    }
-
-    void closePopup() {
-        this.dispose();
     }
 }

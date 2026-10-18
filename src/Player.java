@@ -1,21 +1,34 @@
 public class Player {
-    public double knowledge = 0;
-    public double multiplier = 1;
-    public double kpc = 1;
-    public double kps = 0;
+    // knowledge related variables
     public double totalKnowledge;
+    public double multiplier = 1;
+    public double knowledge = 0;
+    public double kpc = 1;
 
-    public int numStudents = 0;
-    public int lecturesAttended;
-    public int studentsHired;
+    // quartile related variables
     public int creditProgress = 0;
+    public int quartile = 1;
 
+    // students related variables
+    public int studentsHired;
+    public int numStudents = 0;
+    public double kps = 0;
+
+    // lecture related variables
+    public int lecturesAttended;
     public boolean inLecture = false;
+    public double lectureTime = 0;
+    public int lectureLength = 0;
 
+    // course related variables
+    public boolean[][] courses = new boolean[4][3];
+    public  int courseNumber = 1;
+    public int courseRequirement = 0;
 
-
-    // calculate cost of hiring a new student
-    public int getStudentPrice() {
-        return (int)(20 * Math.pow(1.15, numStudents));
-    }
+    // time related variables
+    public double time = 3600;
+    public double deltaTime;
+    public int seconds;
+    public int minutes;
+    public double sleepTime;
 }

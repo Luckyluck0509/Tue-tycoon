@@ -1,11 +1,11 @@
 public class Rebirth {
     // calculate the amount the multiplier is gonna increase after rebirth
     public double MultiplierAmount(GameManager gameManager, Player player){
-        double q = gameManager.quartile;
+        double q = player.quartile;
         double c = player.creditProgress;
         double k = player.knowledge;
         double kpc = player.kpc;
-        double creditsThisQuartile = (gameManager.courseNumber - 1) * 5;
+        double creditsThisQuartile = (player.courseNumber - 1) * 5;
         double p = Math.min(creditsThisQuartile / 15, 1);
 
         return 0.10 * Math.log10(1 + k) * Math.sqrt(kpc) * (0.6 + 0.6 * p) * (1 + 0.15 * (q - 1));
@@ -30,21 +30,24 @@ public class Rebirth {
         player.numStudents = 0;
         player.inLecture = false;
 
-        gameManager.lectureTime = 0;
-        gameManager.lectureLength = 0;
-        gameManager.courseNumber = 1;
+        player.lectureTime = 0;
+        player.lectureLength = 0;
+        player.courseNumber = 1;
 
         if (mode == 0) {
-            gameManager.quartile++;
+            player.quartile++;
         } else {
+            player.studentsHired = 0;
+            player.lecturesAttended = 0;
+            player.totalKnowledge = 0;
             player.creditProgress = 0;
             player.multiplier = 1;
-            gameManager.quartile = 1;
-            gameManager.time = 3600;
+            player.quartile = 1;
+            player.time = 3600;
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 3; j++) {
-                    gameManager.courses[i][j] = false;
+                    player.courses[i][j] = false;
                 }
             }
         }
