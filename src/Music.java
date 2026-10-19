@@ -6,8 +6,8 @@ public class Music {
     private double musicLength = 0;   // time remaining in the current song
     private int lastIndex = -1;
     private final Random rand = new Random();
-    private double gapTime = 10;
-    private boolean waiting = false;
+    private double gapTime = 5;
+    private boolean waiting = true;
     private static final float MUSIC_VOLUME = 0.4f;
 
     public void startMusic() {
@@ -28,13 +28,10 @@ public class Music {
             System.exit(0);
         }
 
-
         // set volume of all songs to MUSIC_VOLUME
         for (Sound song : music) {
             song.setVolume(MUSIC_VOLUME);
         }
-
-        playNextSong();
     }
 
     private void playNextSong() {
@@ -56,7 +53,7 @@ public class Music {
             return;   // startMusic() hasn't run yet
         }
 
-        // wait 10 seconds between each song
+        // wait gapTime seconds between each song
         if (waiting) {
             gapTime -= deltaTime;
             if (gapTime <= 0) {
