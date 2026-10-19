@@ -1,7 +1,7 @@
 #Save file
-#Mon Oct 19 11:56:23 CEST 2026
+#Mon Oct 19 17:18:24 CEST 2026
 courseNumber=1
-courseRequirement=15000
+courseRequirement=730019
 courses=000,000,000,000
 creditProgress=0
 inLecture=false
