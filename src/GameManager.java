@@ -1,3 +1,5 @@
+import java.util.Random;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -6,6 +8,19 @@ import java.util.Objects;
 
 public class GameManager {
     Player player;
+    Random rand = new Random();
+
+    // all sounds
+    Sound studySound1 = new Sound("/Resources/Sounds/studySound1.wav");
+    Sound studySound2 = new Sound("/Resources/Sounds/studySound2.wav");
+    Sound upgradeSound = new Sound("/Resources/Sounds/upgradeSound.wav");
+    Sound courseSound = new Sound("/Resources/Sounds/courseSound.wav");
+    Sound rebirthSound = new Sound("/Resources/Sounds/rebirthSound.wav");
+    Sound popupSound = new Sound("/Resources/Sounds/popupSound.wav");
+    Sound exitSound = new Sound("/Resources/Sounds/exitSound.wav");
+    Sound mutedSound = new Sound("/Resources/Sounds/mutedSound.wav");
+    Sound resetSound = new Sound("/Resources/Sounds/resetSound.wav");
+    Sound failSound = new Sound("/Resources/Sounds/failSound.wav");
 
     // constructor
     public GameManager(Player p) {
@@ -23,11 +38,24 @@ public class GameManager {
             player.knowledge += player.kpc * player.multiplier;
             player.totalKnowledge += player.kpc * player.multiplier;
         }
+        int num = rand.nextInt(4);
+
+        switch (num) {
+            case 1 -> {
+                studySound2.playSound();
+            } default -> {
+                studySound1.playSound();
+            }
+        }
+
+        player.knowledge += player.kpc * player.multiplier;
+        player.totalKnowledge += player.kpc * player.multiplier;
     }
 
     // going to lecture, updates kpc and freezes study action
     public void goToLectureButtonPressed() {
         if (!player.inLecture) {
+            upgradeSound.playSound();
             player.inLecture = true;
             player.lectureTime = 4 * Math.pow(player.kpc, 1.35);
             player.lectureLength = (int) player.lectureTime;
@@ -51,7 +79,19 @@ public class GameManager {
             player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.courseNumber += 1;
             player.creditProgress += 5;
+        if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
+            courseSound.playSound();
+            player.courses[player.quartile - 1][player.courseNumber - 1] = true;
+            player.courseNumber += 1;
+            player.creditProgress += 5;
 
+            if (player.courseNumber <= 3) {
+                player.multiplier += 0.10;
+            } else {
+                player.multiplier += 0.20;
+            }
+            player.knowledge -= player.courseRequirement;
+        }
             if (player.courseNumber <= 3) {
                 player.multiplier += 0.10;
             } else {

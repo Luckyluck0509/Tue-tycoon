@@ -3,6 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;
 
 public class BsaPopup extends javax.swing.JFrame {
     // all panels in BSA pop-up
@@ -120,7 +122,7 @@ public class BsaPopup extends javax.swing.JFrame {
 
         // JPanel attributes
         setTitle("BSA Report");
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(600, 470);
         setLocationRelativeTo(mainScreen);
         setResizable(false);
@@ -129,6 +131,7 @@ public class BsaPopup extends javax.swing.JFrame {
         restartButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.resetSound.playSound();
                 rebirth.reset(gameManager, player, 1);
                 closePopup();
             }
@@ -138,14 +141,32 @@ public class BsaPopup extends javax.swing.JFrame {
         exitButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.exitSound.playSound();
                 rebirth.reset(gameManager, player, 1);
                 try {
-                    save.save(BsaPopup.this.player, BsaPopup.this.gameManager, BsaPopup.this.mainScreen);
+                    save.save(player, gameManager, mainScreen);
                 } catch (IOException error) {
                     JOptionPane.showMessageDialog(mainScreen, "Error resetting");
                     error.printStackTrace();
                 }
-                System.exit(10000);
+                System.exit(0);
+            }
+        });
+
+        // reset, save and exit program when the window is closed.
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                gameManager.exitSound.playSound();
+                rebirth.reset(gameManager, player, 1);
+                try {
+                    save.save(player, gameManager, mainScreen);
+                } catch (IOException error) {
+                    gameManager.failSound.playSound();
+                    JOptionPane.showMessageDialog(mainScreen, "Error resetting");
+                    error.printStackTrace();
+                }
+                System.exit(0);
             }
         });
     }

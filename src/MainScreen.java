@@ -1,7 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
+import java.awt.image.*;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
@@ -178,6 +180,7 @@ public class MainScreen extends javax.swing.JFrame {
         savePanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.popupSound.playSound();
                 SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
             }
         });
@@ -186,6 +189,7 @@ public class MainScreen extends javax.swing.JFrame {
         rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.popupSound.playSound();
                 RebirthPopup rebirthPopup = new RebirthPopup(self, p, gm, saveFile);
             }
         });
@@ -194,26 +198,16 @@ public class MainScreen extends javax.swing.JFrame {
         exitPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+                gameManager.exitSound.playSound();
                 resetFeedback();
                 System.exit(0);
             }
         });
     }
 
-    // create a feedback message
-    public void feedback(String message) {
-        feedbackLabel.setText(message);
-        player.sleepTime = 2.0;
-    }
-
-    // get rid of the feedback message
-    public void resetFeedback() {
-        feedbackLabel.setText("");
-    }
 
     // update all variables every frame
     void screenUpdate() {
-        // self-explanatory
         lectureProgress.setMaximum(player.lectureLength);
 
         // render and count down sleep timer and feedback label
@@ -276,5 +270,50 @@ public class MainScreen extends javax.swing.JFrame {
             BsaPopup bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
             bsaPopup.triggerReport();
         }
+    }
+
+    // overlays a panel on top of a label
+    public void overlay(LayoutManager layout, JLabel backdrop, JPanel container, JPanel parentPanel, int width, int height) {
+        JLayeredPane new_layeredPane = new JLayeredPane();
+        new_layeredPane.setPreferredSize(new Dimension(width, height));
+        new_layeredPane.setBounds(0, 0, width, height);
+        backdrop.setBounds(0, 0, width, height);
+        container.setBounds(0, 0, width, height);
+        new_layeredPane.add(backdrop, JLayeredPane.DEFAULT_LAYER);
+        new_layeredPane.add(container, JLayeredPane.PALETTE_LAYER);
+        parentPanel.setLayout(layout);
+        parentPanel.add(new_layeredPane);
+    }
+
+    // loads a PNG from the Recources folder
+    private BufferedImage loadImage(String name) {
+        try {
+            return ImageIO.read(getClass().getResource("/Resources/" + name));
+        } catch (Exception e) {
+            System.err.println("Could not load /Resources/" + name);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // swaps a progress bar's look for the PNG version
+    // track = empty bar
+    // fill = full bar
+    private void applyPixelStyle(JProgressBar bar, String trackName, String fillName, int orientation) {
+        BufferedImage track = loadImage(trackName);
+        BufferedImage fill = loadImage(fillName);
+
+        bar.setUI(new ImageProgressBarUI(track, fill, orientation));
+        bar.setBorderPainted(false);
+        bar.setOpaque(false);
+    }
+
+    public void feedback(String message) {
+        feedbackLabel.setText(message);
+        this.sleepTime = 2.0;
+    }
+
+    public void resetFeedback() {
+        feedbackLabel.setText("");
     }
 }
