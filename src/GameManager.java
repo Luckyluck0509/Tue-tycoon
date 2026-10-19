@@ -8,26 +8,45 @@ import java.util.Objects;
 
 public class GameManager {
     Player player;
+    Music music;
     Random rand = new Random();
 
     // all sounds
-    Sound studySound1 = new Sound("/Resources/Sounds/studySound1.wav");
-    Sound studySound2 = new Sound("/Resources/Sounds/studySound2.wav");
-    Sound upgradeSound = new Sound("/Resources/Sounds/upgradeSound.wav");
-    Sound courseSound = new Sound("/Resources/Sounds/courseSound.wav");
-    Sound rebirthSound = new Sound("/Resources/Sounds/rebirthSound.wav");
-    Sound popupSound = new Sound("/Resources/Sounds/popupSound.wav");
-    Sound exitSound = new Sound("/Resources/Sounds/exitSound.wav");
-    Sound mutedSound = new Sound("/Resources/Sounds/mutedSound.wav");
-    Sound resetSound = new Sound("/Resources/Sounds/resetSound.wav");
-    Sound failSound = new Sound("/Resources/Sounds/failSound.wav");
+    Sound studySound1;
+    Sound studySound2;
+    Sound upgradeSound;
+    Sound courseSound;
+    Sound rebirthSound;
+    Sound popupSound;
+    Sound exitSound;
+    Sound mutedSound;
+    Sound resetSound;
+    Sound failSound;
 
     // length of textfeedback time
     public double sleepTime;
 
     // constructor
-    public GameManager(Player p) {
+    public GameManager(Player p, Music m) {
         this.player = p;
+        this.music = m;
+
+        // all sounds
+        try {
+            studySound1 = new Sound("/Resources/Sounds/studySound1.wav");
+            studySound2 = new Sound("/Resources/Sounds/studySound2.wav");
+            upgradeSound = new Sound("/Resources/Sounds/upgradeSound.wav");
+            courseSound = new Sound("/Resources/Sounds/courseSound.wav");
+            rebirthSound = new Sound("/Resources/Sounds/rebirthSound.wav");
+            popupSound = new Sound("/Resources/Sounds/popupSound.wav");
+            exitSound = new Sound("/Resources/Sounds/exitSound.wav");
+            mutedSound = new Sound("/Resources/Sounds/mutedSound.wav");
+            resetSound = new Sound("/Resources/Sounds/resetSound.wav");
+            failSound = new Sound("/Resources/Sounds/failSound.wav");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(0);
+        }
     }
 
     // calculate cost of hiring a new student
@@ -72,16 +91,13 @@ public class GameManager {
         }
     }
 
-    // sets course to finished, adds ects, add multiplier
+    // sets course to finished, adds ects, add multiplier, subtract knowledge
     public void finishCourseButtonPressed() {
         if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
             player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.courseNumber += 1;
             player.creditProgress += 5;
             courseSound.playSound();
-            player.courses[player.quartile - 1][player.courseNumber - 1] = true;
-            player.courseNumber += 1;
-            player.creditProgress += 5;
 
             if (player.courseNumber <= 3) {
                 player.multiplier += 0.10;
@@ -158,5 +174,8 @@ public class GameManager {
 
         // update feedback time
         sleepTime -= player.deltaTime;
+
+        // updates music, play next song if this one is finished
+        music.updateMusic(player.deltaTime);
     }
 }

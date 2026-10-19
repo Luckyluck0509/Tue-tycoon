@@ -5,10 +5,14 @@ long lastTime = System.nanoTime();
 void main() {
     Player player = new Player();
     SaveFile saveFile = new SaveFile();
-    GameManager gameManager = new GameManager(player);
+    Music music = new Music();
+    GameManager gameManager = new GameManager(player, music);
 
     // play silent sound to prevent sound lag afterwards
     gameManager.mutedSound.playSound();
+
+    // start music
+    music.startMusic();
 
     // save file loading in
     try {
