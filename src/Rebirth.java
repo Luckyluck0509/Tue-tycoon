@@ -1,14 +1,13 @@
 public class Rebirth {
     // calculate the amount the multiplier is gonna increase after rebirth
     public double MultiplierAmount(GameManager gameManager, Player player){
-        double q = player.quartile;
-        double c = player.creditProgress;
-        double k = player.knowledge;
+        double quartile = player.quartile;
+        double knowledge = player.knowledge;
         double kpc = player.kpc;
         double creditsThisQuartile = (player.courseNumber - 1) * 5;
         double p = Math.min(creditsThisQuartile / 15, 1);
 
-        return 0.10 * Math.log10(1 + k) * Math.sqrt(kpc) * (0.6 + 0.6 * p) * (1 + 0.15 * (q - 1));
+        return 0.10 * Math.log10(1 + Math.log10(knowledge)) * Math.sqrt(kpc) * (0.6 + 0.6 * p) * ((1 + 0.15) * (quartile - 1));
     }
 
     // rebirth, update multiplier and trigger reset at mode 0

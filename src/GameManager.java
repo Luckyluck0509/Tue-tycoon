@@ -94,9 +94,6 @@ public class GameManager {
     // sets course to finished, adds ects, add multiplier, subtract knowledge
     public void finishCourseButtonPressed() {
         if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
-            player.courses[player.quartile - 1][player.courseNumber - 1] = true;
-            player.courseNumber += 1;
-            player.creditProgress += 5;
             courseSound.playSound();
 
             if (player.courseNumber <= 3) {
