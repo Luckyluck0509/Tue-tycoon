@@ -36,23 +36,18 @@ public class GameManager {
     }
 
     // updates player knowledge when study button is pressed
-    public void studyButtonPressed() {
+    public void studyButtonPressed(JLabel button) {
         if (!player.inLecture) {
             player.knowledge += player.kpc * player.multiplier;
             player.totalKnowledge += player.kpc * player.multiplier;
-        }
-        int num = rand.nextInt(4);
 
-        switch (num) {
-            case 1 -> {
+            int num = rand.nextInt(4);
+            if (num == 1) {
                 studySound2.playSound();
-            } default -> {
+            } else {
                 studySound1.playSound();
             }
         }
-
-        player.knowledge += player.kpc * player.multiplier;
-        player.totalKnowledge += player.kpc * player.multiplier;
     }
 
     // going to lecture, updates kpc and freezes study action
@@ -69,6 +64,7 @@ public class GameManager {
     // hires a student, increases kps
     public void addStudentButtonPressed() {
         if (player.knowledge >= this.getStudentPrice()) {
+            upgradeSound.playSound();
             Student student = new Student(this.getStudentPrice(), player);
             player.numStudents += 1;
             player.kps += student.kps;
@@ -82,19 +78,11 @@ public class GameManager {
             player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.courseNumber += 1;
             player.creditProgress += 5;
-        if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
             courseSound.playSound();
             player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.courseNumber += 1;
             player.creditProgress += 5;
 
-            if (player.courseNumber <= 3) {
-                player.multiplier += 0.10;
-            } else {
-                player.multiplier += 0.20;
-            }
-            player.knowledge -= player.courseRequirement;
-        }
             if (player.courseNumber <= 3) {
                 player.multiplier += 0.10;
             } else {

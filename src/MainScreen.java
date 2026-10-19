@@ -1,9 +1,7 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
-import java.awt.image.*;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
@@ -58,11 +56,15 @@ public class MainScreen extends javax.swing.JFrame {
     ImageIcon backgroundIcon;
     ImageIcon lectureIcon;
     ImageIcon upgradeButtonIcon;
+    ImageIcon upgradeButtonIconHighlight;
     ImageIcon buttonIcon;
+    ImageIcon buttonIconHighlight;
     ImageIcon bookIcon;
+    ImageIcon bookIconHighlight;
     ImageIcon nerrrdIcon;
     ImageIcon reportIcon;
     ImageIcon rebirthButtonIcon;
+    ImageIcon rebirthButtonIconHighlight;
 
     public GameManager gameManager;
     public Player player;
@@ -83,11 +85,15 @@ public class MainScreen extends javax.swing.JFrame {
             backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Background.png")));
             lectureIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/GoToLecture.png")));
             upgradeButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Button.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Button2.png")));
+            upgradeButtonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonHighlighted.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonSmall.png")));
+            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonSmallHighlighted.png")));
             bookIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Book.png")));
+            bookIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/BookHighlighted.png")));
             nerrrdIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Nerrrd.png")));
             reportIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Report.png")));
             rebirthButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonRebirth.png")));
+            rebirthButtonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonRebirthHighlighted.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -149,37 +155,127 @@ public class MainScreen extends javax.swing.JFrame {
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                studyButton.setIcon(bookIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                studyButton.setIcon(bookIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!player.inLecture) {
+                    studyButton.setIcon(bookIcon);
+                }
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
-                gameManager.studyButtonPressed();
+                studyButton.setIcon(bookIconHighlight);
+                gameManager.studyButtonPressed(studyButton);
             }
         });
 
         // trigger goToLectureButtonPressed when the go to the lectures button is pressed, render progress bar
-        lecturePanel.addMouseListener(new MouseAdapter() {
+        goToLectureButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                goToLectureButton.setIcon(upgradeButtonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                goToLectureButton.setIcon(upgradeButtonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (!player.inLecture) {
+                    goToLectureButton.setIcon(upgradeButtonIcon);
+                }
+            }
+
             @Override
             public void mouseReleased(MouseEvent e) {
+                goToLectureButton.setIcon(upgradeButtonIconHighlight);
                 gameManager.goToLectureButtonPressed();
             }
         });
 
         // trigger addStudentButtonPressed() when the add student button is pressed
-        studentPanel.addMouseListener(new MouseAdapter() {
+        hireStudentButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                hireStudentButton.setIcon(upgradeButtonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                hireStudentButton.setIcon(upgradeButtonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (player.knowledge >= gameManager.getStudentPrice()) {
+                    hireStudentButton.setIcon(upgradeButtonIcon);
+                }
+            }
+
             @Override
             public void mouseReleased(MouseEvent e) {
+                hireStudentButton.setIcon(upgradeButtonIconHighlight);
                 gameManager.addStudentButtonPressed();
             }
         });
 
+        // trigger finishCourseButtonPressed() when the finish course button is pressed
         finishCourseButton.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                finishCourseButton.setIcon(upgradeButtonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                finishCourseButton.setIcon(upgradeButtonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
+                    finishCourseButton.setIcon(upgradeButtonIcon);
+                }
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
+                finishCourseButton.setIcon(upgradeButtonIconHighlight);
                 gameManager.finishCourseButtonPressed();
             }
         });
 
-        savePanel.addMouseListener(new MouseAdapter() {
+        // trigger save pop-up when save button is pressed
+        saveButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                saveButton.setIcon(buttonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                saveButton.setIcon(buttonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                saveButton.setIcon(buttonIcon);
+            }
+
             @Override
             public void mouseReleased(MouseEvent e) {
+                saveButton.setIcon(buttonIconHighlight);
                 gameManager.popupSound.playSound();
                 SavePopup savePopup = new SavePopup(self, player, gameManager, saveFile);
             }
@@ -188,16 +284,48 @@ public class MainScreen extends javax.swing.JFrame {
         // open the rebirth popup menu when the rebirth button is pressed
         rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                rebirthButton.setIcon(rebirthButtonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                rebirthButton.setIcon(rebirthButtonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                rebirthButton.setIcon(rebirthButtonIcon);
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
+                rebirthButton.setIcon(rebirthButtonIconHighlight);
                 gameManager.popupSound.playSound();
                 RebirthPopup rebirthPopup = new RebirthPopup(self, p, gm, saveFile);
             }
         });
 
         // exit the game
-        exitPanel.addMouseListener(new MouseAdapter() {
+        exitButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                exitButton.setIcon(buttonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                exitButton.setIcon(buttonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                exitButton.setIcon(buttonIcon);
+            }
+
             @Override
             public void mouseReleased(MouseEvent e) {
+                exitButton.setIcon(buttonIconHighlight);
                 gameManager.exitSound.playSound();
                 resetFeedback();
                 System.exit(0);
@@ -205,6 +333,14 @@ public class MainScreen extends javax.swing.JFrame {
         });
     }
 
+    public void feedback(String message) {
+        feedbackLabel.setText(message);
+        gameManager.sleepTime = 2.0;
+    }
+
+    public void resetFeedback() {
+        feedbackLabel.setText("");
+    }
 
     // update all variables every frame
     void screenUpdate() {
@@ -270,50 +406,5 @@ public class MainScreen extends javax.swing.JFrame {
             BsaPopup bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
             bsaPopup.triggerReport();
         }
-    }
-
-    // overlays a panel on top of a label
-    public void overlay(LayoutManager layout, JLabel backdrop, JPanel container, JPanel parentPanel, int width, int height) {
-        JLayeredPane new_layeredPane = new JLayeredPane();
-        new_layeredPane.setPreferredSize(new Dimension(width, height));
-        new_layeredPane.setBounds(0, 0, width, height);
-        backdrop.setBounds(0, 0, width, height);
-        container.setBounds(0, 0, width, height);
-        new_layeredPane.add(backdrop, JLayeredPane.DEFAULT_LAYER);
-        new_layeredPane.add(container, JLayeredPane.PALETTE_LAYER);
-        parentPanel.setLayout(layout);
-        parentPanel.add(new_layeredPane);
-    }
-
-    // loads a PNG from the Resources folder
-    private BufferedImage loadImage(String name) {
-        try {
-            return ImageIO.read(getClass().getResource("/Resources/" + name));
-        } catch (Exception e) {
-            System.err.println("Could not load /Resources/" + name);
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    // swaps a progress bar's look for the PNG version
-    // track = empty bar
-    // fill = full bar
-    private void applyPixelStyle(JProgressBar bar, String trackName, String fillName, int orientation) {
-        BufferedImage track = loadImage(trackName);
-        BufferedImage fill = loadImage(fillName);
-
-        bar.setUI(new ImageProgressBarUI(track, fill, orientation));
-        bar.setBorderPainted(false);
-        bar.setOpaque(false);
-    }
-
-    public void feedback(String message) {
-        feedbackLabel.setText(message);
-        gameManager.sleepTime = 2.0;
-    }
-
-    public void resetFeedback() {
-        feedbackLabel.setText("");
     }
 }
