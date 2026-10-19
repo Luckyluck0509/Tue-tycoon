@@ -23,9 +23,6 @@ public class GameManager {
     Sound resetSound;
     Sound failSound;
 
-    // length of textfeedback time
-    public double sleepTime;
-
     // constructor
     public GameManager(Player p, Music m) {
         this.player = p;
@@ -102,6 +99,7 @@ public class GameManager {
                 player.multiplier += 0.20;
             }
             player.knowledge -= player.courseRequirement;
+            player.courseNumber ++;
         }
     }
 
@@ -170,7 +168,7 @@ public class GameManager {
         player.courseRequirement = (int)(15000 * player.courseNumber * Math.pow(2.3, player.quartile - 1));
 
         // update feedback time
-        sleepTime -= player.deltaTime;
+        player.sleepTime -= player.deltaTime;
 
         // updates music, play next song if this one is finished
         music.updateMusic(player.deltaTime);

@@ -21,13 +21,14 @@ public class SavePopup extends javax.swing.JFrame {
     // declaring icons
     ImageIcon backgroundIcon;
     ImageIcon buttonIcon;
+    ImageIcon buttonIconHighlight;
 
     public MainScreen mainScreen;
     public Player player;
     public GameManager gameManager;
     public SaveFile saveFile;
     public SavePopup self;
-    Rebirth rebirth = new Rebirth();
+    public Rebirth rebirth = new Rebirth();
 
     // constructor
     public SavePopup(MainScreen mainScreen, Player player, GameManager gameManager, SaveFile saveFile) {
@@ -49,8 +50,9 @@ public class SavePopup extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SavePopupBackground.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/PopupBackground.png")));
             buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SaveButton.png")));
+            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SaveButtonHighlighted.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -81,11 +83,53 @@ public class SavePopup extends javax.swing.JFrame {
 
         dateLabel.setText(date);
 
+//      trigger reset() when the reset button is pressed
+        resetButton.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                resetButton.setIcon(buttonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                resetButton.setIcon(buttonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                resetButton.setIcon(buttonIcon);
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                gameManager.resetSound.playSound();
+                rebirth.reset(player, 1);
+                mainScreen.feedback("Successful reset");
+                gameManager.closePopup(self);
+            }
+        });
 
         // trigger save() when the save button is pressed
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                saveButton.setIcon(buttonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                saveButton.setIcon(buttonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                saveButton.setIcon(buttonIcon);
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
+                saveButton.setIcon(buttonIconHighlight);
+
                 try {
                     saveFile.save(player, gameManager, mainScreen);
                     mainScreen.feedback("Successful save");
@@ -96,17 +140,6 @@ public class SavePopup extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(mainPanel, "Error saving");
                     mainScreen.feedback("IOException error, try again");
                 }
-                gameManager.closePopup(self);
-            }
-        });
-
-        // trigger reset() when the reset button is pressed
-        resetButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                gameManager.resetSound.playSound();
-                rebirth.reset(gameManager, player, 1);
-                mainScreen.feedback("Successful reset");
                 gameManager.closePopup(self);
             }
         });

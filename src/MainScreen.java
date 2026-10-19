@@ -335,7 +335,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     public void feedback(String message) {
         feedbackLabel.setText(message);
-        gameManager.sleepTime = 2.0;
+        player.sleepTime = 5.0;
     }
 
     public void resetFeedback() {
@@ -347,9 +347,11 @@ public class MainScreen extends javax.swing.JFrame {
         lectureProgress.setMaximum(player.lectureLength);
 
         // render and count down sleep timer and feedback label
-        player.sleepTime -= player.deltaTime;
         if (player.sleepTime <= 0) {
             resetFeedback();
+        } else {
+            player.sleepTime -= player.deltaTime;
+            System.out.println(player.sleepTime);
         }
 
         // render clock

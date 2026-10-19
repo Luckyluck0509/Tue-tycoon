@@ -596,8 +596,8 @@
                             </constraints>
                             <properties>
                               <enabled value="true"/>
-                              <font name="Arial" size="24" style="0"/>
-                              <foreground color="-16777216"/>
+                              <font name="Arial" size="24" style="1"/>
+                              <foreground color="-8083568"/>
                               <text value=""/>
                             </properties>
                           </component>

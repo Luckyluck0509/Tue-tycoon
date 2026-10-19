@@ -20,6 +20,7 @@ public class RebirthPopup extends javax.swing.JFrame {
     // declaring icons
     ImageIcon backgroundIcon;
     ImageIcon buttonIcon;
+    ImageIcon buttonIconHighlight;
 
     public MainScreen mainScreen;
     public Player player;
@@ -49,8 +50,9 @@ public class RebirthPopup extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthPopupBackground.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/PopupBackground.png")));
             buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthButton.png")));
+            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthButtonHighlighted.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -70,15 +72,32 @@ public class RebirthPopup extends javax.swing.JFrame {
         }
 
         // render multiplier increase text
-        multiplierLabel.setText(String.format("%1$,.2f multiplier increase", rebirth.MultiplierAmount(gameManager, player)));
+        multiplierLabel.setText(String.format("%1$,.2f multiplier increase", rebirth.MultiplierAmount(player)));
 
         // trigger RebirthAction when the rebirth button is pressed
         rebirthButton.addMouseListener(new MouseAdapter() {
             @Override
+            public void mouseEntered(MouseEvent e) {
+                rebirthButton.setIcon(buttonIconHighlight);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                rebirthButton.setIcon(buttonIcon);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                rebirthButton.setIcon(buttonIcon);
+            }
+
+            @Override
             public void mouseReleased(MouseEvent e) {
                 if (player.courseNumber > 2) {
+                    rebirthButton.setIcon(buttonIconHighlight);
+
                     gameManager.rebirthSound.playSound();
-                    rebirth.RebirthAction(gameManager, player);
+                    rebirth.RebirthAction(player);
                     if (player.quartile <= 4) {
                         mainScreen.feedback("Successful rebirth");
                     } else {

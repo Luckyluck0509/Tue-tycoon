@@ -132,7 +132,7 @@ public class BsaPopup extends javax.swing.JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 gameManager.resetSound.playSound();
-                rebirth.reset(gameManager, player, 1);
+                rebirth.reset(player, 1);
                 closePopup();
             }
         });
@@ -142,7 +142,7 @@ public class BsaPopup extends javax.swing.JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 gameManager.exitSound.playSound();
-                rebirth.reset(gameManager, player, 1);
+                rebirth.reset(player, 1);
                 try {
                     save.save(player, gameManager, mainScreen);
                 } catch (IOException error) {
@@ -158,7 +158,7 @@ public class BsaPopup extends javax.swing.JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 gameManager.exitSound.playSound();
-                rebirth.reset(gameManager, player, 1);
+                rebirth.reset(player, 1);
                 try {
                     save.save(player, gameManager, mainScreen);
                 } catch (IOException error) {
