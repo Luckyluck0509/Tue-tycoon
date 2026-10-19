@@ -22,6 +22,9 @@ public class GameManager {
     Sound resetSound = new Sound("/Resources/Sounds/resetSound.wav");
     Sound failSound = new Sound("/Resources/Sounds/failSound.wav");
 
+    // length of textfeedback time
+    public double sleepTime;
+
     // constructor
     public GameManager(Player p) {
         this.player = p;
@@ -115,12 +118,12 @@ public class GameManager {
         parentPanel.add(new_layeredPane);
     }
 
-    // loads a PNG from the Recources folder
+    // loads a PNG from the Resources folder
     private BufferedImage loadImage(String name) {
         try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Recources/" + name)));
+            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Resources/" + name)));
         } catch (Exception e) {
-            System.err.println("Could not load /Recources/" + name);
+            System.err.println("Could not load /Resources/" + name);
             e.printStackTrace();
             return null;
         }
@@ -164,5 +167,8 @@ public class GameManager {
 
         // update course requirement
         player.courseRequirement = (int)(15000 * player.courseNumber * Math.pow(2.3, player.quartile - 1));
+
+        // update feedback time
+        sleepTime -= player.deltaTime;
     }
 }

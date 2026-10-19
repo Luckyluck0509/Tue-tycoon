@@ -49,8 +49,8 @@ public class SavePopup extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/SavePopupBackground.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/SaveButton.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SavePopupBackground.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SaveButton.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);

@@ -80,14 +80,14 @@ public class MainScreen extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Background.png")));
-            lectureIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/GoToLecture.png")));
-            upgradeButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Button.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Button2.png")));
-            bookIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Book.png")));
-            nerrrdIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Nerrrd.png")));
-            reportIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/Report.png")));
-            rebirthButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/ButtonRebirth.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Background.png")));
+            lectureIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/GoToLecture.png")));
+            upgradeButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Button.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Button2.png")));
+            bookIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Book.png")));
+            nerrrdIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Nerrrd.png")));
+            reportIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Report.png")));
+            rebirthButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonRebirth.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -285,7 +285,7 @@ public class MainScreen extends javax.swing.JFrame {
         parentPanel.add(new_layeredPane);
     }
 
-    // loads a PNG from the Recources folder
+    // loads a PNG from the Resources folder
     private BufferedImage loadImage(String name) {
         try {
             return ImageIO.read(getClass().getResource("/Resources/" + name));
@@ -310,7 +310,7 @@ public class MainScreen extends javax.swing.JFrame {
 
     public void feedback(String message) {
         feedbackLabel.setText(message);
-        this.sleepTime = 2.0;
+        gameManager.sleepTime = 2.0;
     }
 
     public void resetFeedback() {

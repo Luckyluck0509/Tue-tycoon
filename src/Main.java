@@ -8,7 +8,7 @@ void main() {
     GameManager gameManager = new GameManager(player);
 
     // play silent sound to prevent sound lag afterwards
-    gm.mutedSound.playSound();
+    gameManager.mutedSound.playSound();
 
     // save file loading in
     try {

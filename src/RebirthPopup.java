@@ -49,8 +49,8 @@ public class RebirthPopup extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/RebirthPopupBackground.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Recources/RebirthButton.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthPopupBackground.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthButton.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
