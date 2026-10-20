@@ -121,10 +121,12 @@ public class MainScreen extends javax.swing.JFrame {
         setContentPane(mainPanel);
         setTitle("TUe Tycoon");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1280, 828);
+        mainPanel.setPreferredSize(new Dimension(1280, 800));
+        pack();
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
+
 
         // set background
         background.setIcon(backgroundIcon);
@@ -156,7 +158,7 @@ public class MainScreen extends javax.swing.JFrame {
 
         // tooltip timing (ms)
         ToolTipManager.sharedInstance().setInitialDelay(100);
-        ToolTipManager.sharedInstance().setDismissDelay(8000);
+        ToolTipManager.sharedInstance().setDismissDelay(5000);
 
         // tooltips
         ((TooltipLabel) goToLectureButton).setAnchor(lecturePanel);
@@ -367,6 +369,12 @@ public class MainScreen extends javax.swing.JFrame {
         feedbackLabel.setText("");
     }
 
+    private void createUIComponents() {
+        goToLectureButton = new TooltipLabel();
+        hireStudentButton = new TooltipLabel();
+        finishCourseButton = new TooltipLabel();
+    }
+
     // update all variables every frame
     void screenUpdate() {
         lectureProgress.setMaximum(player.lectureLength);
@@ -376,7 +384,6 @@ public class MainScreen extends javax.swing.JFrame {
             resetFeedback();
         } else {
             player.sleepTime -= player.deltaTime;
-//            System.out.println(player.sleepTime);
         }
 
         // render clock
@@ -435,9 +442,5 @@ public class MainScreen extends javax.swing.JFrame {
         }
     }
 
-    private void createUIComponents() {
-        goToLectureButton = new TooltipLabel();
-        hireStudentButton = new TooltipLabel();
-        finishCourseButton = new TooltipLabel();
-    }
+
 }
