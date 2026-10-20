@@ -168,6 +168,11 @@ public class MainScreen extends javax.swing.JFrame {
         ((TooltipLabel) finishCourseButton).setAnchor(coursePanel);
         finishCourseButton.setToolTipText("<html>Spend knowledge to<br>finish the current course.<br>Earns 5 ECTS and a<br>permanent multiplier bonus.</html>");
 
+        if (player.totalKnowledge == 0) {
+            clickMeLabel.setText("CLICK THE BOOK TO STUDY");
+            clickMeLabel2.setText("AND GAIN KNOWLEDGE");
+        }
+
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
             @Override

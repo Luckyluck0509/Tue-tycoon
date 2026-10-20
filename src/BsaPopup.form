@@ -48,6 +48,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial Black" size="36" style="1"/>
+                      <foreground color="-16777216"/>
                       <text value="YEAR COMPLETE"/>
                     </properties>
                   </component>
@@ -375,6 +376,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial" size="18"/>
+                      <foreground color="-16777216"/>
                       <text value="Label"/>
                     </properties>
                   </component>
@@ -384,6 +386,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial" size="18"/>
+                      <foreground color="-16777216"/>
                       <text value="Label"/>
                     </properties>
                   </component>
@@ -393,6 +396,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial" size="18"/>
+                      <foreground color="-16777216"/>
                       <text value="Label"/>
                     </properties>
                   </component>
@@ -402,6 +406,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial" size="18"/>
+                      <foreground color="-16777216"/>
                       <text value="Label"/>
                     </properties>
                   </component>
@@ -411,6 +416,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial" size="18"/>
+                      <foreground color="-16777216"/>
                       <text value="Label"/>
                     </properties>
                   </component>

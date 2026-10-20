@@ -71,6 +71,7 @@
                         </constraints>
                         <properties>
                           <font name="Arial" size="36" style="1"/>
+                          <foreground color="-16777216"/>
                           <text value="1"/>
                           <verticalTextPosition value="0"/>
                         </properties>
@@ -83,6 +84,7 @@
                         </constraints>
                         <properties>
                           <font name="Arial Black" size="36" style="3"/>
+                          <foreground color="-16777216"/>
                           <text value="REBIRTH"/>
                         </properties>
                       </component>
@@ -155,6 +157,7 @@
                 </constraints>
                 <properties>
                   <enabled value="true"/>
+                  <foreground color="-16777216"/>
                   <opaque value="false"/>
                 </properties>
                 <border type="none"/>
@@ -176,6 +179,7 @@
                         <properties>
                           <enabled value="true"/>
                           <font name="Arial Black" size="40" style="1"/>
+                          <foreground color="-16777216"/>
                           <text value="Knowledge: 0"/>
                         </properties>
                       </component>
@@ -188,6 +192,7 @@
                         <properties>
                           <enabled value="true"/>
                           <font name="Arial" size="28" style="1"/>
+                          <foreground color="-16777216"/>
                           <text value="KPS: 0"/>
                         </properties>
                       </component>
@@ -200,6 +205,7 @@
                         <properties>
                           <enabled value="true"/>
                           <font name="Arial" size="30" style="1"/>
+                          <foreground color="-16777216"/>
                           <text value="00 : 00"/>
                         </properties>
                       </component>
@@ -211,6 +217,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial" size="20" style="1"/>
+                      <foreground color="-16777216"/>
                       <text value="Multiplier: 0"/>
                     </properties>
                   </component>
@@ -249,7 +256,8 @@
                     </constraints>
                     <properties>
                       <font name="Arial Black" size="25" style="1"/>
-                      <text value="CLICK THE BOOK TO STUDY"/>
+                      <foreground color="-16777216"/>
+                      <text value=" "/>
                     </properties>
                   </component>
                   <vspacer id="42d5d">
@@ -272,7 +280,8 @@
                     </constraints>
                     <properties>
                       <font name="Arial Black" size="25" style="1"/>
-                      <text value="AND GAIN KNOWLEDGE"/>
+                      <foreground color="-16777216"/>
+                      <text value=" "/>
                     </properties>
                   </component>
                 </children>
@@ -327,6 +336,7 @@
                               </grid>
                             </constraints>
                             <properties>
+                              <foreground color="-13428985"/>
                               <opaque value="false"/>
                             </properties>
                             <border type="none"/>
@@ -337,6 +347,7 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="36" style="1"/>
+                                  <foreground color="-16777216"/>
                                   <text value="Go to lectures"/>
                                 </properties>
                               </component>
@@ -365,6 +376,7 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="18" style="0"/>
+                                  <foreground color="-16777216"/>
                                   <text value="Knowledge/click: 0"/>
                                 </properties>
                               </component>
@@ -435,25 +447,27 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="36" style="1"/>
+                                  <foreground color="-16777216"/>
                                   <text value="Hire Student"/>
                                 </properties>
                               </component>
-                              <vspacer id="fb544">
+                              <component id="919b2" class="javax.swing.JLabel" binding="price">
                                 <constraints>
-                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <font name="Arial" size="18"/>
+                                  <foreground color="-16777216"/>
+                                  <text value="Price: 0"/>
+                                </properties>
+                              </component>
+                              <vspacer id="70106">
+                                <constraints>
+                                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
                                     <preferred-size width="-1" height="75"/>
                                   </grid>
                                 </constraints>
                               </vspacer>
-                              <component id="919b2" class="javax.swing.JLabel" binding="price">
-                                <constraints>
-                                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-                                </constraints>
-                                <properties>
-                                  <font name="Arial" size="20" style="1"/>
-                                  <text value="Price: 0"/>
-                                </properties>
-                              </component>
                             </children>
                           </grid>
                           <grid id="21562" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -474,6 +488,7 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="36" style="1"/>
+                                  <foreground color="-16777216"/>
                                   <text value="0"/>
                                 </properties>
                               </component>
@@ -528,6 +543,7 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="36" style="1"/>
+                                  <foreground color="-16777216"/>
                                   <horizontalAlignment value="11"/>
                                   <text value="Finish course"/>
                                 </properties>
@@ -568,6 +584,7 @@
                                     </constraints>
                                     <properties>
                                       <font name="Arial" size="36" style="1"/>
+                                      <foreground color="-16777216"/>
                                       <text value="0"/>
                                     </properties>
                                   </component>
@@ -586,6 +603,7 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="18"/>
+                                  <foreground color="-16777216"/>
                                   <text value="Label"/>
                                 </properties>
                               </component>
@@ -685,6 +703,7 @@
                         <properties>
                           <alignmentY value="0.5"/>
                           <font name="Arial Black" size="36" style="3"/>
+                          <foreground color="-16777216"/>
                           <text value="SAVE"/>
                         </properties>
                       </component>
@@ -731,6 +750,7 @@
                         <properties>
                           <enabled value="true"/>
                           <font name="Arial Black" size="36" style="3"/>
+                          <foreground color="-16777216"/>
                           <text value="EXIT"/>
                         </properties>
                       </component>
