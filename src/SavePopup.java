@@ -105,6 +105,8 @@ public class SavePopup extends javax.swing.JFrame {
                 gameManager.resetSound.playSound();
                 rebirth.reset(player, 1);
                 mainScreen.feedback("Successful reset");
+                mainScreen.clickMeLabel.setText("CLICK THE BOOK TO STUDY");
+                mainScreen.clickMeLabel2.setText("AND GAIN KNOWLEDGE ⮥");
                 gameManager.closePopup(self);
             }
         });

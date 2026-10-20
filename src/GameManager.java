@@ -98,6 +98,7 @@ public class GameManager {
             } else {
                 player.multiplier += 0.20;
             }
+            player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.knowledge -= player.courseRequirement;
             player.courseNumber ++;
         }

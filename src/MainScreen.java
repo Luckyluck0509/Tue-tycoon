@@ -51,6 +51,8 @@ public class MainScreen extends javax.swing.JFrame {
     private JProgressBar courseProgress;
     private JProgressBar creditProgress;
     private JProgressBar rebirthProgress;
+    public JLabel clickMeLabel;
+    public JLabel clickMeLabel2;
 
     // declaring icons
     ImageIcon backgroundIcon;
@@ -153,10 +155,10 @@ public class MainScreen extends javax.swing.JFrame {
         gameManager.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay, rebirthPanel, 600, 56);
 
         // tooltip timing (ms)
-        ToolTipManager.sharedInstance().setInitialDelay(200);
+        ToolTipManager.sharedInstance().setInitialDelay(100);
         ToolTipManager.sharedInstance().setDismissDelay(8000);
 
-        // tooltips, shown left of the button's panel, centered in height
+        // tooltips
         ((TooltipLabel) goToLectureButton).setAnchor(lecturePanel);
         goToLectureButton.setToolTipText("<html>Attend a lecture for +50%<br>knowledge per click.<br>You can't study<br>during the lecture.</html>");
 
@@ -189,6 +191,10 @@ public class MainScreen extends javax.swing.JFrame {
             public void mouseReleased(MouseEvent e) {
                 studyButton.setIcon(bookIconHighlight);
                 gameManager.studyButtonPressed(studyButton);
+                if (player.totalKnowledge >= 1) {
+                    clickMeLabel.setText(" ");
+                    clickMeLabel2.setText(" ");
+                }
             }
         });
 

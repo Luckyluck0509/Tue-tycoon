@@ -6,11 +6,13 @@ public class Music {
     private double musicLength = 0;   // time remaining in the current song
     private int lastIndex = -1;
     private final Random rand = new Random();
-    private double gapTime = 5;
+    private double gapTime = 3;
+    private static final double GAP_SECONDS = 7;
     private boolean waiting = true;
     private static final float MUSIC_VOLUME = 0.4f;
 
     public void startMusic() {
+        // load in music files
         try {
             music = new Sound[]{
                     new Sound("/Resources/Music/lofi1.wav"),
@@ -34,8 +36,8 @@ public class Music {
         }
     }
 
+    // play a random song, not same as currently playing
     private void playNextSong() {
-        // play a random song, not same as currently playing
         int index;
         do {
             index = rand.nextInt(music.length);
@@ -47,7 +49,7 @@ public class Music {
         currentSong.playSound();
     }
 
-    // call this every tick with the delta time
+    // update music, called every tick
     public void updateMusic(double deltaTime) {
         if (music == null) {
             return;   // startMusic() hasn't run yet
@@ -63,10 +65,11 @@ public class Music {
             return;
         }
 
-        // update musicLength and play next song if this one is finished
+        // song is playing: when it ends, start the pause
         musicLength -= deltaTime;
         if (musicLength <= 0) {
-            playNextSong();
+            waiting = true;
+            gapTime = GAP_SECONDS;
         }
     }
 }
