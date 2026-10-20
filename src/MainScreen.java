@@ -123,7 +123,7 @@ public class MainScreen extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-
+        setFocusTraversalPolicy(new java.awt.ContainerOrderFocusTraversalPolicy());
 
         // set background
         background.setIcon(backgroundIcon);
@@ -166,6 +166,9 @@ public class MainScreen extends javax.swing.JFrame {
 
         ((TooltipLabel) finishCourseButton).setAnchor(coursePanel);
         finishCourseButton.setToolTipText("<html>Spend knowledge to<br>finish the current course.<br>Earns 5 ECTS and a<br>permanent multiplier bonus.</html>");
+
+        // this one isn't anchored to the left
+        rebirthButton.setToolTipText("<html>Start the next quartile.<br>Resets knowledge, students<br>and course progress, but<br>gives a permanent multiplier.<br>Finish 2 courses first.</html>");
 
         if (player.totalKnowledge == 0) {
             clickMeLabel.setText("CLICK THE BOOK TO STUDY");
@@ -370,6 +373,7 @@ public class MainScreen extends javax.swing.JFrame {
         goToLectureButton = new TooltipLabel();
         hireStudentButton = new TooltipLabel();
         finishCourseButton = new TooltipLabel();
+        rebirthButton = new TooltipLabel();
     }
 
     // update all variables every frame
