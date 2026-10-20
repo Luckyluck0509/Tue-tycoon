@@ -101,9 +101,6 @@ public class MainScreen extends javax.swing.JFrame {
             System.exit(0);
         }
 
-        // fixes a bug
-        setFocusTraversalPolicy(new java.awt.ContainerOrderFocusTraversalPolicy());
-
         // pixel art progress bars
         gameManager.applyPixelStyle(lectureProgress, "UpgradeBarTrack.png", "UpgradeBarFill.png", 0);
         gameManager.applyPixelStyle(courseProgress, "UpgradeBarTrack.png", "UpgradeBarFill.png", 0);
