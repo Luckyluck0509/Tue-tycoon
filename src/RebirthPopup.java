@@ -88,7 +88,9 @@ public class RebirthPopup extends javax.swing.JFrame {
 
             @Override
             public void mousePressed(MouseEvent e) {
-                rebirthButton.setIcon(buttonIcon);
+                if (player.courseNumber > 2) {
+                    rebirthButton.setIcon(buttonIcon);
+                }
             }
 
             @Override

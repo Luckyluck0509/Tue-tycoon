@@ -272,7 +272,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="fc8b1" class="javax.swing.JLabel" binding="goToLectureButton">
+                      <component id="fc8b1" class="javax.swing.JLabel" binding="goToLectureButton" custom-create="true">
                         <constraints border-constraint="West"/>
                         <properties>
                           <text value=""/>
@@ -315,13 +315,6 @@
                                   <text value="Go to lectures"/>
                                 </properties>
                               </component>
-                              <vspacer id="178">
-                                <constraints>
-                                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
-                                    <preferred-size width="-1" height="76"/>
-                                  </grid>
-                                </constraints>
-                              </vspacer>
                               <component id="83fe6" class="javax.swing.JProgressBar" binding="lectureProgress">
                                 <constraints>
                                   <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="0" indent="0" use-parent-layout="false">
@@ -347,9 +340,16 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="18" style="0"/>
-                                  <text value="0"/>
+                                  <text value="Knowledge/click: 0"/>
                                 </properties>
                               </component>
+                              <vspacer id="3fc3a">
+                                <constraints>
+                                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false">
+                                    <preferred-size width="-1" height="70"/>
+                                  </grid>
+                                </constraints>
+                              </vspacer>
                             </children>
                           </grid>
                         </children>
@@ -363,7 +363,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="d5d8f" class="javax.swing.JLabel" binding="hireStudentButton">
+                      <component id="d5d8f" class="javax.swing.JLabel" binding="hireStudentButton" custom-create="true">
                         <constraints border-constraint="West"/>
                         <properties>
                           <text value=""/>
@@ -426,7 +426,7 @@
                                 </constraints>
                                 <properties>
                                   <font name="Arial" size="20" style="1"/>
-                                  <text value="0"/>
+                                  <text value="Price: 0"/>
                                 </properties>
                               </component>
                             </children>
@@ -465,7 +465,7 @@
                     </properties>
                     <border type="none"/>
                     <children>
-                      <component id="8bc28" class="javax.swing.JLabel" binding="finishCourseButton">
+                      <component id="8bc28" class="javax.swing.JLabel" binding="finishCourseButton" custom-create="true">
                         <constraints border-constraint="Center"/>
                         <properties>
                           <text value=""/>

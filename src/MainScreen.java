@@ -152,6 +152,20 @@ public class MainScreen extends javax.swing.JFrame {
         rebirthButton.setIcon(rebirthButtonIcon);
         gameManager.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay, rebirthPanel, 600, 56);
 
+        // tooltip timing (ms)
+        ToolTipManager.sharedInstance().setInitialDelay(200);
+        ToolTipManager.sharedInstance().setDismissDelay(8000);
+
+        // tooltips, shown left of the button's panel, centered in height
+        ((TooltipLabel) goToLectureButton).setAnchor(lecturePanel);
+        goToLectureButton.setToolTipText("<html>Attend a lecture for +50%<br>knowledge per click.<br>You can't study<br>during the lecture.</html>");
+
+        ((TooltipLabel) hireStudentButton).setAnchor(studentPanel);
+        hireStudentButton.setToolTipText("<html>Spend knowledge to<br>hire a student who<br>earns knowledge<br>for you every second.</html>");
+
+        ((TooltipLabel) finishCourseButton).setAnchor(coursePanel);
+        finishCourseButton.setToolTipText("<html>Spend knowledge to<br>finish the current course.<br>Earns 5 ECTS and a<br>permanent multiplier bonus.</html>");
+
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -351,7 +365,7 @@ public class MainScreen extends javax.swing.JFrame {
             resetFeedback();
         } else {
             player.sleepTime -= player.deltaTime;
-            System.out.println(player.sleepTime);
+//            System.out.println(player.sleepTime);
         }
 
         // render clock
@@ -388,8 +402,8 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render go to lecture and add student attributes
         lectureProgress.setValue((int) Math.ceil(player.lectureTime));
-        kpcLabel.setText(String.format("%.2f", player.kpc * player.multiplier));
-        price.setText(String.valueOf(gameManager.getStudentPrice()));
+        kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));
+        price.setText(String.format("Price: %d", gameManager.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
         // render rebirth progress
@@ -408,5 +422,11 @@ public class MainScreen extends javax.swing.JFrame {
             BsaPopup bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
             bsaPopup.triggerReport();
         }
+    }
+
+    private void createUIComponents() {
+        goToLectureButton = new TooltipLabel();
+        hireStudentButton = new TooltipLabel();
+        finishCourseButton = new TooltipLabel();
     }
 }
