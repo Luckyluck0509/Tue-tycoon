@@ -1,10 +1,11 @@
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 public class ImageProgressBarUI extends BasicProgressBarUI {
-    private final BufferedImage track, fill;
+    private final BufferedImage track;
+    private final BufferedImage fill;
     private final int orientation;
 
     // constructor
@@ -29,7 +30,8 @@ public class ImageProgressBarUI extends BasicProgressBarUI {
         // filled part: full image, cropped to left part, make sure we don't cut pixels in half
         if (orientation == 0) {
             double scale = (double) w / fill.getWidth();
-            int artPixelsFilled = (int) Math.round(progressBar.getPercentComplete() * fill.getWidth());
+            int artPixelsFilled = (int) Math.round(progressBar.getPercentComplete()
+                                  * fill.getWidth());
             int fillW = (int) (artPixelsFilled * scale);
             if (fillW > 0) {
                 g2.setClip(0, 0, fillW, h);
@@ -37,7 +39,8 @@ public class ImageProgressBarUI extends BasicProgressBarUI {
             }
         } else {
             double scale = (double) h / fill.getHeight();
-            int artPixelsFilled = (int) Math.round(progressBar.getPercentComplete() * fill.getHeight());
+            int artPixelsFilled = (int) Math.round(progressBar.getPercentComplete()
+                                  * fill.getHeight());
             int fillH = (int) (artPixelsFilled * scale);
             if (fillH > 0) {
                 g2.setClip(0, h - fillH, w, fillH);

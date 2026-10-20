@@ -15,15 +15,15 @@ public class Music {
         // load in music files
         try {
             music = new Sound[]{
-                    new Sound("/Resources/Music/lofi1.wav"),
-                    new Sound("/Resources/Music/lofi2.wav"),
-                    new Sound("/Resources/Music/lofi3.wav"),
-                    new Sound("/Resources/Music/lofi4.wav"),
-                    new Sound("/Resources/Music/lofi5.wav"),
-                    new Sound("/Resources/Music/lofi6.wav"),
-                    new Sound("/Resources/Music/lofi7.wav"),
-                    new Sound("/Resources/Music/lofi8.wav"),
-                    new Sound("/Resources/Music/lofi9.wav")
+                new Sound("/Resources/Music/lofi1.wav"),
+                new Sound("/Resources/Music/lofi2.wav"),
+                new Sound("/Resources/Music/lofi3.wav"),
+                new Sound("/Resources/Music/lofi4.wav"),
+                new Sound("/Resources/Music/lofi5.wav"),
+                new Sound("/Resources/Music/lofi6.wav"),
+                new Sound("/Resources/Music/lofi7.wav"),
+                new Sound("/Resources/Music/lofi8.wav"),
+                new Sound("/Resources/Music/lofi9.wav")
             };
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -41,7 +41,8 @@ public class Music {
         int index;
         do {
             index = rand.nextInt(music.length);
-        } while (music.length > 1 && index == lastIndex); // music.length > 1 so that it still works if there is only 1 music file
+        } while (music.length > 1 && index == lastIndex);
+        // music.length > 1 so that it still works if there is only 1 music file
         lastIndex = index;
 
         currentSong = music[index];

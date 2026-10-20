@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Objects;
+import javax.swing.*;
 
 public class RebirthPopup extends javax.swing.JFrame {
     // all panels in rebirth pop-up
@@ -30,7 +30,8 @@ public class RebirthPopup extends javax.swing.JFrame {
     public RebirthPopup self;
 
     // constructor
-    public RebirthPopup(MainScreen mainScreen, Player player, GameManager gameManager, SaveFile saveFile) {
+    public RebirthPopup(MainScreen mainScreen, Player player, GameManager gameManager,
+                        SaveFile saveFile) {
         // constructor
         this.mainScreen = mainScreen;
         this.player = player;
@@ -51,9 +52,12 @@ public class RebirthPopup extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/PopupBackground.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthButton.png")));
-            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/RebirthButtonHighlighted.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/PopupBackground.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/RebirthButton.png")));
+            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/RebirthButtonHighlighted.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -63,17 +67,20 @@ public class RebirthPopup extends javax.swing.JFrame {
         gameManager.overlay(null, background, container, mainPanel, 400, 322);
 
         rebirthButton.setIcon(buttonIcon);
-        gameManager.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay, rebirthPanel, 300, 175);
+        gameManager.overlay(new BorderLayout(), rebirthButton,
+                            rebirthButtonOverlay, rebirthPanel, 300, 175);
 
         // render Next quartile text
-        if (player.quartile == 4){
+        if (player.quartile == 4) {
             quartileLabel.setText(String.format("Quartile %d -> end of year", player.quartile));
-        }else {
-            quartileLabel.setText(String.format("Quartile %d -> %d", player.quartile, player.quartile + 1));
+        } else {
+            quartileLabel.setText(String.format("Quartile %d -> %d",
+                                  player.quartile, player.quartile + 1));
         }
 
         // render multiplier increase text
-        multiplierLabel.setText(String.format("%1$,.2f multiplier increase", rebirth.MultiplierAmount(player)));
+        multiplierLabel.setText(String.format("%1$,.2f multiplier increase",
+                                              rebirth.multiplierAmount(player)));
 
         // trigger RebirthAction when the rebirth button is pressed
         rebirthButton.addMouseListener(new MouseAdapter() {
@@ -100,7 +107,7 @@ public class RebirthPopup extends javax.swing.JFrame {
                     rebirthButton.setIcon(buttonIconHighlight);
 
                     gameManager.rebirthSound.playSound();
-                    rebirth.RebirthAction(player);
+                    rebirth.rebirthAction(player);
                     if (player.quartile <= 4) {
                         mainScreen.feedback("Successful rebirth");
                     } else {

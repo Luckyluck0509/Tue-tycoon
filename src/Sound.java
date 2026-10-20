@@ -20,7 +20,9 @@ public class Sound {
     }
 
     public void playSound() {
-        if (clip == null) {return;}
+        if (clip == null) {
+            return;
+        }
         clip.stop();
         clip.setFramePosition(0);
         clip.start();

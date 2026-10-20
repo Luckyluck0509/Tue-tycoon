@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Objects;
+import javax.swing.*;
 
 // java swing elements
 public class MainScreen extends javax.swing.JFrame {
@@ -84,28 +84,44 @@ public class MainScreen extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Background.png")));
-            lectureIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/GoToLecture.png")));
-            upgradeButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Button.png")));
-            upgradeButtonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonHighlighted.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonSmall.png")));
-            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonSmallHighlighted.png")));
-            bookIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Book.png")));
-            bookIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/BookHighlighted.png")));
-            nerrrdIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Nerrrd.png")));
-            reportIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/Report.png")));
-            rebirthButtonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonRebirth.png")));
-            rebirthButtonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/ButtonRebirthHighlighted.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/Background.png")));
+            lectureIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/GoToLecture.png")));
+            upgradeButtonIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/Button.png")));
+            upgradeButtonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/ButtonHighlighted.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/ButtonSmall.png")));
+            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/ButtonSmallHighlighted.png")));
+            bookIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/Book.png")));
+            bookIconHighlight = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/BookHighlighted.png")));
+            nerrrdIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/Nerrrd.png")));
+            reportIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/Report.png")));
+            rebirthButtonIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/ButtonRebirth.png")));
+            rebirthButtonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/ButtonRebirthHighlighted.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
         }
 
         // pixel art progress bars
-        gameManager.applyPixelStyle(lectureProgress, "UpgradeBarTrack.png", "UpgradeBarFill.png", 0);
-        gameManager.applyPixelStyle(courseProgress, "UpgradeBarTrack.png", "UpgradeBarFill.png", 0);
-        gameManager.applyPixelStyle(rebirthProgress, "RebirthBarTrack.png", "RebirthBarFill.png", 1);
-        gameManager.applyPixelStyle(creditProgress, "BSABarTrack.png", "BSABarFill.png", 0);
+        gameManager.applyPixelStyle(lectureProgress, "UpgradeBarTrack.png",
+                            "UpgradeBarFill.png", 0);
+        gameManager.applyPixelStyle(courseProgress, "UpgradeBarTrack.png",
+                            "UpgradeBarFill.png", 0);
+        gameManager.applyPixelStyle(rebirthProgress, "RebirthBarTrack.png",
+                            "RebirthBarFill.png", 1);
+        gameManager.applyPixelStyle(creditProgress, "BSABarTrack.png",
+                            "BSABarFill.png", 0);
 
         lectureProgress.setValue(0);
         lectureProgress.setMaximum(player.lectureLength);
@@ -134,24 +150,30 @@ public class MainScreen extends javax.swing.JFrame {
 
         lectureIconLabel.setIcon(lectureIcon);
         goToLectureButton.setIcon(upgradeButtonIcon);
-        gameManager.overlay(new BorderLayout(), goToLectureButton, lectureButtonOverlay, lecturePanel, 550, 200);
+        gameManager.overlay(new BorderLayout(), goToLectureButton, lectureButtonOverlay,
+                            lecturePanel, 550, 200);
 
         studentIconLabel.setIcon(nerrrdIcon);
         hireStudentButton.setIcon(upgradeButtonIcon);
-        gameManager.overlay(new BorderLayout(), hireStudentButton, studentButtonOverlay, studentPanel, 550, 200);
+        gameManager.overlay(new BorderLayout(), hireStudentButton, studentButtonOverlay,
+                            studentPanel, 550, 200);
 
         courseIconLabel.setIcon(reportIcon);
         finishCourseButton.setIcon(upgradeButtonIcon);
-        gameManager.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay, coursePanel, 550, 200);
+        gameManager.overlay(new BorderLayout(), finishCourseButton, courseButtonOverlay,
+                            coursePanel, 550, 200);
 
         saveButton.setIcon(buttonIcon);
-        gameManager.overlay(new BorderLayout(), saveButton, saveButtonOverlay, savePanel, 280, 56);
+        gameManager.overlay(new BorderLayout(), saveButton, saveButtonOverlay,
+                            savePanel, 280, 56);
 
         exitButton.setIcon(buttonIcon);
-        gameManager.overlay(new BorderLayout(), exitButton, exitButtonOverlay, exitPanel, 280, 56);
+        gameManager.overlay(new BorderLayout(), exitButton, exitButtonOverlay,
+                            exitPanel, 280, 56);
 
         rebirthButton.setIcon(rebirthButtonIcon);
-        gameManager.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay, rebirthPanel, 600, 56);
+        gameManager.overlay(new BorderLayout(), rebirthButton, rebirthButtonOverlay,
+                            rebirthPanel, 600, 56);
 
         // tooltip timing (ms)
         ToolTipManager.sharedInstance().setInitialDelay(100);
@@ -159,16 +181,23 @@ public class MainScreen extends javax.swing.JFrame {
 
         // tooltips
         ((TooltipLabel) goToLectureButton).setAnchor(lecturePanel);
-        goToLectureButton.setToolTipText("<html>Attend a lecture for +50%<br>knowledge per click.<br>You can't study<br>during the lecture.</html>");
+        goToLectureButton.setToolTipText("<html>Attend a lecture for +50%<br>knowledge per click."
+                                         + "<br>You can't study<br>during the lecture.</html>");
 
         ((TooltipLabel) hireStudentButton).setAnchor(studentPanel);
-        hireStudentButton.setToolTipText("<html>Spend knowledge to<br>hire a student who<br>earns knowledge<br>for you every second.</html>");
+        hireStudentButton.setToolTipText("<html>Spend knowledge to<br>hire a student who"
+                                         + "<br>earns knowledge<br>for you every second.</html>");
 
         ((TooltipLabel) finishCourseButton).setAnchor(coursePanel);
-        finishCourseButton.setToolTipText("<html>Spend knowledge to<br>finish the current course.<br>Earns 5 ECTS and a<br>permanent multiplier bonus.</html>");
+        finishCourseButton.setToolTipText("<html>Spend knowledge to<br>finish the current course."
+                                          + "<br>Earns 5 ECTS and a<br>permanent "
+                                          + "multiplier bonus.</html>");
 
         // this one isn't anchored to the left
-        rebirthButton.setToolTipText("<html>Start the next quartile.<br>Resets knowledge, students<br>and course progress, but<br>gives a permanent multiplier.<br>Finish 2 courses first.</html>");
+        rebirthButton.setToolTipText("<html>Start the next quartile.<br>Resets knowledge, "
+                                     + "students<br>and course progress, but"
+                                     + "<br>gives a permanent multiplier."
+                                     + "<br>Finish 2 courses first.</html>");
 
         if (player.totalKnowledge == 0) {
             clickMeLabel.setText("CLICK THE BOOK TO STUDY");
@@ -205,7 +234,8 @@ public class MainScreen extends javax.swing.JFrame {
             }
         });
 
-        // trigger goToLectureButtonPressed when the go to the lectures button is pressed, render progress bar
+        // trigger goToLectureButtonPressed when the go to the
+        // lectures button is pressed, render progress bar
         goToLectureButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -391,7 +421,7 @@ public class MainScreen extends javax.swing.JFrame {
         timeLabel.setText(String.format("%02d:%02d", player.minutes, player.seconds));
 
         // render knowledge, kps and multiplier
-        knowledgeLabel.setText((int)player.knowledge + " Knowledge");
+        knowledgeLabel.setText((int) player.knowledge + " Knowledge");
         kpsLabel.setText(String.format("KPS: %.2f", player.kps * player.multiplier));
         multiplierLabel.setText(String.format("Multiplier: %.2f", player.multiplier));
 

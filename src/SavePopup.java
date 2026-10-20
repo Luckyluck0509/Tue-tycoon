@@ -1,9 +1,9 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Scanner;
+import javax.swing.*;
 
 public class SavePopup extends javax.swing.JFrame {
     // render java swing elements
@@ -31,7 +31,8 @@ public class SavePopup extends javax.swing.JFrame {
     public Rebirth rebirth = new Rebirth();
 
     // constructor
-    public SavePopup(MainScreen mainScreen, Player player, GameManager gameManager, SaveFile saveFile) {
+    public SavePopup(MainScreen mainScreen, Player player,
+                     GameManager gameManager, SaveFile saveFile) {
         // constructor
         this.mainScreen = mainScreen;
         this.player = player;
@@ -51,9 +52,12 @@ public class SavePopup extends javax.swing.JFrame {
 
         // set assets
         try {
-            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/PopupBackground.png")));
-            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SaveButton.png")));
-            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass().getResource("/Resources/SaveButtonHighlighted.png")));
+            backgroundIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/PopupBackground.png")));
+            buttonIcon = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/SaveButton.png")));
+            buttonIconHighlight = new ImageIcon(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/SaveButtonHighlighted.png")));
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -71,7 +75,7 @@ public class SavePopup extends javax.swing.JFrame {
         // render last save text
         String date = "No save found";
         try {
-            Scanner reader = new Scanner(saveFile.SAVE_PATH);
+            Scanner reader = new Scanner(saveFile.savePath);
             reader.nextLine();
             date = reader.nextLine();
         } catch (IOException error) {
@@ -84,7 +88,7 @@ public class SavePopup extends javax.swing.JFrame {
 
         dateLabel.setText(date);
 
-//      trigger reset() when the reset button is pressed
+        //trigger reset() when the reset button is pressed
         resetButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {

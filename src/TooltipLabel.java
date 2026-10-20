@@ -1,9 +1,9 @@
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 // Extension of JLabel class for labels with custom tooltips
 public class TooltipLabel extends JLabel {

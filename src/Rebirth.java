@@ -1,6 +1,6 @@
 public class Rebirth {
     // calculate the amount the multiplier is gonna increase after rebirth
-    public double MultiplierAmount(Player player){
+    public double multiplierAmount(Player player) {
         double quartile = player.quartile;
         double knowledge = player.knowledge;
         double kpc = player.kpc;
@@ -8,15 +8,16 @@ public class Rebirth {
         double p = Math.min(creditsThisQuartile / 15, 1);
 
         if (quartile > 1) {
-            return 0.10 * Math.log10(1 + Math.log10(knowledge)) * Math.sqrt(kpc) * (0.6 + 0.6 * p) * ((1 + 0.15) * (quartile - 1));
+            return 0.10 * Math.log10(1 + Math.log10(knowledge))
+                    * Math.sqrt(kpc) * (0.6 + 0.6 * p) * ((1 + 0.15) * (quartile - 1));
         } else {
             return 0.10 * Math.log10(1 + Math.log10(knowledge)) * Math.sqrt(kpc) * (0.6 + 0.6 * p);
         }
     }
 
     // rebirth, update multiplier and trigger reset at mode 0
-    public void RebirthAction(Player player) {
-        double delta = MultiplierAmount(player);
+    public void rebirthAction(Player player) {
+        double delta = multiplierAmount(player);
         player.multiplier += delta;
 
         reset(player, 0);

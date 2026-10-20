@@ -1,10 +1,9 @@
-import java.util.Random;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Objects;
+import java.util.Random;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 
 public class GameManager {
     Player player;
@@ -48,7 +47,7 @@ public class GameManager {
 
     // calculate cost of hiring a new student
     public int getStudentPrice() {
-        return (int)(20 * Math.pow(1.15, player.numStudents));
+        return (int) (20 * Math.pow(1.15, player.numStudents));
     }
 
     // updates player knowledge when study button is pressed
@@ -73,7 +72,7 @@ public class GameManager {
             player.inLecture = true;
             player.lectureTime = 4 * Math.pow(player.kpc, 1.35);
             player.lectureLength = (int) player.lectureTime;
-            player.lecturesAttended ++;
+            player.lecturesAttended++;
         }
     }
 
@@ -84,7 +83,7 @@ public class GameManager {
             Student student = new Student(this.getStudentPrice(), player);
             player.numStudents += 1;
             player.kps += student.kps;
-            player.studentsHired ++;
+            player.studentsHired++;
         }
     }
 
@@ -100,28 +99,30 @@ public class GameManager {
             }
             player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.knowledge -= player.courseRequirement;
-            player.courseNumber ++;
+            player.courseNumber++;
         }
     }
 
 
     // overlays a panel on top of a label
-    public void overlay(LayoutManager layout, JLabel backdrop, JPanel container, JPanel parentPanel, int width, int height) {
-        JLayeredPane new_layeredPane = new JLayeredPane();
-        new_layeredPane.setPreferredSize(new Dimension(width, height));
-        new_layeredPane.setBounds(0, 0, width, height);
+    public void overlay(LayoutManager layout, JLabel backdrop, JPanel container,
+                        JPanel parentPanel, int width, int height) {
+        JLayeredPane newLayeredPane = new JLayeredPane();
+        newLayeredPane.setPreferredSize(new Dimension(width, height));
+        newLayeredPane.setBounds(0, 0, width, height);
         backdrop.setBounds(0, 0, width, height);
         container.setBounds(0, 0, width, height);
-        new_layeredPane.add(backdrop, JLayeredPane.DEFAULT_LAYER);
-        new_layeredPane.add(container, JLayeredPane.PALETTE_LAYER);
+        newLayeredPane.add(backdrop, JLayeredPane.DEFAULT_LAYER);
+        newLayeredPane.add(container, JLayeredPane.PALETTE_LAYER);
         parentPanel.setLayout(layout);
-        parentPanel.add(new_layeredPane);
+        parentPanel.add(newLayeredPane);
     }
 
     // loads a PNG from the Resources folder
     private BufferedImage loadImage(String name) {
         try {
-            return ImageIO.read(Objects.requireNonNull(getClass().getResource("/Resources/" + name)));
+            return ImageIO.read(Objects.requireNonNull(getClass()
+                    .getResource("/Resources/" + name)));
         } catch (Exception e) {
             System.err.println("Could not load /Resources/" + name);
             e.printStackTrace();
@@ -130,7 +131,8 @@ public class GameManager {
     }
 
     // swaps a progress bar's look for the PNG version. track = empty bar, fill = full bar
-    public void applyPixelStyle(JProgressBar bar, String trackName, String fillName, int orientation) {
+    public void applyPixelStyle(JProgressBar bar, String trackName,
+                                String fillName, int orientation) {
         BufferedImage track = loadImage(trackName);
         BufferedImage fill = loadImage(fillName);
 
@@ -166,7 +168,8 @@ public class GameManager {
         player.totalKnowledge += player.kps * player.multiplier * player.deltaTime;
 
         // update course requirement
-        player.courseRequirement = (int)(15000 * player.courseNumber * Math.pow(2.3, player.quartile - 1));
+        player.courseRequirement = (int) (15000 * player.courseNumber
+                * Math.pow(2.3, player.quartile - 1));
 
         // update feedback time
         player.sleepTime -= player.deltaTime;

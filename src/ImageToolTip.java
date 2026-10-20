@@ -1,6 +1,6 @@
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import javax.swing.*;
 
 // class for tooltips of buttons with custom png background
 public class ImageToolTip extends JToolTip {
