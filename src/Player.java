@@ -8,6 +8,7 @@ public class Player {
     // quartile related variables
     public int creditProgress = 0;
     public int quartile = 1;
+    public boolean bsaTriggered = false;
 
     // students related variables
     public int studentsHired;

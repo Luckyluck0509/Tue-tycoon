@@ -40,13 +40,14 @@ public class SavePopup extends javax.swing.JFrame {
         this.self = this;
 
         // JPanel attributes
+        setContentPane(mainPanel);
         setTitle("Save");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(400, 350);
+        mainPanel.setPreferredSize(new Dimension(400, 322));
+        pack();
         setLocationRelativeTo(mainScreen);
         setResizable(false);
         setVisible(true);
-        setContentPane(mainPanel);
 
         // set assets
         try {

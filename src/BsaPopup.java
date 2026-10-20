@@ -108,7 +108,6 @@ public class BsaPopup extends javax.swing.JFrame {
             System.exit(0);
         }
 
-        setContentPane(bsaPanel);
 
         // set assets
         background.setIcon(bsaBackground);
@@ -121,9 +120,11 @@ public class BsaPopup extends javax.swing.JFrame {
         restartButton.setIcon(restartIcon);
 
         // JPanel attributes
+        setContentPane(bsaPanel);
         setTitle("BSA Report");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        setSize(600, 470);
+        bsaPanel.setPreferredSize(new Dimension(600, 470));
+        pack();
         setLocationRelativeTo(mainScreen);
         setResizable(false);
 

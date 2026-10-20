@@ -32,6 +32,10 @@ void main() {
         if (player.time >= 0 && player.quartile <= 4) {
             gameManager.update();
             mainScreen.screenUpdate();
+        } else if (!player.bsaTriggered) { // render and trigger bsaReport when time runs out
+            BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
+            bsaPopup.triggerReport();
+            player.bsaTriggered = true;
         }
     });
 

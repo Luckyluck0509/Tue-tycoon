@@ -434,13 +434,5 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render bsa progress
         creditProgress.setValue(player.creditProgress);
-
-        // render and trigger bsaReport when time runs out
-        if (player.time <= 0) {
-            BsaPopup bsaPopup = new BsaPopup(self, gameManager, player, saveFile);
-            bsaPopup.triggerReport();
-        }
     }
-
-
 }
