@@ -272,7 +272,7 @@
                     </constraints>
                     <properties>
                       <font name="Arial Black" size="25" style="1"/>
-                      <text value="AND GAIN KNOWLEDGE ⮥"/>
+                      <text value="AND GAIN KNOWLEDGE"/>
                     </properties>
                   </component>
                 </children>
