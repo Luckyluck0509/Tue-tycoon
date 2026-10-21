@@ -70,7 +70,7 @@ public class GameManager {
         if (!player.inLecture) {
             upgradeSound.playSound();
             player.inLecture = true;
-            player.lectureTime = 4 * Math.pow(player.kpc, 1.35);
+            player.lectureTime = 4 * Math.pow((player.kpc / player.multiplier), 1.35);
             player.lectureLength = (int) player.lectureTime;
             player.lecturesAttended++;
         }
@@ -92,13 +92,14 @@ public class GameManager {
         if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
             courseSound.playSound();
 
-            if (player.courseNumber <= 3) {
+            if (player.courseNumber < 3) {
                 player.multiplier += 0.10;
             } else {
-                player.multiplier += 0.20;
+                player.multiplier += (0.20 * player.multiplier);
             }
             player.courses[player.quartile - 1][player.courseNumber - 1] = true;
             player.knowledge -= player.courseRequirement;
+            player.creditProgress += 5;
             player.courseNumber++;
         }
     }

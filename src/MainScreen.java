@@ -235,7 +235,6 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // trigger goToLectureButtonPressed when the go to the
-        // lectures button is pressed, render progress bar
         goToLectureButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -417,6 +416,17 @@ public class MainScreen extends javax.swing.JFrame {
             player.sleepTime -= player.deltaTime;
         }
 
+        // render go to lecture
+        lectureProgress.setValue((int) Math.ceil(player.lectureTime));
+        if (lectureProgress.getValue() == 0) {
+            lectureProgress.setMaximum(1);
+        }
+
+        // render hire student attributes
+        kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));
+        price.setText(String.format("Price: %d", gameManager.getStudentPrice()));
+        numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
+
         // render clock
         timeLabel.setText(String.format("%02d:%02d", player.minutes, player.seconds));
 
@@ -444,16 +454,10 @@ public class MainScreen extends javax.swing.JFrame {
         } else {
             finishCourseLabel.setFont(new Font("Arial", Font.BOLD, 35));
             finishCourseLabel.setText("Finished all Courses");
-            courseMultiplierLabel.setText("NO!");
+            courseMultiplierLabel.setText(" ");
             courseProgress.setMaximum(100);
             courseProgress.setValue(100);
         }
-
-        // render go to lecture and add student attributes
-        lectureProgress.setValue((int) Math.ceil(player.lectureTime));
-        kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));
-        price.setText(String.format("Price: %d", gameManager.getStudentPrice()));
-        numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
         // render rebirth progress
         if (player.courseNumber <= 3) {
