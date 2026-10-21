@@ -12,7 +12,7 @@ public class TooltipLabel extends JLabel {
     static {   // all tooltips share the same png
         try {
             tipImage = ImageIO.read(Objects.requireNonNull(
-                    TooltipLabel.class.getResource("/Resources/Tooltip.png")));
+                    TooltipLabel.class.getResource("/Resources/ToolTip.png")));
         } catch (Exception e) {
             e.printStackTrace();   // falls back to the normal tooltip
         }

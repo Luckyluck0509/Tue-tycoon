@@ -1,6 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="TUe-tycoon">
-    <output-path>$PROJECT_DIR$/out/artifacts/TUe_tycoon</output-path>
-    <root id="archive" name="TUe-tycoon.jar" />
-  </artifact>
-</component>
