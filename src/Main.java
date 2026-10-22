@@ -1,3 +1,4 @@
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import java.io.IOException;
 
@@ -28,29 +29,31 @@ public class Main {
             System.exit(0);
         }
 
-        Rebirth rebirth = new Rebirth();
-        MainScreen mainScreen = new MainScreen(player, gameManager, saveFile, rebirth);
+        // everything that touches Swing is created on the EDT to prevent visual glitches
+        SwingUtilities.invokeLater(() -> {
+            Rebirth rebirth = new Rebirth();
+            MainScreen mainScreen = new MainScreen(player, gameManager, saveFile, rebirth);
 
-        // timer
-        Timer timer = new Timer(16, e -> {
-            long currentTime = System.nanoTime();
-            player.deltaTime = (currentTime - lastTime) / 1000000000.0;
+            // timer
+            Timer timer = new Timer(16, e -> {
+                long currentTime = System.nanoTime();
+                player.deltaTime = (currentTime - lastTime) / 1000000000.0;
 
-            if (player.time >= 0 && player.quartile <= 4) {
-                gameManager.update();
-                mainScreen.screenUpdate();
-            } else if (!player.bsaTriggered) { // render and trigger bsaReport when time runs out
-                BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
-                bsaPopup.triggerReport();
-                player.bsaTriggered = true;
-            }
-            // updates music, play next song if this one is finished
-            music.updateMusic(player.deltaTime);
+                if (player.time >= 0 && player.quartile <= 4) {
+                    gameManager.update();
+                    mainScreen.screenUpdate();
+                } else if (!player.bsaTriggered) { // render and trigger bsaReport when time runs out
+                    BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
+                    bsaPopup.triggerReport();
+                    player.bsaTriggered = true;
+                }
+                // updates music, play next song if this one is finished
+                music.updateMusic(player.deltaTime);
 
-            lastTime = currentTime;
+                lastTime = currentTime;
+            });
+
+            timer.start();
         });
-
-        timer.start();
-
     }
 }
