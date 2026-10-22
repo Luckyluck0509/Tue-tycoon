@@ -73,8 +73,7 @@ public class SavePopup extends javax.swing.JFrame {
 
         // render last save text
         String date = "No save found";
-        try {
-            Scanner reader = new Scanner(saveFile.savePath);
+        try (Scanner reader = new Scanner(saveFile.savePath);){
             reader.nextLine();
             date = reader.nextLine().substring(1);
         } catch (IOException error) {
