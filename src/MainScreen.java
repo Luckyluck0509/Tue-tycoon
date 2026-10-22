@@ -417,8 +417,6 @@ public class MainScreen extends javax.swing.JFrame {
 
     // update all variables every frame
     void screenUpdate() {
-        lectureProgress.setMaximum(player.lectureLength);
-
         // render and count down sleep timer and feedback label
         if (player.sleepTime <= 0) {
             resetFeedback();
@@ -427,7 +425,13 @@ public class MainScreen extends javax.swing.JFrame {
         }
 
         // render go to lecture
-        lectureProgress.setValue((int) Math.ceil(player.lectureTime));
+        if (player.lectureTime > 0) {
+            lectureProgress.setMaximum(player.lectureLength);
+            lectureProgress.setValue((int) Math.ceil(player.lectureTime));
+        } else {
+            lectureProgress.setMaximum(1);
+            lectureProgress.setValue(0);
+        }
 
         // render hire student attributes
         kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));

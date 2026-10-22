@@ -70,7 +70,7 @@ public class GameManager {
         if (!player.inLecture) {
             upgradeSound.playSound();
             player.inLecture = true;
-            player.lectureTime = 4 * Math.pow((player.kpc / player.multiplier), 1.35);
+            player.lectureTime = Math.round(4 * Math.pow((player.kpc / player.multiplier), 1.35));
             player.lectureLength = (int) player.lectureTime;
             player.lecturesAttended++;
         }
