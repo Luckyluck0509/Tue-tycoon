@@ -1,19 +1,19 @@
 #Save file
-#Wed Oct 21 17:53:18 CEST 2026
+#Thu Oct 22 12:00:06 CEST 2026
 courseNumber=1
 courseRequirement=15000
 courses=000,000,000,000
 creditProgress=0
 inLecture=false
-knowledge=45000
-kpc=17.0859375
+knowledge=0.0
+kpc=1.0
 kps=0.0
-lectureLength=106
+lectureLength=0
 lectureTime=0.0
-lecturesAttended=7
+lecturesAttended=0
 multiplier=1.0
 numStudents=0
 quartile=1
 studentsHired=0
-time=3335.264492583027
-totalKnowledge=2.25
+time=3598.4718586250015
+totalKnowledge=0.0

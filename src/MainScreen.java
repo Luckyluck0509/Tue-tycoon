@@ -138,7 +138,6 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
-        setVisible(true);
         setFocusTraversalPolicy(new java.awt.ContainerOrderFocusTraversalPolicy());
 
         // set background
@@ -203,6 +202,10 @@ public class MainScreen extends javax.swing.JFrame {
             clickMeLabel.setText("CLICK THE BOOK TO STUDY");
             clickMeLabel2.setText("AND GAIN KNOWLEDGE");
         }
+
+        // This changes the focus traversal policy from one that sorts components
+        // by their layout to one that follows their container order.
+        setFocusTraversalPolicy(new java.awt.ContainerOrderFocusTraversalPolicy());
 
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
@@ -308,7 +311,12 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 finishCourseButton.setIcon(upgradeButtonIconHighlight);
-                gameManager.finishCourseButtonPressed();
+                if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
+                    feedback(String.format("Finished course %d", player.courseNumber));
+                    gameManager.finishCourseButtonPressed();
+                } else {
+                    feedback(String.format("Not enough knowledge to finish course %d", player.courseNumber));
+                }
             }
         });
 
@@ -387,6 +395,8 @@ public class MainScreen extends javax.swing.JFrame {
                 System.exit(0);
             }
         });
+
+        setVisible(true);
     }
 
     public void feedback(String message) {
@@ -418,13 +428,10 @@ public class MainScreen extends javax.swing.JFrame {
 
         // render go to lecture
         lectureProgress.setValue((int) Math.ceil(player.lectureTime));
-        if (lectureProgress.getValue() == 0) {
-            lectureProgress.setMaximum(1);
-        }
 
         // render hire student attributes
         kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));
-        price.setText(String.format("Price: %d", gameManager.getStudentPrice()));
+        price.setText(String.format("Price: %.1f", gameManager.getStudentPrice()));
         numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
         // render clock

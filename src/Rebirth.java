@@ -8,10 +8,10 @@ public class Rebirth {
         double p = Math.min(creditsThisQuartile / 15, 1);
 
         if (quartile > 1) {
-            return 0.10 * Math.log10(1 + Math.log10(knowledge))
-                    * Math.sqrt(kpc) * (0.6 + 0.6 * p) * ((1 + 0.15) * (quartile - 1));
+            return 0.10 * Math.log10(1 + Math.log10(1 + knowledge))
+                    * Math.sqrt(kpc) * (0.6 + 0.6 * p) * 1.15 * (quartile - 1);
         } else {
-            return 0.10 * Math.log10(1 + Math.log10(knowledge)) * Math.sqrt(kpc) * (0.6 + 0.6 * p);
+            return 0.10 * Math.log10(1 + Math.log10(1 + knowledge)) * Math.sqrt(kpc) * (0.6 + 0.6 * p);
         }
     }
 
@@ -48,6 +48,7 @@ public class Rebirth {
             player.multiplier = 1;
             player.quartile = 1;
             player.time = 3600;
+            player.bsaTriggered = false;
 
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 3; j++) {

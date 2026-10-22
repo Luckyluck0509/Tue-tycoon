@@ -46,8 +46,8 @@ public class GameManager {
     }
 
     // calculate cost of hiring a new student
-    public int getStudentPrice() {
-        return (int) (20 * Math.pow(1.15, player.numStudents));
+    public double getStudentPrice() {
+        return 20 * Math.pow(1.15, player.numStudents);
     }
 
     // updates player knowledge when study button is pressed
@@ -89,19 +89,17 @@ public class GameManager {
 
     // sets course to finished, adds ects, add multiplier, subtract knowledge
     public void finishCourseButtonPressed() {
-        if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
-            courseSound.playSound();
+        courseSound.playSound();
 
-            if (player.courseNumber < 3) {
-                player.multiplier += 0.10;
-            } else {
-                player.multiplier += (0.20 * player.multiplier);
-            }
-            player.courses[player.quartile - 1][player.courseNumber - 1] = true;
-            player.knowledge -= player.courseRequirement;
-            player.creditProgress += 5;
-            player.courseNumber++;
+        if (player.courseNumber < 3) {
+            player.multiplier += 0.10;
+        } else {
+            player.multiplier += (0.20 * player.multiplier);
         }
+        player.courses[player.quartile - 1][player.courseNumber - 1] = true;
+        player.knowledge -= player.courseRequirement;
+        player.creditProgress += 5;
+        player.courseNumber++;
     }
 
 
@@ -171,11 +169,5 @@ public class GameManager {
         // update course requirement
         player.courseRequirement = (int) (15000 * player.courseNumber
                 * Math.pow(2.3, player.quartile - 1));
-
-        // update feedback time
-        player.sleepTime -= player.deltaTime;
-
-        // updates music, play next song if this one is finished
-        music.updateMusic(player.deltaTime);
     }
 }

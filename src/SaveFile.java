@@ -44,15 +44,12 @@ public class SaveFile {
 
         prop.setProperty("courses", sb.toString());
 
-        try (var out = Files.newOutputStream(savePath)) {
-            prop.store(out, "Save file");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        var out = Files.newOutputStream(savePath);
+        prop.store(out, "Save file");
     }
 
     // load all variables from the save file and assign them
-    public void load(Player player, GameManager gameManager) throws IOException {
+    public void load(Player player, GameManager gameManager) throws IOException, Exception {
         Properties prop = new Properties();
 
         if (!Files.exists(savePath)) {

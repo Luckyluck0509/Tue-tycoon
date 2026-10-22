@@ -21,6 +21,11 @@ public class Main {
             saveFile.load(player, gameManager);
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (Exception e) {
+            gameManager.failSound.playSound();
+            System.out.println("Corrupted savefile, please delete it");
+            e.printStackTrace();
+            System.exit(0);
         }
 
         Rebirth rebirth = new Rebirth();
@@ -30,7 +35,7 @@ public class Main {
         Timer timer = new Timer(16, e -> {
             long currentTime = System.nanoTime();
             player.deltaTime = (currentTime - lastTime) / 1000000000.0;
-            lastTime = currentTime;
+
             if (player.time >= 0 && player.quartile <= 4) {
                 gameManager.update();
                 mainScreen.screenUpdate();
@@ -39,6 +44,10 @@ public class Main {
                 bsaPopup.triggerReport();
                 player.bsaTriggered = true;
             }
+            // updates music, play next song if this one is finished
+            music.updateMusic(player.deltaTime);
+
+            lastTime = currentTime;
         });
 
         timer.start();
