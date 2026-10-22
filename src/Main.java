@@ -1,6 +1,6 @@
+import java.io.IOException;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
-import java.io.IOException;
 
 public class Main {
     long lastTime = System.nanoTime();
@@ -42,7 +42,8 @@ public class Main {
                 if (player.time >= 0 && player.quartile <= 4) {
                     gameManager.update();
                     mainScreen.screenUpdate();
-                } else if (!player.bsaTriggered) { // render and trigger bsaReport when time runs out
+                } else if (!player.bsaTriggered) {
+                    // render and trigger bsaReport when time runs out
                     BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
                     bsaPopup.triggerReport();
                     player.bsaTriggered = true;

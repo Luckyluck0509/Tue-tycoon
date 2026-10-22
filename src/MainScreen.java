@@ -315,7 +315,8 @@ public class MainScreen extends javax.swing.JFrame {
                     feedback(String.format("Finished course %d", player.courseNumber));
                     gameManager.finishCourseButtonPressed();
                 } else {
-                    feedback(String.format("Not enough knowledge to finish course %d", player.courseNumber));
+                    feedback(String.format("Not enough knowledge to finish course %d",
+                            player.courseNumber));
                 }
             }
         });

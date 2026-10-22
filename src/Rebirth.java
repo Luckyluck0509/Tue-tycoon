@@ -11,7 +11,8 @@ public class Rebirth {
             return 0.10 * Math.log10(1 + Math.log10(1 + knowledge))
                     * Math.sqrt(kpc) * (0.6 + 0.6 * p) * 1.15 * (quartile - 1);
         } else {
-            return 0.10 * Math.log10(1 + Math.log10(1 + knowledge)) * Math.sqrt(kpc) * (0.6 + 0.6 * p);
+            return 0.10 * Math.log10(1 + Math.log10(1 + knowledge))
+                    * Math.sqrt(kpc) * (0.6 + 0.6 * p);
         }
     }
 
