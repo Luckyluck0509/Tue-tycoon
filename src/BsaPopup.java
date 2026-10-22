@@ -240,36 +240,36 @@ public class BsaPopup extends javax.swing.JFrame {
     public void setGradeCircle() {
         switch (player.creditProgress) {
             case 60 -> {
-                if (player.totalKnowledge >= 2000000) {
+                if (player.totalKnowledge >= 3400000) {
                     gradeCircle.setIcon(gradeAPlus);
-                } else if (player.totalKnowledge >= 1800000) {
+                } else if (player.totalKnowledge >= 3100000) {
                     gradeCircle.setIcon(gradeA);
                 } else {
                     gradeCircle.setIcon(gradeAMinus);
                 }
             }
             case 55 -> {
-                if (player.totalKnowledge >= 1800000) {
+                if (player.totalKnowledge >= 3200000) {
                     gradeCircle.setIcon(gradeBPlus);
-                } else if (player.totalKnowledge >= 1600000) {
+                } else if (player.totalKnowledge >= 2900000) {
                     gradeCircle.setIcon(gradeB);
                 } else {
                     gradeCircle.setIcon(gradeBMinus);
                 }
             }
             case 50 -> {
-                if (player.totalKnowledge >= 1600000) {
+                if (player.totalKnowledge >= 3000000) {
                     gradeCircle.setIcon(gradeCPlus);
-                } else if (player.totalKnowledge >= 1400000) {
+                } else if (player.totalKnowledge >= 2500000) {
                     gradeCircle.setIcon(gradeC);
                 } else {
                     gradeCircle.setIcon(gradeCMinus);
                 }
             }
             case 45 -> {
-                if (player.totalKnowledge >= 1400000) {
+                if (player.totalKnowledge >= 2600000) {
                     gradeCircle.setIcon(gradeDPlus);
-                } else if (player.totalKnowledge >= 1200000) {
+                } else if (player.totalKnowledge >= 2100000) {
                     gradeCircle.setIcon(gradeD);
                 } else {
                     gradeCircle.setIcon(gradeDMinus);
@@ -279,9 +279,9 @@ public class BsaPopup extends javax.swing.JFrame {
                 if (player.totalKnowledge == 0 && player.lecturesAttended == 0) {
                     gradeCircle.setIcon(gradeZ);
                 } else {
-                    if (player.totalKnowledge >= 1200000) {
+                    if (player.totalKnowledge >= 2200000) {
                         gradeCircle.setIcon(gradeFPlus);
-                    } else if (player.totalKnowledge >= 1000000) {
+                    } else if (player.totalKnowledge >= 1700000) {
                         gradeCircle.setIcon(gradeF);
                     } else {
                         gradeCircle.setIcon(gradeFMinus);

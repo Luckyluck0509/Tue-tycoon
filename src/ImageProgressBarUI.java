@@ -32,7 +32,7 @@ public class ImageProgressBarUI extends BasicProgressBarUI {
             double scale = (double) w / fill.getWidth();
             int artPixelsFilled = (int) Math.round(progressBar.getPercentComplete()
                                   * fill.getWidth());
-            int fillW = (int) (artPixelsFilled * scale);
+            int fillW = (int) Math.round(artPixelsFilled * scale);
             if (fillW > 0) {
                 g2.setClip(0, 0, fillW, h);
                 g2.drawImage(fill, 0, 0, w, h, null);
@@ -41,7 +41,7 @@ public class ImageProgressBarUI extends BasicProgressBarUI {
             double scale = (double) h / fill.getHeight();
             int artPixelsFilled = (int) Math.round(progressBar.getPercentComplete()
                                   * fill.getHeight());
-            int fillH = (int) (artPixelsFilled * scale);
+            int fillH = (int) Math.round(artPixelsFilled * scale);
             if (fillH > 0) {
                 g2.setClip(0, h - fillH, w, fillH);
                 g2.drawImage(fill, 0, 0, w, h, null);

@@ -48,7 +48,6 @@ public class RebirthPopup extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(mainScreen);
         setResizable(false);
-        setVisible(true);
 
         // set assets
         try {
@@ -103,21 +102,23 @@ public class RebirthPopup extends javax.swing.JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                rebirthButton.setIcon(buttonIconHighlight);
                 if (player.courseNumber > 2) {
-                    rebirthButton.setIcon(buttonIconHighlight);
-
                     gameManager.rebirthSound.playSound();
                     rebirth.rebirthAction(player);
                     if (player.quartile <= 4) {
                         mainScreen.feedback("Successful rebirth");
                     } else {
                         mainScreen.feedback("Finished year");
-                        BsaPopup bsaPopup = new BsaPopup(mainScreen, gameManager, player, saveFile);
-                        bsaPopup.triggerReport();
                     }
+                    gameManager.closePopup(self);
+                } else {
+                    mainScreen.feedback("You haven't finished 2 courses yet");
                     gameManager.closePopup(self);
                 }
             }
         });
+
+        setVisible(true);
     }
 }

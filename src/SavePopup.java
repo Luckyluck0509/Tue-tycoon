@@ -48,7 +48,6 @@ public class SavePopup extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(mainScreen);
         setResizable(false);
-        setVisible(true);
 
         // set assets
         try {
@@ -77,7 +76,7 @@ public class SavePopup extends javax.swing.JFrame {
         try {
             Scanner reader = new Scanner(saveFile.savePath);
             reader.nextLine();
-            date = reader.nextLine();
+            date = reader.nextLine().substring(1);
         } catch (IOException error) {
             date = "No savefile found";
             error.printStackTrace();
@@ -107,6 +106,7 @@ public class SavePopup extends javax.swing.JFrame {
 
             @Override
             public void mouseReleased(MouseEvent e) {
+                resetButton.setIcon(buttonIconHighlight);
                 gameManager.resetSound.playSound();
                 rebirth.reset(player, 1);
                 mainScreen.feedback("Successful reset");
@@ -136,7 +136,6 @@ public class SavePopup extends javax.swing.JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 saveButton.setIcon(buttonIconHighlight);
-
                 try {
                     saveFile.save(player, gameManager, mainScreen);
                     mainScreen.feedback("Successful save");
@@ -150,5 +149,7 @@ public class SavePopup extends javax.swing.JFrame {
                 gameManager.closePopup(self);
             }
         });
+        
+        setVisible(true);
     }
 }

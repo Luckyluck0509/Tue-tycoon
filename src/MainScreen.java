@@ -138,7 +138,6 @@ public class MainScreen extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
         setResizable(false);
-        setVisible(true);
         setFocusTraversalPolicy(new java.awt.ContainerOrderFocusTraversalPolicy());
 
         // set background
@@ -204,6 +203,10 @@ public class MainScreen extends javax.swing.JFrame {
             clickMeLabel2.setText("AND GAIN KNOWLEDGE");
         }
 
+        // This changes the focus traversal policy from one that sorts components
+        // by their layout to one that follows their container order.
+        setFocusTraversalPolicy(new java.awt.ContainerOrderFocusTraversalPolicy());
+
         // trigger studyButtonPressed() when the study button is clicked
         studyButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -235,7 +238,6 @@ public class MainScreen extends javax.swing.JFrame {
         });
 
         // trigger goToLectureButtonPressed when the go to the
-        // lectures button is pressed, render progress bar
         goToLectureButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -309,7 +311,12 @@ public class MainScreen extends javax.swing.JFrame {
             @Override
             public void mouseReleased(MouseEvent e) {
                 finishCourseButton.setIcon(upgradeButtonIconHighlight);
-                gameManager.finishCourseButtonPressed();
+                if (player.knowledge >= player.courseRequirement && player.courseNumber <= 3) {
+                    feedback(String.format("Finished course %d", player.courseNumber));
+                    gameManager.finishCourseButtonPressed();
+                } else {
+                    feedback(String.format("Not enough knowledge to finish course %d", player.courseNumber));
+                }
             }
         });
 
@@ -388,6 +395,8 @@ public class MainScreen extends javax.swing.JFrame {
                 System.exit(0);
             }
         });
+
+        setVisible(true);
     }
 
     public void feedback(String message) {
@@ -408,14 +417,26 @@ public class MainScreen extends javax.swing.JFrame {
 
     // update all variables every frame
     void screenUpdate() {
-        lectureProgress.setMaximum(player.lectureLength);
-
         // render and count down sleep timer and feedback label
         if (player.sleepTime <= 0) {
             resetFeedback();
         } else {
             player.sleepTime -= player.deltaTime;
         }
+
+        // render go to lecture
+        if (player.lectureTime > 0) {
+            lectureProgress.setMaximum(player.lectureLength);
+            lectureProgress.setValue((int) Math.ceil(player.lectureTime));
+        } else {
+            lectureProgress.setMaximum(1);
+            lectureProgress.setValue(0);
+        }
+
+        // render hire student attributes
+        kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));
+        price.setText(String.format("Price: %.1f", gameManager.getStudentPrice()));
+        numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
         // render clock
         timeLabel.setText(String.format("%02d:%02d", player.minutes, player.seconds));
@@ -444,16 +465,10 @@ public class MainScreen extends javax.swing.JFrame {
         } else {
             finishCourseLabel.setFont(new Font("Arial", Font.BOLD, 35));
             finishCourseLabel.setText("Finished all Courses");
-            courseMultiplierLabel.setText("NO!");
+            courseMultiplierLabel.setText(" ");
             courseProgress.setMaximum(100);
             courseProgress.setValue(100);
         }
-
-        // render go to lecture and add student attributes
-        lectureProgress.setValue((int) Math.ceil(player.lectureTime));
-        kpcLabel.setText(String.format("Knowledge/click: %.2f", player.kpc * player.multiplier));
-        price.setText(String.format("Price: %d", gameManager.getStudentPrice()));
-        numberOfStudentsLabel.setText(String.valueOf(player.numStudents));
 
         // render rebirth progress
         if (player.courseNumber <= 3) {
